@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
+	<o:Index Id="zyh_index_id">
+		<a:ObjectID>zyh_index_objectid</a:ObjectID>
+		<a:Name>zyh_index_name</a:Name>
+		<a:Code>zyh_index_code</a:Code>
+		<a:CreationDate>1279965489</a:CreationDate>
+		<a:Creator>zhaoyha</a:Creator>
+		<a:ModificationDate>1279965496</a:ModificationDate>
+		<a:Modifier>zhaoyha</a:Modifier>
+		<a:Unique>0</a:Unique>
+	</o:Index>
+	<o:IndexColumn Id="zyh_indexcolumn_id">
+		<a:ObjectID>zyh_indexcolumn_objectid</a:ObjectID>
+		<a:CreationDate>1279965496</a:CreationDate>
+		<a:Creator>zhaoyha</a:Creator>
+		<a:ModificationDate>1279965496</a:ModificationDate>
+		<a:Modifier>zhaoyha</a:Modifier>
+		<c:Column>
+			<o:Column Ref="zyh_refcolumn"/>
+		</c:Column>
+	</o:IndexColumn>
+</root>

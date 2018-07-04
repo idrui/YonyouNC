@@ -1,0 +1,164 @@
+package nc.ui.pu.cgfa.action;
+
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import nc.bs.framework.common.NCLocator;
+import nc.itf.pu.IQueryForLineClose;
+import nc.ui.pub.beans.MessageDialog;
+import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.model.BillManageModel;
+import nc.vo.pu.cgfa.Cgfa;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pub.lang.UFBoolean;
+
+/**
+ * @author wangzym
+ * @version 2017年5月5日 下午1:49:34
+ */
+public class LineCloseAction extends NCAction {
+
+	private ShowUpableBillForm editor;
+	private BillManageModel model;
+
+	public LineCloseAction() {
+		// TODO 自动生成的构造函数存根
+		this.setBtnName("行关闭");
+		this.setCode("hgb");
+	}
+
+	/**
+	 * @return editor
+	 */
+	public ShowUpableBillForm getEditor() {
+		return editor;
+	}
+
+	/**
+	 * @param editor
+	 *            要设置的 editor
+	 */
+	public void setEditor(ShowUpableBillForm editor) {
+		this.editor = editor;
+	}
+
+	/**
+	 * @return model
+	 */
+	public BillManageModel getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model
+	 *            要设置的 model
+	 */
+	public void setModel(BillManageModel model) {
+		this.model = model;
+		model.addAppEventListener(this);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see nc.ui.uif2.NCAction#doAction(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void doAction(ActionEvent e) throws Exception {
+		// TODO 自动生成的方法存根
+
+		int[] rows = editor.getBillCardPanel().getBillTable().getSelectedRows();
+
+		List<Cgfab> bvo = new ArrayList<Cgfab>();
+		for (int i = 0; i < rows.length; i++) {
+			int j = rows[i];
+			Cgfab cgfab = (Cgfab) editor.getBillCardPanel().getBillModel()
+					.getBodyValueRowVO(j, Cgfab.class.getName());
+			bvo.add(cgfab);
+		}
+
+		Cgfab[] bvos = bvo.toArray(new Cgfab[bvo.size()]);
+		HashMap<Integer, String> bpks = new HashMap<Integer, String>();
+		List<String> bsrcpks=new ArrayList<String>();
+		// Integer[] rows = getModel().getSelectedOperaRows();
+		// int[] row=editor.getBillCardPanel().getBillTable().getSelectedRows()
+		int sum = 0;
+		for (int i = 0; i < bvos.length; i++) {
+			Cgfab cgfab = bvos[i];
+			if (!"".equals(cgfab.getPrimaryKey())) {
+				sum += 1;
+			}
+
+			bpks.put(rows[i], cgfab.getPrimaryKey());
+			bsrcpks.add((String)cgfab.getAttributeValue("csrcid"));
+		}
+
+		// 新单据行关闭不查，节省资源
+		if (sum == 0) {
+			lineClose();
+			reWriteDB(bsrcpks);
+
+		} else {
+			// 验证此行是否已经有下游数据,如果有，则返回具体行号
+			// 可以先验证下游是否有上有主表主键如果没有不必多次查找表体，有时间在写
+
+			int[] index = validataHaveForword(bpks);
+			if (index.length == 0) {
+				lineClose();
+				reWriteDB(bsrcpks);
+			} else {
+				// 弹出提示，第几行已经有下游数据不允许行关闭
+				String row = "";
+				for (int i : index) {
+					row=row+i+" ";
+				}
+				String errorMsg = "第 " + row + "行已经有下游数据，不允许行关闭";
+				MessageDialog.showErrorDlg(editor, "选取数据错误", errorMsg);
+			}
+
+		}
+
+	}
+
+	/**
+	 * @param bsrcpks
+	 */
+	private void reWriteDB(List<String> bsrcpks) {
+		// TODO 自动生成的方法存根
+		// 回写数据库
+		IQueryForLineClose close = NCLocator.getInstance().lookup(
+				IQueryForLineClose.class);
+
+		close.reWritePrayBill(bsrcpks.toArray(new String[bsrcpks.size()]), "hgb");
+
+	}
+
+	/**
+	 * @param bpks
+	 * 
+	 */
+	private int[] validataHaveForword(HashMap<Integer, String> bpks) {
+		// TODO 自动生成的方法存根
+		IQueryForLineClose query = NCLocator.getInstance().lookup(
+				IQueryForLineClose.class);
+		int[] rows = query.hasForword(bpks);
+		return rows;
+	}
+
+	/**
+	 * 
+	 */
+	private void lineClose() {
+		// TODO 自动生成的方法存根
+		int[] rows = editor.getBillCardPanel().getBillTable().getSelectedRows();
+		for (Integer integer : rows) {
+			editor.getBillCardPanel().setBodyValueAt(UFBoolean.TRUE,
+					integer.intValue(), "whetherlineclose");
+		}
+
+	}
+}

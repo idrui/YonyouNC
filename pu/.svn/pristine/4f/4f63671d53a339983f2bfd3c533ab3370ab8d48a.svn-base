@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createIndustry="0" createTime="2011-04-28 10:00:36" creator="" description="" displayName="采购发票业务操作" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" industry="0" industryChanged="false" industryIncrease="false" industryName="基础行业" isSource="false" isbizmodel="true" mainEntity="" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="m25business" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004050_2" resid="2400405002-0003" version="44" versionType="0">
+    <celllist>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-04-28 10:00:59" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="删除操作" fullClassName="nc.vopu.m25business.delete" height="100" help="" id="a88972f3-fb00-4988-ad26-0ceff887bbf4" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="DELETE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="delete" needlog="true" resid="2400405002-0004" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="229" y="127">
+            <refoperationlist>
+                <refoperation id="7aeac59d-3322-4b81-9cb4-0f48e451052a" industry="0" isAuthorization="true" isSource="false" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="a88972f3-fb00-4988-ad26-0ceff887bbf4" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-04-28 10:01:12" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="取消审批操作" fullClassName="nc.vopu.m25business.unapprove" height="100" help="" id="a655a0e2-cc6e-45f4-8f97-d4a5de4eed7e" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="unapprove" needlog="true" resid="2400405002-0000" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="237" y="17">
+            <refoperationlist>
+                <refoperation id="b352af84-4751-4b52-b129-4c86e24a99ff" industry="0" isAuthorization="true" isSource="false" opItfID="6d818ca8-fb18-4323-8515-8745841d8fac" ownerElementID="a655a0e2-cc6e-45f4-8f97-d4a5de4eed7e" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-04-28 10:01:13" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="新增操作" fullClassName="nc.vopu.m25business.insert" height="100" help="" id="2acb935e-246b-49ad-a6a3-abb5dfa0e46d" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="ADD" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="insert" needlog="true" resid="2400405002-0005" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="30" y="131">
+            <refoperationlist>
+                <refoperation id="835fc4f9-fef7-431c-964a-4d501dd477ff" industry="0" isAuthorization="true" isSource="false" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="2acb935e-246b-49ad-a6a3-abb5dfa0e46d" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-04-28 10:01:14" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="修改操作" fullClassName="nc.vopu.m25business.edit" height="94" help="" id="6d3419f7-96de-4ec5-8d04-39c6c300f248" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="edit" needlog="true" resid="2400405002-0001" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="78" x="134" y="130">
+            <refoperationlist>
+                <refoperation id="a96f5908-09b2-4e27-bfe8-ca3b34febf4e" industry="0" isAuthorization="true" isSource="false" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="6d3419f7-96de-4ec5-8d04-39c6c300f248" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-04-28 10:01:16" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="审批操作" fullClassName="nc.vopu.m25business.approve" height="100" help="" id="762ea6da-2720-4130-a807-c59c6e36ca3c" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="approve" needlog="true" resid="2400405002-0002" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="134" y="15">
+            <refoperationlist>
+                <refoperation id="d2ebc494-a35d-40ee-9ece-53c841f610cf" industry="0" isAuthorization="true" isSource="false" opItfID="6d818ca8-fb18-4323-8515-8745841d8fac" ownerElementID="762ea6da-2720-4130-a807-c59c6e36ca3c" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-08-08 15:24:12" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="提交操作" fullClassName="nc.vopu.m25business.commit" height="100" help="" id="a06acdeb-0c78-4ea0-a0ce-dd0a853c8d71" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="commit" needlog="false" resid="2400405002-0008" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="28" y="260">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2011-08-08 15:24:14" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="收回操作" fullClassName="nc.vopu.m25business.uncommit" height="100" help="" id="b92cd7b0-4986-4786-9aa6-00413d27144a" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="uncommit" needlog="false" resid="2400405002-0009" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="153" y="263">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2012-01-05 13:40:26" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="查询操作" fullClassName="nc.vopu.m25business.query" height="100" help="" id="3722334c-17a8-41b0-abc9-e3456e8e0eaa" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="query" needlog="false" resid="24004000-0003" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="27" y="15">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2012-04-28 08:10:41" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="冻结操作" fullClassName="nc.vopu.m25business.freeze" height="100" help="BUSILOG" id="3698e402-6ed3-4367-8338-6cf598ee8387" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="freeze" needlog="true" resid="2400405002-0010" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="445" y="27">
+            <refoperationlist>
+                <refoperation id="942bb36c-d000-44a8-a741-481585a207d3" industry="0" isAuthorization="true" isSource="false" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="3698e402-6ed3-4367-8338-6cf598ee8387" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2012-04-28 08:10:42" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="解冻操作" fullClassName="nc.vopu.m25business.unfreeze" height="100" help="BUSILOG" id="70e8efab-2fa6-4e5b-9d33-3a0dedcd3274" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="unfreeze" needlog="true" resid="2400405002-0011" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="577" y="28">
+            <refoperationlist>
+                <refoperation id="fc81fd95-4c37-4bf0-b3d4-58f52457e198" industry="0" isAuthorization="true" isSource="false" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="70e8efab-2fa6-4e5b-9d33-3a0dedcd3274" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <opinterface componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2012-04-28 08:13:16" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="采购发票维护" fullClassName="nc.itf.pu.m25.IInvoiceMaintain" height="111" help="BUSILOG" id="b016bd96-12ae-4ae4-aa30-d063e63bec78" implClsName="nc.impl.pu.m25.InvoiceMaintainImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:37:32" name="IInvoiceMaintain" remote="true" resid="2400405002-0006" singleton="true" transprop="CMT" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="103" x="442" y="153">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="冻结" forBusinessEntity="N" help="" id="942bb36c-d000-44a8-a741-481585a207d3" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="freeze" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="发票vo数组" isAggVO="true" name="clientVos" operationID="942bb36c-d000-44a8-a741-481585a207d3" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="发票原始vo数组" isAggVO="true" name="origVos" operationID="942bb36c-d000-44a8-a741-481585a207d3" paramTypeForLog="0" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="解冻" forBusinessEntity="N" help="" id="fc81fd95-4c37-4bf0-b3d4-58f52457e198" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="unFreeze" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="发票vo数组" isAggVO="true" name="clientVos" operationID="fc81fd95-4c37-4bf0-b3d4-58f52457e198" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="发票原始vo数组" isAggVO="true" name="origVos" operationID="fc81fd95-4c37-4bf0-b3d4-58f52457e198" paramTypeForLog="0" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="保存" forBusinessEntity="N" help="" id="84cd31fe-5348-4b4e-98d6-df97fe53ed8c" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="save" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="采购发票vo数组" isAggVO="true" name="vos" operationID="84cd31fe-5348-4b4e-98d6-df97fe53ed8c" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="采购发票操作时前台到后台的环境信息" isAggVO="false" name="envs" operationID="84cd31fe-5348-4b4e-98d6-df97fe53ed8c" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="删除" forBusinessEntity="N" help="" id="7aeac59d-3322-4b81-9cb4-0f48e451052a" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="delete" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="采购发票vo数组" isAggVO="true" name="vos" operationID="7aeac59d-3322-4b81-9cb4-0f48e451052a" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="采购发票操作时前台到后台的环境信息" isAggVO="false" name="envs" operationID="7aeac59d-3322-4b81-9cb4-0f48e451052a" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="新增" forBusinessEntity="N" help="" id="835fc4f9-fef7-431c-964a-4d501dd477ff" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="insert" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="新增的发票vo数组" isAggVO="true" name="vos" operationID="835fc4f9-fef7-431c-964a-4d501dd477ff" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="上下文环境" isAggVO="false" name="env" operationID="835fc4f9-fef7-431c-964a-4d501dd477ff" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="修改" forBusinessEntity="N" help="" id="a96f5908-09b2-4e27-bfe8-ca3b34febf4e" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="update" opItfID="b016bd96-12ae-4ae4-aa30-d063e63bec78" ownerElementID="b016bd96-12ae-4ae4-aa30-d063e63bec78" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="修改的发票vo数组" isAggVO="true" name="vos" operationID="a96f5908-09b2-4e27-bfe8-ca3b34febf4e" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="上下文环境" isAggVO="false" name="env" operationID="a96f5908-09b2-4e27-bfe8-ca3b34febf4e" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+        <opinterface componentID="ce996bd1-93e5-4cf3-a39d-72cc8e0e0a24" createIndustry="0" createTime="2012-05-03 12:21:15" creator="" dataType="7695103a-8c77-4913-b53f-5d19e96d0913" dbtype="" description="" displayName="采购发票审批" fullClassName="nc.itf.pu.m25.IInvoiceApprove" height="100" help="BUSILOG" id="6d818ca8-fb18-4323-8515-8745841d8fac" implClsName="nc.impl.pu.m25.InvoiceApproveImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2013-01-24 10:08:12" name="IInvoiceApprove" remote="true" resid="2400405002-0007" singleton="true" transprop="CMT" typeDisplayName="采购发票主表" typeName="po_invoice" version="" versionType="0" visibility="public" width="80" x="454" y="271">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="审批" forBusinessEntity="N" help="" id="d2ebc494-a35d-40ee-9ece-53c841f610cf" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="approve" opItfID="6d818ca8-fb18-4323-8515-8745841d8fac" ownerElementID="6d818ca8-fb18-4323-8515-8745841d8fac" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="取消审批" forBusinessEntity="N" help="" id="b352af84-4751-4b52-b129-4c86e24a99ff" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="unapprove" opItfID="6d818ca8-fb18-4323-8515-8745841d8fac" ownerElementID="6d818ca8-fb18-4323-8515-8745841d8fac" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

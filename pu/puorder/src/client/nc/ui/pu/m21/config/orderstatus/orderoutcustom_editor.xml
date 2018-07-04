@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		编辑控件元素##########################################################
+	-->
+	
+	<bean id="cardBodyBeforeEdit"
+		class="nc.ui.pu.m21.editor.card.beforeedit.OutcustomCardBodyBeforeEditEventHandler" />
+	<!-- 查询结果页面的输出项行选中事件 -->
+	<bean id="onWayEventHandler" class="nc.ui.pu.m21.editor.list.OnWayEventHandler">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		
+	</bean>
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="handlerMap">
+			<map>
+			    <!-- 表体编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent">
+					<list>
+						<ref bean="cardBodyBeforeEdit" />
+					</list>
+				</entry>
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyRowStateChangeEvent">
+					<list>
+						<ref bean="onWayEventHandler" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,13 @@
+package nc.itf.pu.dw66to20.query;
+
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.vo.lm.erpcgjhjk.AggErpcgjhjkHVO;
+import nc.vo.pub.BusinessException;
+
+public interface IDW66QueryMaintain {
+	AggErpcgjhjkHVO[] queryUpForPrayBillDates(IQueryScheme queryScheme) throws BusinessException;
+	
+	public void Changestsreg(String pk);
+
+
+}

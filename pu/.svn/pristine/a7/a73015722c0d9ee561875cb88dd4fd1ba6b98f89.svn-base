@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="general" class="nc.pubapp.pade.code.funnode.FunNodePara">
+        <property name="moduleName" value="pu" />
+	    <property name="bpfPath" value="test.bpf" />
+	    <property name="funcode" value="40019102"/>
+	    <property name="funNodeName" value="qst.newoaspwh"/>
+	    <property name="clientPackName" value="nc.ui.pu.qst.newoaspwh"/>
+			  		<property name="dbilldDate" value="Billdate" />
+			    <property name="metaData" value="oasp\METADATA\newoaspwh.bmf" />
+	    <property name="xmlPath" value="oasp\src\client\nc\ui\pu\qst/newoaspwh\ace\view\Newoaspwh_config.xml" />
+	    <property name="metaDataType" value="multiType" />
+	    <property name="funcregispath" value="oasp/designmodel/funcmodel/newoaspwh/funcregis/40019102.func" />
+	    <property name="quetempath" value="oasp/designmodel/templet/newoaspwh/querytemplet/40019102.qtf" />
+	    <property name="printtempath" value="${printtempath}" />
+	    <property name="systembasepath" value="oasp/designmodel/systemplatebase/newoaspwh/40019102/40019102.stb" />
+	    <property name="extendSuffix" value=""/>
+	    <property name="uif2ModelFilePath" value="oasp\designmodel\ace\uif2model\40019102.umf"/>
+	    <property name="busiCompName" value="oasp"/>
+	    <property name="metaDataId" value="2afc4c07-4ed3-434b-8a33-0675e3f76d16"/>
+	</bean>
+	
+	<bean id="templet" class="nc.pubapp.pade.code.funnode.Templet">
+	    <property name="tempStyle" value="2" />
+	    <property name="nodeKey" value="" />
+		<property name="templetPath" value="oasp/designmodel/templet/newoaspwh/billtemplet/40019102.btf" />
+	</bean>
+
+	<bean id="BAEHpara" class="nc.pubapp.pade.code.funnode.BodyAfterEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+
+	<bean id="BBEHpara" class="nc.pubapp.pade.code.funnode.BodyBeforeEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+	
+	<bean id="HTBEHpara" class="nc.pubapp.pade.code.funnode.HeadTailBeforeEditHandlerPara">
+	</bean>
+	
+	<bean id="HTAEHpara" class="nc.pubapp.pade.code.funnode.HeadTailAfterEditHandlerPara">
+	</bean>
+	
+	<bean id="SerPropara" class="nc.pubapp.pade.code.funnode.ServiceProxyPara">
+				<property name="delete">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.pu.INewoaspwhMaintain" />
+				<property name="itmClassName" value=".INewoaspwhMaintain" />
+				<property name="methodName" value="delete" />
+			</bean>
+		</property>
+				<property name="insert">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.pu.INewoaspwhMaintain" />
+				<property name="itmClassName" value=".INewoaspwhMaintain" />
+				<property name="methodName" value="insert" />
+			</bean>
+		</property>
+				<property name="update">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.pu.INewoaspwhMaintain" />
+				<property name="itmClassName" value=".INewoaspwhMaintain" />
+				<property name="methodName" value="update" />
+			</bean>
+		</property>
+					<property name="queryByQueryScheme">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.pu.INewoaspwhMaintain" />
+				<property name="itmClassName" value=".INewoaspwhMaintain" />
+				<property name="methodName" value="query" />
+			</bean>
+		</property>
+				</bean>
+	
+	<bean id="FilePackNameBean" class="nc.pubapp.pade.code.engine.FilePackNamePara">
+    	<property name="filePackNameList">
+	    	<list>
+							       <value>nc.ui.pu.qst.newoaspwh.ace.serviceproxy.AceNewoaspwhDeleteProxy.java</value>
+			    			       <value>nc.ui.pu.qst.newoaspwh.handler.OrgChangedHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceAddHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceBodyAfterEditHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceBodyBeforeEditHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceHeadTailAfterEditHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceHeadTailBeforeEditHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.handler.AceOrgChangedHandler.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.ace.serviceproxy.AceNewoaspwhMaintainProxy.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.action.NewoaspwhAddAction.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.action.NewoaspwhDeleteAction.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.action.NewoaspwhEditAction.java</value>
+			       <value>nc.ui.pu.qst.newoaspwh.action.CopyActionProcessor.java</value>
+			     			       <value>nc.ui.pu.qst.newoaspwh.query.NewoaspwhQueryConditionInitializer.java</value>
+		     </list>
+	   </property>
+	</bean>
+
+</beans>

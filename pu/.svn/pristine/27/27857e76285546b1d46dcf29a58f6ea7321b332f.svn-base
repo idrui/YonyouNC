@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- 参照攀钢采购计划新增 -->
+	<bean id="AddFromDW60Action" class="nc.ui.pu.m20.action.AddFromDW60Action">
+		<!-- 来源单据类型编码 -->
+		<property name="sourceBillType" value="DW60" />
+		<!--来源单据类名称 -->
+		<property name="sourceBillName" value="攀钢采购计划" />
+		<!-- 是否流程单据，如果是流程单据，可以删除 -->
+		<property name="flowBillType" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="transferViewProcessor" ref="transferViewProcessor1" />
+	</bean>
+
+	<!-- "新增"下拉菜单的信息加载bean -->
+	<bean id="pfAddInfoLoader" class="nc.ui.pubapp.uif2app.actions.PfAddInfoLoader">
+		<property name="billType" value="20" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+
+	<!-- 参照股份采购计划新增 -->
+	<bean id="AddFromDW66Action" class="nc.ui.pu.m20.action.AddFromDW66Action">
+		<!-- 来源单据类型编码 -->
+		<property name="sourceBillType" value="DW66" />
+		<!--来源单据类名称 -->
+		<property name="sourceBillName" value="股份采购计划" />
+		<!-- 是否流程单据，如果是流程单据，可以删除 -->
+		<property name="flowBillType" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="transferViewProcessor" ref="transferViewProcessor1" />
+	</bean>
+
+	<!-- 参照矿山采购计划新增 -->
+	<bean id="AddFromDW70Action" class="nc.ui.pu.m20.action.AddFromDW70Action">
+		<!-- 来源单据类型编码 -->
+		<property name="sourceBillType" value="DW70" />
+		<!--来源单据类名称 -->
+		<property name="sourceBillName" value="矿山采购计划" />
+		<!-- 是否流程单据，如果是流程单据，可以删除 -->
+		<property name="flowBillType" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="transferViewProcessor" ref="transferViewProcessor1" />
+	</bean>
+
+	<bean id="transferViewProcessor1" class="nc.ui.pubapp.billref.dest.TransferViewProcessor">
+		<property name="list" ref="listView" />
+		<property name="actionContainer" ref="actionsOfList" />
+		<property name="cardActionContainer" ref="actionsOfCard" />
+		<property name="saveAction" ref="saveAction" />
+		<property name="commitAction" ref="sendApproveAction" />
+		<property name="cancelAction" ref="cancelAction" />
+		<property name="billForm" ref="billFormEditor" />
+		<property name="transferLogic">
+			<bean class="nc.ui.lm.dw60.billref.pu.m20.UpRefDownTRansferBillDataLog">
+				<property name="billForm" ref="billFormEditor" />
+			</bean>
+		</property>
+	</bean>
+</beans>

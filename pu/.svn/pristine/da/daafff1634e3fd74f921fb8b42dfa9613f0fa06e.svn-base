@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createIndustry="0" createTime="2011-04-30 16:44:09" creator="" description="" displayName="物资需求申请单业务操作" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="34b22bd2-fe3d-4490-978f-23f88fb0909c" industry="0" industryChanged="false" industryIncrease="false" industryName="基础行业" isSource="false" isbizmodel="true" mainEntity="" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="m422xbusiness" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004010_2" resid="2400401002-0002" version="10" versionType="0">
+    <celllist>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-04-30 16:46:23" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="修改操作" fullClassName="nc.vopu.m422xbusiness.edit" height="100" help="" id="ef1a4fb7-7c8e-49b0-b419-d153a3f831aa" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="edit" needlog="false" resid="2400401002-0000" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="86" y="77">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-04-30 16:48:43" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="删除操作" fullClassName="nc.vopu.m422xbusiness.delete" height="100" help="" id="6619abc7-975b-4722-9387-5f2b4e840516" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="delete" needlog="false" resid="2400401002-0004" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="239" y="83">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-04-30 16:49:31" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="审批操作" fullClassName="nc.vopu.m422xbusiness.approve" height="100" help="" id="9cc69507-9fcb-48c4-a38b-2284af337627" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="approve" needlog="false" resid="2400401002-0001" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="232" y="205">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-04-30 16:49:33" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="取消审批操作" fullClassName="nc.vopu.m422xbusiness.unapprove" height="100" help="" id="002cb87f-b55e-4936-beba-3ff61a34f30f" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="unapprove" needlog="false" resid="2400401002-0003" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="95" y="204">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-08-08 14:55:36" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="提交操作" fullClassName="nc.vopu.m422xbusiness.commit" height="100" help="" id="ab5b65cd-ea3f-4b72-8a54-16b7fab2121a" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="commit" needlog="false" resid="2400401002-0005" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="373" y="82">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2011-08-08 14:58:46" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="收回操作" fullClassName="nc.vopu.m422xbusiness.uncommit" height="100" help="" id="375ef0f9-caa6-49ee-bfe0-1fef559769d4" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="uncommit" needlog="false" resid="2400401002-0007" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="380" y="204">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="34b22bd2-fe3d-4490-978f-23f88fb0909c" createIndustry="0" createTime="2012-01-05 14:02:34" creator="" dataType="f8025fb7-1aa5-4de8-9c64-95e1cad22f6a" dbtype="" description="" displayName="查询操作" fullClassName="nc.vopu.m422xbusiness.query" height="100" help="" id="2d7cc3da-8865-4dd2-9f7e-73761942f54f" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:45:40" name="query" needlog="false" resid="2400401002-0006" typeDisplayName="物资需求申请单" typeName="po_storereq" version="" versionType="0" visibility="public" width="80" x="-2" y="201">
+            <refoperationlist/>
+        </busioperation>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

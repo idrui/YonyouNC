@@ -1,0 +1,108 @@
+package nc.ui.pu.m20.action;
+
+import java.awt.event.ActionEvent;
+
+import nc.itf.uap.pf.busiflow.PfButtonClickContext;
+import nc.ui.pub.pf.PfUtilClient;
+import nc.ui.pubapp.uif2app.actions.AbstractReferenceAction;
+import nc.ui.pubapp.uif2app.funcnode.trantype.TrantypeFuncUtils;
+import nc.ui.uif2.UIState;
+import nc.ui.uif2.editor.IBillCardPanelEditor;
+import nc.ui.uif2.model.AbstractAppModel;
+import nc.vo.jcom.lang.StringUtil;
+import nc.vo.pu.m20.entity.PraybillVO;
+import nc.vo.scmpub.res.billtype.POBillType;
+
+/**
+ * 从物资需求申请拉单
+ * 
+ * @since 6.0
+ * @version 2012-5-30 下午01:26:10
+ * @author lixyp
+ */
+public class AddFrom422xAction extends AbstractReferenceAction {
+
+  private IBillCardPanelEditor editor;
+
+  private AbstractAppModel model;
+
+  public AddFrom422xAction() {
+    super();
+    this.setSourceBillName(POBillType.MRBill.getName());
+    this.setSourceBillType(POBillType.MRBill.getCode());
+  }
+
+  @Override
+  public void doAction(ActionEvent e) throws Exception {
+    PfUtilClient.childButtonClickedNew(this.createPfButtonClickContext());
+    if (PfUtilClient.isCloseOK()) {
+      PraybillVO[] vos = (PraybillVO[]) PfUtilClient.getRetVos();
+      // 显示到转单界面上
+      this.getTransferViewProcessor().processBillTransfer(vos);
+    }
+  }
+
+  /**
+   * @return editor
+   */
+  public IBillCardPanelEditor getEditor() {
+    return this.editor;
+  }
+
+  /**
+   * @return model
+   */
+  public AbstractAppModel getModel() {
+    return this.model;
+  }
+
+  /**
+   * @param editor
+   *          要设置的 editor
+   */
+  public void setEditor(IBillCardPanelEditor editor) {
+    this.editor = editor;
+  }
+
+  /**
+   * @param model
+   *          要设置的 model
+   */
+  public void setModel(AbstractAppModel model) {
+    this.model = model;
+    model.addAppEventListener(this);
+  }
+
+  private PfButtonClickContext createPfButtonClickContext() {
+    PfButtonClickContext context = new PfButtonClickContext();
+    context.setParent(this.getModel().getContext().getEntranceUI());
+    context.setSrcBillType(this.getSourceBillType());
+    context.setPk_group(this.getModel().getContext().getPk_group());
+    context.setUserId(this.getModel().getContext().getPk_loginUser());
+    // 如果该节点是由交易类型发布的，那么这个参数应该传交易类型，否则传单据类型
+    // 如果该节点是由交易类型发布的，那么这个参数应该传交易类型，否则传单据类型
+    String vtrantype =
+        TrantypeFuncUtils.getTrantype(this.getModel().getContext());
+    if (StringUtil.isEmptyWithTrim(vtrantype)) {
+      context.setCurrBilltype(POBillType.PrayBill.getCode());
+    }
+    else {
+      context.setCurrBilltype(vtrantype);
+    }
+    context.setUserObj(null);
+    context.setSrcBillId(null);
+    context.setBusiTypes(this.getBusitypes());
+    // 上面的参数在原来调用的方法中都有涉及，只不过封成了一个整结构，下面两个参数是新加的参数
+    // 上游的交易类型集合
+    context.setTransTypes(this.getTranstypes());
+    // 标志在交换根据目的交易类型分组时，查找目的交易类型的依据，有三个可设置值：1（根据接口定义）、
+    // 2（根据流程配置）、-1（不根据交易类型分组）
+    context.setClassifyMode(PfButtonClickContext.ClassifyByItfdef);
+    return context;
+  }
+
+  @Override
+  protected boolean isActionEnable() {
+    return this.model.getUiState() == UIState.NOT_EDIT;
+  }
+}

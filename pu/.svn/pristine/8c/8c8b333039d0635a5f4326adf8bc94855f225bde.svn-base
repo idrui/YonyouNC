@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 主组织(财务组织)编辑后处理 -->
+	<bean id="mainorgchghandler" class="nc.ui.pu.m25.editor.org.OrgChangedEventHandler">
+		<property name="cardForm" ref="billFormEditor" />
+		<property name="listView" ref="listView" />
+	</bean>
+		
+	<!-- 表头(尾)编辑前事件处理器 -->
+	<bean id="card_before_headtail_edithandler" class="nc.ui.pu.m25.editor.card.beforeedit.CardHeadTailBeforeEditEventHandler">
+	</bean>
+	
+	<!-- 表头(尾)编辑后事件处理器 -->
+	<bean id="card_after_headtail_edithandler" class="nc.ui.pu.m25.editor.card.afteredit.CardHeadTailAfterEditEventHandler">
+	</bean>
+	
+	<!-- 表体编辑前事件处理器 -->
+	<bean id="card_before_body_edithandler" class="nc.ui.pu.m25.editor.card.beforeedit.CardBodyBeforeEditEventHandler">
+	</bean>
+	
+	<!-- 表体编辑后事件处理器 -->
+	<bean id="card_after_body_edithandler" class="nc.ui.pu.m25.editor.card.afteredit.CardBodyAfterEditEventHandler">
+	</bean>
+	
+	<!-- 列表表头行改变事件处理器 -->
+	<bean id="list_head_rowchangehandler" class="nc.ui.pu.m25.editor.list.HeadRowChangeHandler">
+	</bean>
+	
+    <!-- 发票新增事件处理器 -->
+	<bean id="invoiceAddHandler" class="nc.ui.pu.m25.editor.card.InvoiceAddEventHandler">
+	</bean>
+	
+	<!-- 整单合计信息处理器 -->
+	<bean id="totalvaluehandler" class="nc.ui.pu.m25.editor.TotalValueHanlder">
+		<property name="bodyHeadMap">
+			<map>
+				<entry key="nastnum" value="ntotalastnum" />
+				<entry key="norigtaxmny" value="ntotalorigmny" />
+			</map>
+		</property>
+		<property name="model" ref="ManageAppModel"/>
+	</bean>
+	
+	<bean id="relationCalculate" class="nc.ui.pu.m25.editor.utils.RelationCalculate"/>
+	
+	<!-- 编辑事件 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="ManageAppModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 表头(尾)编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardHeadTailBeforeEditEvent">
+					<list>
+						<ref bean="card_before_headtail_edithandler" />
+					</list>
+				</entry>
+				<!-- 表头(尾)编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardHeadTailAfterEditEvent">
+					<list>
+						<ref bean="card_after_headtail_edithandler" />
+					</list>
+				</entry>
+				<!-- 表体编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent">
+					<list>
+						<ref bean="card_before_body_edithandler" />
+					</list>
+				</entry>
+				<!-- 表体编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent">
+					<list>
+						<ref bean="card_after_body_edithandler" />
+						<ref bean="relationCalculate"/>
+					</list>
+				</entry>
+				<!-- 列表表头行改变事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+					<list>
+						<ref bean="list_head_rowchangehandler" />
+					</list>
+				</entry>				
+				<!-- 主组织(财务组织)编辑事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.OrgChangedEvent">
+					<list>
+						<ref bean="mainorgchghandler" />
+					</list>
+				</entry>
+				<!-- UI状态切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.AppUiStateChangeEvent">
+					<list>
+						<ref bean="feeViewTransfer" />
+					</list>
+				</entry>
+				<!-- 发票新增事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.billform.AddEvent">
+					<list>
+						<ref bean="invoiceAddHandler" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+
+	
+</beans>

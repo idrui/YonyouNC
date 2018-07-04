@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-02-22 09:48:27" creator="" description="" displayName="pu_arrival_report_groupenum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="4a127e7b-d884-4ec7-adfb-98b4c7949211" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:10:55" name="pu_arrival_report_groupenum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409001-0003" version="13" versionType="0">
+    <celllist>
+        <Enumerate componentID="4a127e7b-d884-4ec7-adfb-98b4c7949211" createTime="2011-02-22 09:48:40" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="到货单查询汇总条件" fullClassName="nc.vo.pu.report.enumeration.PuArrivalGroupEnum" height="133" help="" id="c338f3ea-4416-40b9-829e-be42b26e492e" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:10:55" name="PuArrivalGroupEnum" resid="2400409001-0000" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="141" x="146" y="81">
+            <enumitemlist>
+                <enumitem description="MAR" enumDisplay="物料汇总" enumID="c338f3ea-4416-40b9-829e-be42b26e492e" enumValue="0" hidden="false" id="1581c58a-df8a-464d-b17c-d4000476ee84" resid="2400409001-0001" sequence="0" versionType="0"/>
+                <enumitem description="ARRIVEDETAIL" enumDisplay="到货明细" enumID="c338f3ea-4416-40b9-829e-be42b26e492e" enumValue="1" hidden="false" id="2d7c0c8a-c31c-47bc-bb72-7a4b91b1ad15" resid="2400409001-0002" sequence="1" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+  <description>到货检验编辑事件配置文件  </description>
+  <!-- 编辑事件 -->
+  <bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="handlerMap">
+      <map> 
+       <!-- 列表表头行编辑事件 -->
+        <entry key="nc.ui.pubapp.uif2app.event.list.ListHeadAfterEditEvent">
+          <list>
+            <bean
+              class="nc.ui.pu.m23.check.editor.list.afteredit.ListHeadAfterEditEventHandler" >
+              <property name="model" ref="manageAppModel" />
+              </bean>
+          </list>
+        </entry>       
+      </map>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:dbCacheConfig activate="true" configurable="true" lfuMax="10000"
+    refreshInterval="30" autoRefresh="false" appliable="false"
+    pagedSize="1000" xmlns:ns2="http://www.ufida.com.cn/NC/dbcache/cacheconfig">
+    <table name="po_rule_rbstock" strategy="FULL" primaryKey="pk_rbstock">
+        <column system="false" name="PK_RBSTOCK"/>
+        <column system="false" name="BMATERIALSAME"/>
+        <column system="false" name="BNUMABSSAME"/>
+        <column system="false" name="BBATCHCODESAME"/>
+        <column system="false" name="BPRODUCTORSAME"/>
+        <column system="false" name="BORIGPRICESAME"/>
+        <column system="false" name="BSUPPLIERSAME"/>
+        <column system="false" name="BFINANCEORGSAME"/>
+        <column system="false" name="BDEPTSAME"/>
+        <column system="false" name="BORDERSAME"/>
+        <column system="false" name="BTRANTYPESAME"/>
+        <column system="false" name="BFREEITEMSAME"/>
+        <column system="false" name="BPROJECTSAME"/>
+        <column system="false" name="BBUYERSAME"/>
+        <column system="false" name="TS"/>
+        <column system="false" name="DR"/>
+        <filterSql><![CDATA[]]></filterSql>
+        <postCreateSql><![CDATA[]]></postCreateSql>
+    </table>
+    <table name="po_rule_rbinvoice" strategy="FULL" primaryKey="pk_rbinvoice">
+        <column system="false" name="BFINANCEORGSAME"/>
+        <column system="false" name="BBATCHCODESAME"/>
+        <column system="false" name="BDEPTSAME"/>
+        <column system="false" name="BPROJECTSAME"/>
+        <column system="false" name="BPRODUCTORSAME"/>
+        <column system="false" name="BNORIGPRICESAME"/>
+        <column system="false" name="BMATERIALSAME"/>
+        <column system="false" name="BNUMABSSAME"/>
+        <column system="false" name="BINVOICETYPESAME"/>
+        <column system="false" name="PK_RBINVOICE"/>
+        <column system="false" name="BORDERSAME"/>
+        <column system="false" name="BFREEITEMSAME"/>
+        <column system="false" name="DR"/>
+        <column system="false" name="TS"/>
+        <column system="false" name="BBUYERSAME"/>
+        <column system="false" name="BSUPPLIERSAME"/>
+        <filterSql><![CDATA[]]></filterSql>
+        <postCreateSql><![CDATA[]]></postCreateSql>
+    </table>
+    <table name="po_rule_invoicestock" strategy="FULL" primaryKey="pk_invoicestock">
+        <column system="false" name="BPRODUCTORSAME"/>
+        <column system="false" name="BBUYERSAME"/>
+        <column system="false" name="DR"/>
+        <column system="false" name="BDEPTSAME"/>
+        <column system="false" name="BPROJECTSAME"/>
+        <column system="false" name="TS"/>
+        <column system="false" name="BMATERIALSAME"/>
+        <column system="false" name="PK_INVOICESTOCK"/>
+        <column system="false" name="BSUPPLIERSAME"/>
+        <column system="false" name="BNUMSAME"/>
+        <column system="false" name="BORIGPRICESAME"/>
+        <column system="false" name="BFINANCEORGSAME"/>
+        <column system="false" name="BFREEITEMSAME"/>
+        <column system="false" name="BBATCHCODESAME"/>
+        <filterSql><![CDATA[]]></filterSql>
+        <postCreateSql><![CDATA[]]></postCreateSql>
+    </table>
+    <table name="po_potrantype" strategy="FULL"  primaryKey="pk_potrantype">
+        <column system="false" name="VTRANTYPECODE"/>
+        <column system="false" name="BVMI"/>
+        <column system="false" name="BDIRECT"/>
+        <column system="false" name="BCHECKCENPUR"/>
+        <column system="false" name="BOVERPAY"/>
+        <column system="false" name="BRECEIVEPLAN"/>
+        <column system="false" name="IPRTOPOLIMIT"/>
+        <column system="false" name="BOUTPUT"/>
+        <column system="false" name="BCONFIRM"/>
+        <column system="false" name="BCONSIGN"/>
+        <column system="false" name="BLOAD"/>
+        <column system="false" name="BCUSTOM"/>
+        <column system="false" name="BOUTCUSTOM"/>
+        <column system="false" name="BCONFIRMCODE"/>
+        <column system="false" name="BCONFIRMDATE"/>
+        <column system="false" name="BCONFIRMNUM"/>
+        <column system="false" name="BCONSIGNCODE"/>
+        <column system="false" name="BCONSIGNDATE"/>
+        <column system="false" name="BCONSIGNNUM"/>
+        <column system="false" name="BLOADCODE"/>
+        <column system="false" name="BLOADDATE"/>
+        <column system="false" name="BCUSTOMCODE"/>
+        <column system="false" name="BCUSTOMDATE"/>
+        <column system="false" name="BOUTCUSTOMCODE"/>
+        <column system="false" name="BOUTCUSTOMDATE"/>
+        <column system="false" name="BARRIVE"/>
+        <column system="false" name="BSTORE"/>
+        <column system="false" name="PK_GROUP"/>
+        <column system="false" name="IONWAYEND"/>
+        <column system="false" name="IONWAYBEGIN"/>
+        <column system="false" name="IAPPROVEAFT"/>
+        <column system="false" name="IOUTPUTAFT"/>
+        <column system="false" name="ICONFIRMAFT"/>
+        <column system="false" name="ICONSIGNAFT"/>
+        <column system="false" name="ILOADAFT"/>
+        <column system="false" name="ICUSTOMAFT"/>
+        <column system="false" name="IOUTCUSTOMAFT"/>
+        <column system="false" name="CTRANTYPEID"/>
+        <column system="false" name="TS"/>
+        <column system="false" name="DR"/>
+        <column system="false" name="PK_POTRANTYPE"/>
+        <filterSql><![CDATA[]]></filterSql>
+        <postCreateSql><![CDATA[]]></postCreateSql>
+    </table>
+</ns2:dbCacheConfig>

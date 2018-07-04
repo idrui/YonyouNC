@@ -1,0 +1,35 @@
+/**
+ * 
+ */
+package nc.ui.pu.cgfa.ace.event;
+
+import nc.ui.pubapp.uif2app.event.IAppEventHandler;
+import nc.ui.pubapp.uif2app.event.card.CardHeadTailAfterEditEvent;
+
+/**
+ * @author  wangzym
+ * @version 2017年4月24日 上午11:10:35
+ */
+public class CardHeadTailAfterEditEventHandler implements
+IAppEventHandler<CardHeadTailAfterEditEvent> {
+private nc.ui.pubapp.uif2app.view.ShowUpableBillForm billForm;
+	public nc.ui.pubapp.uif2app.view.ShowUpableBillForm getBillForm() {
+	return billForm;
+}
+
+public void setBillForm(nc.ui.pubapp.uif2app.view.ShowUpableBillForm billForm) {
+	this.billForm = billForm;
+}
+
+	public CardHeadTailAfterEditEventHandler() {
+		// TODO 自动生成的构造函数存根
+	}
+
+	@Override
+	public void handleAppEvent(CardHeadTailAfterEditEvent e) {
+		// TODO 自动生成的方法存根
+
+		}
+	
+
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="funcregister" class="nc.pubapp.pade.funcmodel.vo.FuncRegister"><property name="bmf_path" value="oasp\METADATA\newoaryxx.bmf"/>
+<property name="busiActiveList">
+<list></list>
+</property>
+<property name="cfunid" value="0001Z31000000000MNL6"/>
+<property name="class_name" value="nc.ui.pubapp.uif2app.ToftPanelAdaptorEx"/>
+<property name="dr" value="0"/>
+<property name="fun_name" value="OA人员基础字典"/>
+<property name="fun_property" value="0"/>
+<property name="funcRegisterButtonList">
+<list></list>
+</property>
+<property name="funcRegisterParamList">
+<list><bean class="nc.pubapp.pade.funcmodel.vo.FuncRegisterParam"><property name="dr" value="0"/>
+<property name="paramname" value="BeanConfigFilePath"/>
+<property name="paramvalue" value="nc/ui/pu/newoaryxx/ace/view/Newoaryxx_config.xml"/>
+<property name="parentid" value="0001Z31000000000MNL6"/>
+<property name="pk_param" value="0001Z31000000000MNL7"/>
+<property name="ts" value="2016-11-30 17:00:10"/>
+</bean>
+</list>
+</property>
+<property name="funcode" value="40019104"/>
+<property name="funnode_path" value="oasp\designmodel\ace\client\40019104.fnf"/>
+<property name="funtype" value="0"/>
+<property name="isbuttonpower" value="false"/>
+<property name="isenable" value="true"/>
+<property name="isfunctype" value="false"/>
+<property name="menuModelFilePath" value="oasp/designmodel/funcmodel/newoaryxx/menuitemregis/40019104.menu"/>
+<property name="metaDataID" value="b5a153aa-8dfc-466c-a5d4-fa736977be03"/>
+<property name="moduleName" value="pu"/>
+<property name="orgtypecode" value="GLOBLE00000000000000"/>
+<property name="own_module" value="4001"/>
+<property name="pageList">
+<list></list>
+</property>
+<property name="parent_id" value="1001N610000000005930"/>
+<property name="pk_group" value="~"/>
+<property name="ts" value="2016-11-30 17:00:10"/>
+<property name="uif2model_path" value="oasp\designmodel\ace\uif2model\40019104.umf"/>
+</bean>
+
+</beans>

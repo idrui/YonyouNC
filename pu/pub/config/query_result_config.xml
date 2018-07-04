@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!-- 采购结算暂估对查询结果的一些配置处理 -->
+<root>
+	<!-- 采购结算 -->
+	<nodecode code="40041400">
+		<!-- 查询行数限制（发票和入库单），如果未设置则为默认5000 -->
+		<query_limit_row value="5000" />
+	</nodecode>
+	<!-- 消耗汇总结算 -->
+	<nodecode code="40041402">
+		<!-- 查询行数限制（发票和入库单），如果未设置则为默认5000 -->
+		<query_limit_row value="5000" />
+	</nodecode>
+	<!-- 暂估处理 -->
+	<nodecode code="40041602">
+		<!-- 查询行数限制（如果未设置则为默认5000 -->
+		<query_limit_row value="10000" />
+	</nodecode>
+	<!-- 取消暂估处理 -->
+	<nodecode code="40041604">
+		<!-- 查询行数限制（如果未设置则为默认5000 -->
+		<query_limit_row value="10000" />
+	</nodecode>
+	<!-- 消耗汇总暂估处理 -->
+	<nodecode code="40041606">
+		<!-- 查询行数限制（如果未设置则为默认5000 -->
+		<query_limit_row value="10000" />
+	</nodecode>
+	<!-- 消耗汇总取消暂估处理 -->
+	<nodecode code="40041608">
+		<!-- 查询行数限制（如果未设置则为默认5000 -->
+		<query_limit_row value="10000" />
+	</nodecode>
+</root>
+

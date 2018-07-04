@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- 供应商暂估余额报表查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.supplierest.ISupplierEstReport</interface>
+      <implementation>nc.impl.pu.report.supplierest.SupplierEstReportImpl</implementation>
+    </component>
+    <!-- 供应商暂估明细报表查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.supplierestdetail.ISupplierEstDetailReport</interface>
+      <implementation>nc.impl.pu.report.supplierestdetail.SupplierEstDetailReportImpl</implementation>
+    </component>
+    <!-- 暂估月统计报表查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.estmothstat.IEstMonthStatReport</interface>
+      <implementation>nc.impl.pu.report.estmothstat.EstMonthStatReportImpl</implementation>
+    </component>
+    <!-- 采购暂估差异报表查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.estdiffer.IEstDifferReport</interface>
+      <implementation>nc.impl.pu.report.estdiffer.EstDifferReportImpl</implementation>
+    </component>
+    <!-- 综合日报 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.journal.IJournalReport</interface>
+      <implementation>nc.impl.pu.report.journal.JournalReportImpl</implementation>
+    </component>
+	
+	<!-- 请购单 -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.praybill.IPraybillReport</interface>
+      <implementation>nc.impl.pu.report.praybill.PraybillReportImpl</implementation>
+    </component>
+	
+    <!-- 预算联查 -->
+	<component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.tbb.ILinkQueryForTbb</interface>
+      <implementation>nc.pubimpl.pu.tbb.LinkQueryForTbbImpl</implementation>
+    </component>
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.mpp.IBillQueryByNtbParamForMpp</interface>
+      <implementation>nc.impl.pu.mpp.BillQueryByNtbParamForMppImpl</implementation>
+    </component>
+    
+    <!-- 采购订单付款执行情况 -->
+  	<component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.order.IOrderReport</interface>
+      <implementation>nc.impl.pu.report.order.OrderReportImpl</implementation>
+    </component>
+    
+    <!-- 采购发票（查询、报表） -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.invoice.IInvoiceReport</interface>
+      <implementation>nc.impl.pu.report.invoice.InvoiceReportImpl</implementation>
+    </component>
+    
+    <!-- 采购到货 (日到货情况查询) -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.arrival.IDayArriveReport</interface>
+      <implementation>nc.impl.pu.report.arrival.DayArriveReportImpl</implementation>
+    </component>
+    
+    <!-- 采购报表 (按供应商统计订单完成率) -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.report.supplierstatcomprate.ISupplierStatOrderCompRate</interface>
+      <implementation>nc.impl.pu.report.supplierstatcomprate.SupplierStatOrderCompRateImpl</implementation>
+    </component>
+    
+    <!-- 采购计划取数 begin -->
+    <component name="prayBillOrderNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pon</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillOrderNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillArriveNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pan</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillArriveNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillPurchaseinNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@ppn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillPurchaseinNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillInvoiceNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pin</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillInvoiceNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillOrderTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pom</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillOrderTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillArriveTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pam</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillArriveTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillPurchaseinTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@ppm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillPurchaseinTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="prayBillInvoiceTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@pim</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.praybill.PrayBillInvoiceTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="invoiceTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@im</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.InvoiceTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="invoiceNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@in</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.InvoiceNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="invoiceAsPrayTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@ipm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.InvoiceAsPrayTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="invoiceAsPrayNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@ipn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.InvoiceAsPrayNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="arrivalTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@am</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.ArrivalTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="arrivalNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@an</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.ArrivalNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="arrivalAsPrayTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@apm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.ArrivalAsPrayTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="arrivalAsPrayNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@apn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.ArrivalAsPrayNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderOrderNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oon</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderOrderNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderArriveNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oan</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderArriveNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderPurchaseinNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@opn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderPurchaseinNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderInvoiceNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oin</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderInvoiceNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderOrderTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oom</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderOrderTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+      <component name="orderArriveTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oam</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderArriveTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+      <component name="orderPurchaseinTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@opm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderPurchaseinTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+      <component name="orderInvoiceTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchReadyDataProviderStrategy@oim</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderInvoiceTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    
+     <component name="orderNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@on</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+     <component name="orderTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@om</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.OrderTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    
+      <component name="orderAsPrayNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@opn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.OrderAsPrayNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="orderAsPrayTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@opm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.OrderAsPrayTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="purchaseinNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@icn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.PurchaseinNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="purchaseinTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@icm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderbill.PurchaseinTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+     
+    <component name="purchaseinAsPrayNumFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@icpn</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.PurchaseinAsPrayNumFetchDataProviderStrategy</implementation>
+    </component>
+    
+    <component name="purchaseinAsPrayTaxMnyFetchDataProviderStrategy" priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.mpp.data.strategy.IFetchExecDataProviderStrategy@icpm</interface>
+      <implementation>nc.pubimpl.pu.mpp.data.strategy.orderaspraybill.PurchaseinAsPrayTaxMnyFetchDataProviderStrategy</implementation>
+    </component>
+    <!-- 采购计划取数end -->
+  </public>
+  
+</module>

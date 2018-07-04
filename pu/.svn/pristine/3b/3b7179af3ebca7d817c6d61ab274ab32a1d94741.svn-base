@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		编辑控件元素##########################################################
+	-->
+
+	<!-- 财务组织的编辑事件 -->
+	<bean id="financeOrgainzation" class="nc.ui.pu.m27.match.editor.org.OrgChangedEventHandler">
+		<property name="listView" ref="queryView" />
+	</bean>
+	
+	<!-- 第2界面（匹配）列表表头编辑后事件 -->
+	<bean id="listHeadAfterEdit" class="nc.ui.pu.m27.match.editor.list.ListHeadAfterEditEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 第2界面（匹配）列表表体编辑后事件 -->
+	<bean id="listBodyAfterEdit" class="nc.ui.pu.m27.match.editor.list.ListBodyAfterEditEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+		
+	<!-- 发票查询结果显示事件 -->
+	<bean id="invoiceDisplayHandler" class="nc.ui.pu.m27.match.editor.list.InvoiceDisplayEventHandler">
+		<property name="listView" ref="queryView" />
+	</bean>
+	
+	<!-- 入库单查询结果显示事件 -->
+	<bean id="stockDisplayHandler" class="nc.ui.pu.m27.match.editor.list.StockDisplayEventHandler">
+		<property name="listView" ref="queryView" />
+	</bean>
+	
+	<!-- 查询结果页面的发票行选中事件 -->
+	<bean id="invoiceSelectHandler" class="nc.ui.pu.m27.match.editor.list.InvoiceSelectEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 查询结果页面的入库单行选中事件 -->
+	<bean id="stockSelectHandler" class="nc.ui.pu.m27.match.editor.list.StockSelectEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 匹配界面的显示事件 -->
+	<bean id="matchDisplayHandler" class="nc.ui.pu.m27.match.editor.list.MatchDisplayEventHandler">
+		<property name="listView" ref="processView" />
+	</bean>
+	
+	<!-- 结算完毕结算单显示事件 -->
+	<bean id="settleBillDisplayHandler" class="nc.ui.pu.m27.match.editor.list.SettleBillDisplayEventHandler">
+		<property name="listView" ref="resultView" />
+	</bean>
+	
+	<!-- 结算结果页面的表头（发票行）行切换事件 -->
+	<bean id="settleBillHeadRowChange" class="nc.ui.pu.m27.match.editor.list.SettleBillHeadRowChangeEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 结算结果页面的表体（入库单行）行切换事件 -->
+	<bean id="settleBillBodyRowChange" class="nc.ui.pu.m27.match.editor.list.SettleBillBodyRowChangeEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+
+	<!-- 事件处理 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 财务组织切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.OrgChangedEvent">
+					<list>
+						<ref bean="financeOrgainzation" />
+					</list>
+				</entry>
+				
+				<!-- 发票查询结果显示事件 -->
+				<entry key="nc.ui.pu.m27.match.editor.event.InvoiceDisplayEvent">
+					<list>
+						<ref bean="invoiceDisplayHandler" />
+					</list>
+				</entry>
+				
+				<!-- 入库单查询结果显示事件 -->
+				<entry key="nc.ui.pu.m27.match.editor.event.StockDisplayEvent">
+					<list>
+						<ref bean="stockDisplayHandler" />
+					</list>
+				</entry>
+				
+				<!-- 列表表头编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadAfterEditEvent">
+					<list>
+						<ref bean="listHeadAfterEdit" />
+					</list>
+				</entry>	
+						
+				<!-- 列表表体编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListBodyAfterEditEvent">
+					<list>
+						<ref bean="listBodyAfterEdit" />
+					</list>
+				</entry>
+				
+				<!-- 列表表头行选中状态变化事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowStateChangeEvent">
+					<list>
+						<ref bean="invoiceSelectHandler" />
+					</list>
+				</entry>
+				
+				<!-- 列表表体行选中状态变化事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListBodyRowStateChangeEvent">
+					<list>
+						<ref bean="stockSelectHandler" />
+					</list>
+				</entry>
+				
+				<!-- 匹配界面的显示事件 -->
+				<entry key="nc.ui.pu.m27.match.editor.event.MatchDisplayEvent">
+					<list>
+						<ref bean="matchDisplayHandler" />
+					</list>
+				</entry>
+				
+				<!-- 结算完毕结算单显示事件 -->
+				<entry key="nc.ui.pu.m27.match.editor.event.SettleBillDisplayEvent">
+					<list>
+						<ref bean="settleBillDisplayHandler" />
+					</list>
+				</entry>
+				
+				<!-- 结算结果显示页面的表头行切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+					<list>
+						<ref bean="settleBillHeadRowChange" />
+					</list>
+				</entry>
+				
+				<!-- 结算结果显示页面的表体行切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListBodyRowChangedEvent">
+					<list>
+						<ref bean="settleBillBodyRowChange" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

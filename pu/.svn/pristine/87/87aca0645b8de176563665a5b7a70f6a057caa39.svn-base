@@ -1,0 +1,18 @@
+package nc.itf.pu;
+
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.vo.pu.qst.newoaspwh.AggNewoaspwhaHeadVO;
+import nc.vo.pub.BusinessException;
+
+public interface INewoaspwhMaintain {
+
+	public void delete(AggNewoaspwhaHeadVO[] vos) throws BusinessException;
+
+	public AggNewoaspwhaHeadVO[] insert(AggNewoaspwhaHeadVO[] vos) throws BusinessException;
+
+	public AggNewoaspwhaHeadVO[] update(AggNewoaspwhaHeadVO[] vos) throws BusinessException;
+
+	public AggNewoaspwhaHeadVO[] query(IQueryScheme queryScheme)
+			throws BusinessException;
+
+}

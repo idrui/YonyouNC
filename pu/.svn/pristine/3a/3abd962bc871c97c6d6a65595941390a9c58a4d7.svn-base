@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!--
+		############################## Actions ###########################
+	-->
+	
+	<!-- 全选 -->
+<!--	<bean id="selectAllAction" class="nc.ui.pu.m27.match.action.MatchSelectAllAction">-->
+<!--		<property name="model" ref="manageAppModel" />-->
+<!--		<property name="listEditor" ref="queryView" />-->
+<!--	</bean>-->
+	
+	<!-- 全消 -->
+<!--	<bean id="unSelectAllAction" class="nc.ui.pu.m27.match.action.MatchUnSelectAllAction">-->
+<!--		<property name="model" ref="manageAppModel" />-->
+<!--		<property name="listEditor" ref="queryView" />-->
+<!--	</bean>-->
+	<!-- 发票 查询-->
+	<bean id="invoiceQryDLGInitializer" class="nc.ui.pu.m27.match.view.query.BaseInvoicStlQryDlgInitializer"/>
+	<bean id="invoiceQueryAction" class="nc.ui.pu.m27.match.action.InvoiceQueryActionForVmi">
+		<property name="qryCondDLGInitializer" ref="invoiceQryDLGInitializer"/>
+		<property name="model" ref="manageAppModel" />
+		<property name="nodeKey" value="4004140202"/>		
+	</bean>	
+	
+	<!-- 消耗汇总查询 -->
+	<bean id="vmiQryDLGInitializer" class="nc.ui.pu.m27.match.view.query.VmiSettleQryDlgInitializer"/>
+	<bean id="vmiQueryAction" class="nc.ui.pu.m27.match.action.VmiQueryAction2">
+	    <property name="qryCondDLGInitializer" ref="vmiQryDLGInitializer"/>
+		<property name="model" ref="manageAppModel" />
+	</bean>
+ 	
+	<!-- 结算（第一个界面） -->
+	<bean id="vmiMatchAction" class="nc.ui.pu.m27.match.action.VmiMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 费用结算 -->
+	<bean id="feeMatchAction" class="nc.ui.pu.m27.match.action.FeeMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 分摊-->
+	<bean id="feeDistributeAction" class="nc.ui.pu.m27.match.action.VmiFeeDistributeAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listView" ref="processView" />
+	</bean>
+	
+	<!-- 结算 -->
+	<bean id="matchAction" class="nc.ui.pu.m27.match.action.MatchAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listView" ref="processView" />
+	</bean>
+	
+	<!-- 匹配界面返回到第一个界面 -->
+	<bean id="matchBackAction" class="nc.ui.pu.m27.match.action.MatchBackAction">
+		<property name="listView" ref="queryView" />
+		<property name="model" ref="manageAppModel" />
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="vmiQueryAction" />				
+	</bean>
+	
+	<!-- 联查消耗汇总 -->
+	<bean id="linkQueryVmi" class="nc.ui.pu.m27.match.action.LinkQueryVmiAction">
+		<property name="listView" ref="resultView" />
+	</bean>
+	
+	<!-- 联查发票 -->
+	<bean id="linkQueryInvoice" class="nc.ui.pu.m27.match.action.LinkQueryInvoiceAction">
+		<property name="listView" ref="resultView" />
+	</bean>
+	
+	<!-- 取消匹配 -->
+	<bean id="cancelMatchAction" class="nc.ui.pu.m27.match.action.CancelMatchAction">
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="vmiQueryAction" />
+	</bean>
+	
+	<!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	
+	<!-- 结算结果页面返回到初始界面 -->
+	<bean id="settleBillBackAction" class="nc.ui.pu.m27.match.action.SettleBillBackAction">
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="vmiQueryAction" />
+	</bean>
+
+	<!-- 此bean不是必须的，如果没有各个界面按钮的差异，可以将一下三个bean都去掉 -->
+	<bean id="toftpanelActionContributors" class="nc.ui.uif2.actions.ActionContributors">
+		<property name="contributors">
+			<list>
+				<ref bean="actionsOfQueryView" />
+				<ref bean="actionsOfProcessView" />
+				<ref bean="actionsOfResultView" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfQueryView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="queryView" />
+		<!-- 可以配置非编辑状态下和编辑状态下分别可见的Action，没有此需求时可以配置得一样 -->
+		<property name="actions">
+			<list>
+			  <ref bean="invoiceQueryAction" />
+        <ref bean="vmiQueryAction" />
+        <ref bean="separatorAction"/> 
+<!--				<ref bean="selectAllAction" />-->
+<!--				<ref bean="unSelectAllAction" />-->
+<!--				<ref bean="separatorAction"/> -->
+				<ref bean="vmiMatchAction" />
+				<ref bean="feeMatchAction" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfProcessView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="processView" />
+		<property name="actions">
+			<list>
+				<ref bean="feeDistributeAction" />
+				<ref bean="matchAction" />
+				<ref bean="matchBackAction" />
+ 			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfResultView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="resultView" />
+		<property name="actions">
+			<list>
+				<ref bean="linkQueryVmi" />
+				<ref bean="linkQueryInvoice" />
+				<ref bean="cancelMatchAction" />
+				<ref bean="settleBillBackAction" />
+			</list>
+		</property>
+	</bean>
+</beans>

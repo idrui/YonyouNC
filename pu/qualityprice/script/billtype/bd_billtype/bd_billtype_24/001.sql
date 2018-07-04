@@ -1,0 +1,3 @@
+insert into bd_billtype(pk_billtypeid,accountclass,billcoderule,billstyle,billtypename,canextendtransaction,checkclassname,classname,component,datafinderclz,def1,def2,def3,dr,emendenumclass,forwardbilltype,isaccount,isapprovebill,isbizflowbill,iseditableproperty,isenablebutton,islock,isroot,istransaction,ncbrcode,nodecode,parentbilltype,pk_billtypecode,pk_group,pk_org,referclassname,systemcode,transtype_class,ts,webnodecode,wherestring,comp,isenabletranstypebcr) values('24',null,null,null,'~','N','nc.vo.pu.m24.rule.PfPriceStlCheck','<Y>400418','pricesettle',null,null,null,null,null,null,null,'N','Y','N','Y','Y','N','Y','N','24','400418','~','24','~','~',null,'PO',null,'2013-12-04 16:31:52','~',null,null,'N')
+go
+

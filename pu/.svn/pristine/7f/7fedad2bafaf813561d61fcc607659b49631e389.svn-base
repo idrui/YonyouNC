@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.maintain.IArriveMaintain</interface>
+      <implementation>nc.impl.pu.m23.maintain.ArriveMaintainImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.qc.IArriveForQC</interface>
+      <implementation>nc.impl.pu.m23.qc.ArriveForQCImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.fa.IArriveForFA</interface>
+      <implementation>nc.impl.pu.m23.fa.ArriveForFAImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.approve.IArriveApprove</interface>
+      <implementation>nc.impl.pu.m23.approve.ArriveApproveImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.upgrade.IM23UpgradeToV61</interface>
+      <implementation>nc.impl.pu.m23.upgrade.M23UpgradeToV61Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m23.upgrade.IM23UpgradeToV63</interface>
+      <implementation>nc.impl.pu.m23.upgrade.M23UpgradeToV63Impl</implementation>
+    </component>
+    
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.qc.IWriteback23ForC001</interface>
+      <implementation>nc.pubimpl.pu.m23.qc.Writeback23ForC001Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.qc.IWriteback23ForC003</interface>
+      <implementation>nc.pubimpl.pu.m23.qc.Writeback23ForC003Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ic.m45.IQuery23For45</interface>
+      <implementation>nc.pubimpl.pu.m23.ic.m45.Query23For45Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ic.m45.IWriteback23For45</interface>
+      <implementation>nc.pubimpl.pu.m23.ic.m45.Writeback23For45Impl</implementation>
+    </component>  
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ic.m45.IQueryBTransAssetFor45</interface>
+      <implementation>nc.pubimpl.pu.m23.ic.m45.QueryBTransAssetFor45Impl</implementation>
+    </component> 
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ic.m47.IQuery23For47</interface>
+      <implementation>nc.pubimpl.pu.m23.ic.m47.Query23For47Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ic.m47.IWriteback23For47</interface>
+      <implementation>nc.pubimpl.pu.m23.ic.m47.Writeback23For47Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.pu.m21.IQuery23For21</interface>
+      <implementation>nc.pubimpl.pu.m23.pu.m21.Query23For21Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.pu.m21.IWriteback23For21</interface>
+      <implementation>nc.pubimpl.pu.m23.pu.m21.Writeback23For21Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.qc.IWriteback23ForC005</interface>
+      <implementation>nc.pubimpl.pu.m23.qc.Writeback23ForC005Impl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.pubquery.IArrivePubQuery</interface>
+      <implementation>nc.pubimpl.pu.m23.pubquery.ArrivePubQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ec.IArriveQueryForEC</interface>
+      <implementation>nc.pubimpl.pu.m23.ec.ArriveQueryForECImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.ec.IArrivePublish</interface>
+      <implementation>nc.pubimpl.pu.m23.ec.ArrivePublishImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m23.qc.IQuery23ForC001</interface>
+      <implementation>nc.pubimpl.pu.m23.qc.Query23ForC001Impl</implementation>
+    </component>
+  </public>
+</module>
+

@@ -1,0 +1,350 @@
+package nc.ui.pu.m20.action;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nc.bs.framework.common.NCLocator;
+import nc.bs.logging.Logger;
+import nc.itf.bd.material.assign.IMaterialAssignService;
+import nc.itf.bd.material.baseinfo.IMaterialBaseInfoService;
+import nc.itf.bd.material.materialcostmode.ICostModeQueryService;
+import nc.itf.bd.material.materialcostmode.ICostModeService;
+import nc.itf.bd.material.measdoc.IMeasdocService;
+import nc.itf.bd.material.stock.IMaterialStockQueryService;
+import nc.itf.bd.material.stock.IMaterialStockService;
+import nc.itf.org.IBasicOrgUnitQryService;
+import nc.itf.uap.IUAPQueryBS;
+import nc.jdbc.framework.processor.ColumnListProcessor;
+import nc.jdbc.framework.processor.ColumnProcessor;
+import nc.md.model.MetaDataException;
+import nc.md.persist.framework.IMDPersistenceQueryService;
+import nc.md.persist.framework.MDPersistenceService;
+import nc.pub.pivot.area.skin.setting.HypoStandarSkinSetting;
+import nc.pubitf.para.SysInitQuery;
+import nc.ui.trade.business.HYPubBO_Client;
+import nc.ui.trade.excelimport.InputItem;
+import nc.ui.trade.excelimport.InputItemCreator;
+import nc.ui.uif2.editor.IBillCardPanelEditor;
+import nc.ui.uif2.excelimport.DefaultUIF2ImportableEditor;
+import nc.uif.pub.exception.UifException;
+import nc.vo.bd.material.MaterialVO;
+import nc.vo.bd.material.cost.MaterialCostmodeVO;
+import nc.vo.bd.material.marbasclass.MarBasClassVO;
+import nc.vo.bd.material.measdoc.MeasdocVO;
+import nc.vo.bd.material.stock.MaterialStockVO;
+import nc.vo.bd.materialcostmode.CostModeVO;
+import nc.vo.jcom.lang.StringUtil;
+import nc.vo.pub.BusinessException;
+import nc.vo.pub.CircularlyAccessibleValueObject;
+import nc.vo.pub.ExtendedAggregatedValueObject;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.lang.UFDouble;
+import nc.vo.pub.para.SysInitVO;
+import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.pubapp.pattern.pub.SqlBuilder;
+
+public class ImportableEditorFor20 extends DefaultUIF2ImportableEditor{
+	
+	public String pk_group = "0001N610000000000IT0";// 组织，集团直接写死
+	public String pk_org = "0001N610000000000IT0";
+	
+	@Override
+	public List<InputItem> getInputItems() {
+		
+		List<InputItem> items = null;
+		
+		if(getBillcardPanelEditor() != null)
+		{
+			processBillCardPanel(getBillcardPanelEditor());
+			
+			items = InputItemCreator.getInputItems(getBillcardPanelEditor().getBillCardPanel().getBillData(), false);
+		}
+		
+		return items;
+	}
+	
+	@Override
+	protected void setProcessedVO(ExtendedAggregatedValueObject eavo) {
+		
+		try {
+			doBeforeProcessedVO(eavo);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			ExceptionUtils.wrappBusinessException(e.getMessage());
+		}
+		
+		getBillcardPanelEditor().getBillCardPanel().setHeadItem("ccurrencyid", "1002Z0100000000001K1");//本币币种 设默认值
+		
+		super.setProcessedVO(eavo);
+	}
+	
+	/**
+	 * 校验物料是否存在，如果不存在就新增物料
+	 */
+	private void doBeforeProcessedVO(ExtendedAggregatedValueObject eavo) throws BusinessException {
+		CircularlyAccessibleValueObject[] bvos = eavo.getTableVO("pk_praybill_b");
+		List<CircularlyAccessibleValueObject> proVOList = new ArrayList<CircularlyAccessibleValueObject>();
+		List<String> codeList = new ArrayList<String>();//用来排除重复物料
+		for(CircularlyAccessibleValueObject bvo:bvos){
+			String wucode = (String) bvo.getAttributeValue("pk_material");
+			String wuname = (String) bvo.getAttributeValue("materialname");
+			if(codeList.contains(wucode)){
+				continue;
+			}
+			String sqlmact = "select count(pk_material) from bd_material where code ='"+ wucode + "' and nvl(dr,0)=0 "+" and name='"+wuname+"'";// 物料档案
+			int k = 0;
+			k = (Integer)getQueryBS().executeQuery(sqlmact,new ColumnProcessor());
+			if (k==0) {
+				codeList.add(wucode);
+				proVOList.add(bvo);
+			}
+		}
+		if(proVOList != null && proVOList.size()>0){
+			insertMaterial(proVOList.toArray(new CircularlyAccessibleValueObject[proVOList.size()]));
+		}
+	}
+	
+	/*
+	 * 导入过程中更新物料档案，如果没相关物料择在导入时新增物料档案
+	 */
+	private void insertMaterial(CircularlyAccessibleValueObject[] vos) throws BusinessException {
+		
+		//先获取物料分类编码
+		String Pk_marbasclass = getMarbasclassid();
+		
+		IMaterialBaseInfoService maservice = NCLocator.getInstance().lookup(
+				IMaterialBaseInfoService.class);
+		List<String> maPkList = new ArrayList<String>();//存新增的物料主键
+		for (int i = 0; i < vos.length; i++) {
+			String code = (String) vos[i].getAttributeValue("pk_material");// 物料编码
+			String name=(String) vos[i].getAttributeValue("materialname");//物料名称
+			String guige=(String) vos[i].getAttributeValue("materialspec");//物料规格
+			String xinh=(String) vos[i].getAttributeValue("materialspec");//物料型号
+			String ycg=(String) vos[i].getAttributeValue("ycg");//原产国
+			String yszzc=(String) vos[i].getAttributeValue("name_manufac");//原始制造商
+			
+			String mesdocname = (String) vos[i].getAttributeValue("castunitid");// 计量单位名称
+			
+			if(StringUtil.isEmpty(name)){
+				ExceptionUtils.wrappBusinessException("物料描述_中文名称 不能为空！");
+			}
+			
+			MaterialVO maVO = new MaterialVO();
+			maVO.setPk_group(pk_group);
+			maVO.setPk_org(pk_org);
+			// 默认成一般纳税商品，正式：未知
+			maVO.setPk_mattaxes("1001Z01000000003W0WH");
+			// 电子采购打钩
+			maVO.setIselectrans(UFBoolean.FALSE);
+			// 产品簇不打钩
+			maVO.setProductfamily(UFBoolean.FALSE);
+			// 电子销售不打钩
+			maVO.setElectronicsale(UFBoolean.FALSE);
+			// 适用零售不打钩
+			maVO.setRetail(UFBoolean.FALSE);
+			// 启用状态,已启用
+			maVO.setEnablestate(2);
+			// 入库容差
+			maVO.setIntolerance(new UFDouble(0));
+			// 入库容差
+			maVO.setOuttolerance(new UFDouble(0));
+			// 入库容差
+			maVO.setOutcloselowerlimit(new UFDouble(0));
+			// 物料名称
+			maVO.setName(name);
+			// 物料型号
+			maVO.setMaterialspec(guige);
+			// 物料型号
+			maVO.setMaterialtype(xinh);
+			// 物料分类
+			maVO.setPk_marbasclass(Pk_marbasclass);
+			// 物料编码
+			maVO.setCode(code);
+			// 物料单位
+			MeasdocVO[] measdocVOs = (MeasdocVO[]) HYPubBO_Client
+					.queryByCondition(MeasdocVO.class, " code='" + mesdocname
+							+ "'");
+			String pk_measdoc = null;
+			if (measdocVOs != null && measdocVOs.length > 0) {
+				pk_measdoc = measdocVOs[0].getPk_measdoc();
+			} else {
+				// 自动新增计量档案
+				MeasdocVO measdocVO = new MeasdocVO();
+				measdocVO.setCode(mesdocname);// 编码
+				measdocVO.setName(mesdocname);// 名称
+				measdocVO.setPk_group(pk_group);
+				measdocVO.setPk_org(pk_org);
+				measdocVO.setOppdimen("E");// 所属量纲
+				measdocVO.setBasecodeflag(UFBoolean.FALSE);// 是否为基本单位
+				measdocVO.setBitnumber(4);// 小数位数
+				IMeasdocService measdocSer = NCLocator.getInstance().lookup(
+						IMeasdocService.class);
+				measdocVO = measdocSer.insertMeasdocForPfxx(measdocVO);
+				pk_measdoc = measdocVO.getPk_measdoc();
+			}
+			maVO.setPk_measdoc(pk_measdoc);
+
+			// 特征件
+			maVO.setIsfeature(UFBoolean.FALSE);
+			// 成套件
+			maVO.setSetpartsflag(UFBoolean.FALSE);
+			// 服务类
+			maVO.setFee(UFBoolean.FALSE);
+			// 促销商品
+			maVO.setIshproitems(UFBoolean.FALSE);
+			// 折扣价格
+			maVO.setDiscountflag(UFBoolean.FALSE);
+			// 是否最新
+			maVO.setLatest(UFBoolean.FALSE);
+			// 原产国
+			String ycgsql = " select pk_country from bd_countryzone where name = '"+ycg+"' and nvl(dr,0)=0 ";
+			IUAPQueryBS bs = NCLocator.getInstance().lookup(IUAPQueryBS.class);
+			String result = (String) bs.executeQuery(ycgsql.toString(),new ColumnProcessor());
+			maVO.setDef2(result);
+			
+			//原始制造商yszzc
+			if(yszzc != null){
+				maVO.setDef6(yszzc);
+			}
+			
+			MaterialVO returnVO = maservice.insertMaterial(maVO);
+			maPkList.add(returnVO.getPk_material());
+		}
+
+		if(maPkList != null && maPkList.size()>0){
+			//自动分配物料
+			autoMaterialAssign(maPkList);
+			
+			//自动启用成本信息批次核算
+			autoEnableBatch(maPkList);
+			
+			//自动启用库存信息批次管理
+			autoEnableStock(maPkList);
+		}
+	}
+	
+	/**
+	 *  自动启用库存信息批次管理
+	 * @author ljf
+	 * @throws BusinessException 
+	 */
+	@SuppressWarnings("unchecked")
+	private void autoEnableStock(List<String> maPkList) throws BusinessException {
+		String orgsql = "select pk_org from org_orgs where pk_group <> pk_org and (orgtype43='Y' or isbusinessunit ='Y' or orgtype19='Y' ) and (enablestate = 2) and pk_group = '0001N610000000000IT0'";
+		
+		List<String> orglist = (List<String>) getQueryBS().executeQuery(orgsql, new ColumnListProcessor());
+		if(orglist == null || orglist.size() == 0){
+			return;
+		}
+		
+		IMaterialStockService stockservice = NCLocator.getInstance().lookup(IMaterialStockService.class);
+		
+		SqlBuilder querysql = new SqlBuilder();
+		querysql.append(MaterialStockVO.PK_MATERIAL, maPkList.toArray(new String[maPkList.size()]));
+		List<MaterialStockVO> stockvolist = (List<MaterialStockVO>) getMDQueryService().queryBillOfVOByCond(MaterialStockVO.class, querysql.toString(), false);
+		if(stockvolist == null || stockvolist.size() == 0){
+			return;
+		}
+		
+		for(int i = 0; i < stockvolist.size(); i++){
+			MaterialStockVO stockvo = stockvolist.get(i);
+			stockvo.setWholemanaflag(UFBoolean.TRUE);
+		}
+		
+		stockservice.updateMaterialStockVOs(stockvolist.toArray(new MaterialStockVO[stockvolist.size()]));
+	}
+	
+	private IMDPersistenceQueryService getMDQueryService() {
+	    return MDPersistenceService.lookupPersistenceQueryService();
+	 }
+
+	/**
+	 *  自动启用成本信息批次核算
+	 * @author ljf
+	 * @throws MetaDataException 
+	 */
+	@SuppressWarnings("unchecked")
+	private void autoEnableBatch(List<String> maPkList) throws BusinessException {
+		SqlBuilder sql = new SqlBuilder();
+		sql.append(MaterialCostmodeVO.PK_MATERIAL, maPkList.toArray(new String[maPkList.size()]));
+		
+		List<MaterialCostmodeVO> costmodevolist = (List<MaterialCostmodeVO>) getMDQueryService().queryBillOfVOByCond(MaterialCostmodeVO.class, sql.toString(), false);
+		if(costmodevolist == null || costmodevolist.size() == 0){
+			return;
+		}
+		
+		for(int i = 0; i < costmodevolist.size(); i++){
+			MaterialCostmodeVO costmodevo = costmodevolist.get(i);
+			costmodevo.setBatchcost(UFBoolean.TRUE);
+		}
+		
+		HYPubBO_Client.updateAry(costmodevolist.toArray(new MaterialCostmodeVO[costmodevolist.size()]));
+	}
+
+	/**
+	 *  自动分配物料
+	 * @author ljf
+	 */
+	@SuppressWarnings("unchecked")
+	private void autoMaterialAssign(List<String> maPkList) throws BusinessException {
+		String sql = "select pk_org from org_orgs where pk_group <> pk_org and (orgtype43='Y' or isbusinessunit ='Y' or orgtype19='Y' ) and (enablestate = 2) and pk_group = '0001N610000000000IT0'";
+		
+		List<String> orglist = (List<String>) getQueryBS().executeQuery(sql, new ColumnListProcessor());
+		if(orglist == null || orglist.size() == 0){
+			return;
+		}
+		getAssignService().assignMaterialByPks(maPkList.toArray(new String[maPkList.size()]), orglist.toArray(new String[orglist.size()]), null);
+	}
+
+	/**
+	 * 
+	 * @author zjf 根据参数值获取物料分类编码
+	 */
+	public String getMarbasclassid() {
+		SysInitVO initVO = null;
+		String pk_org = "GLOBLE00000000000000";// 全局参数组织主键
+		try {
+			initVO = SysInitQuery.querySysinitVO(pk_org, "DRFL");// 获取业务参数方法（组织主键，参数编码）
+		} catch (BusinessException e1) {
+			Logger.error("物料基本分类参数查询异常！参数编码：", e1);
+			ExceptionUtils.wrappBusinessException("未查到对应的系统参数，参数编码：" + "DRFL");
+		}
+	
+		String code = initVO.getValue();// 获取参数值(物料分类编码)
+		
+		// 物料分类
+		String Pk_marbasclass = null;
+		MarBasClassVO[] classVOs = null;
+		try {
+			classVOs = (MarBasClassVO[]) HYPubBO_Client.queryByCondition(MarBasClassVO.class, " code='"+ code + "' and nvl(dr,0)=0");
+		} catch (UifException e) {
+			e.printStackTrace();
+		}
+		if(classVOs == null || classVOs.length == 0){
+			ExceptionUtils.wrappBusinessException("未查到对应的物料分类，物料分类编码：" + code);
+		}
+		Pk_marbasclass = classVOs[0].getPk_marbasclass();
+
+		return Pk_marbasclass;
+
+	}
+
+	private void processBillCardPanel(IBillCardPanelEditor billCardPanelEditor) {
+		billCardPanelEditor.getBillCardPanel().getHeadTailItem("pk_org").setNull(true);//库存组织
+		billCardPanelEditor.getBillCardPanel().getHeadTailItem("pk_org").setShow(true);//库存组织
+		billCardPanelEditor.getBillCardPanel().getHeadTailItem("pk_org").setEdit(true);;//库存组织
+	}
+	
+	private IUAPQueryBS getQueryBS(){
+		return NCLocator.getInstance().lookup(IUAPQueryBS.class);
+	}
+	
+	private IMaterialAssignService getAssignService() {
+	    return NCLocator.getInstance().lookup(IMaterialAssignService.class);
+	}
+	
+	private IBasicOrgUnitQryService getOrgQry() {
+		return (IBasicOrgUnitQryService) NCLocator.getInstance().lookup(
+				IBasicOrgUnitQryService.class.getName());
+	}
+}

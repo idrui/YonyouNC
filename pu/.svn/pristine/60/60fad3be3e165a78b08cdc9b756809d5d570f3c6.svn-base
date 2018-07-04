@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 列表表头换行事件 -->
+    <bean id="listHeadRowChangedEvent" class="nc.ui.pu.m21.editor.list.OutputRowChangedEventHandler" />
+	<!-- 查询结果页面的输出项行选中事件 -->
+	<bean id="outputSelectHandler" class="nc.ui.pu.m21.editor.list.OutputSelectEventHandler">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!--
+		编辑控件元素##########################################################
+	-->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="handlerMap">
+			<map>
+			    <entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+                    <list>
+                        <ref bean="listHeadRowChangedEvent" />
+                    </list>
+                </entry>
+                <entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowStateChangeEvent">
+					<list>
+						<ref bean="outputSelectHandler" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

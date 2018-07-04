@@ -1,0 +1,52 @@
+/**
+ * $$文件说明$$
+ * 
+ * @author zhaoyha
+ * @version 6.0
+ * @see
+ * @since 6.0
+ * @time 2010-03-25 09:05:19
+ */
+package nc.vo.pu.m25.enumeration;
+
+import nc.md.model.IEnumValue;
+import nc.vo.pubapp.enumeration.NCMDEnum;
+
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * <ul>
+ * <li>描述采购发票的行类型(普通货物、折扣、劳务、零数量行)
+ * </ul>
+ * <p>
+ * ${tags}
+ * <p>
+ * 
+ * @version 6.0
+ * @since 6.0
+ * @author zhaoyha
+ * @time 2010-03-25 09:05:19
+ */
+public class InvoiceRowType extends NCMDEnum {
+  /** 折扣行 **/
+  public static final int DISCOUNT_ROW = 1;
+
+  /** 劳务行 **/
+  public static final int FEE_ROW = 2;
+
+  /** 货物行 **/
+  public static final int GOODS_ROW = 0;
+
+  /** 零数量行 **/
+  public static final int ZERONUM_ROW = 3;
+
+  public InvoiceRowType(IEnumValue enumvalue) {
+    super(enumvalue);
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+
+}

@@ -1,0 +1,292 @@
+package nc.vo.pu.m422x.linkquery;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import nc.bs.logging.Logger;
+import nc.bs.pf.pub.PfDataCache;
+import nc.bs.trade.billsource.DefaultDataFinder;
+import nc.bs.trade.billsource.IBillFlow;
+import nc.impl.pubapp.pattern.data.view.ViewQuery;
+import nc.impl.pubapp.pattern.data.vo.VOQuery;
+import nc.impl.pubapp.pattern.database.DataAccessUtils;
+import nc.itf.scmpub.reference.uap.group.SysInitGroupQuery;
+import nc.jdbc.framework.JdbcSession;
+import nc.jdbc.framework.PersistenceManager;
+import nc.jdbc.framework.SQLParameter;
+import nc.jdbc.framework.exception.DbException;
+import nc.jdbc.framework.processor.BeanListProcessor;
+import nc.jdbc.framework.processor.ResultSetProcessor;
+import nc.uif.pub.exception.UifRuntimeException;
+import nc.vo.ewm.workorder.WorkOrderHeadVO;
+import nc.vo.it.m5805.entity.DetailVO;
+import nc.vo.it.m5805.entity.DetailViewVO;
+import nc.vo.pu.pub.util.ArrayUtil;
+import nc.vo.pub.BusinessException;
+import nc.vo.pub.billtype.BilltypeVO;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pubapp.pattern.data.IRowSet;
+import nc.vo.pubapp.pattern.pub.SqlBuilder;
+import nc.vo.trade.billsource.LightBillVO;
+
+public class StoreReqAppDataFinder extends DefaultDataFinder {
+
+  @Override
+  public IBillFlow getBillFlow(String billType) {
+    String billTypeCode = billType;
+    if ("1001ZP1000000005GEZN".equals(billType)) {
+      billTypeCode = "4D14";
+    }
+    // 维修计划4B32
+    else if ("1001Z900000000002213".equals(billType)) {
+      billTypeCode = "4B32";
+    }
+    return super.getBillFlow(billTypeCode);
+  }
+
+  @Override
+  public LightBillVO[] getForwardBills(String srcBillType, String curBillType,
+      String... srcBillID) {
+    if (!"422X".equals(srcBillType) && !"4B36".equals(srcBillType)) {
+      return super.getForwardBills(srcBillType, curBillType, srcBillID);
+    }
+
+    if ("4D".equals(curBillType) || "4455".equals(curBillType)) {
+      return super.getForwardBills(srcBillType, curBillType, srcBillID);
+    }
+
+    SqlBuilder sql = new SqlBuilder();
+    if ("4B36".equals(srcBillType)) {
+      // 主键，组织（未加），编码，单据类型（未加），交易类型编码和主键（无编码），来源id
+      sql.append(" SELECT distinct csourceid2 id, vsourcecode2 code,");
+      sql.append("      csourcetypecode2 type,  vsourcetrantype2 transtypepk,");
+      sql.append("      pk_wo sourceID");
+      sql.append(" FROM   ewm_wo_plan_inv ");
+      sql.append(" WHERE  dr = 0 ");
+      sql.append("    AND pk_wo ", srcBillID);
+      sql.append("    AND csourcetypecode2", curBillType);
+
+      sql.append(" union all ");
+
+      sql.append("select distinct h.pk_storereq id,h.vbillcode code,");
+      sql.append("'20' type,h.ctrantypeid transtypepk,");
+      sql.append(" b.csourceid sourceID");
+      sql.append(" from po_storereq_b b inner join po_storereq h on h.pk_storereq=b.pk_storereq");
+      sql.append(" where b.dr = 0 ");
+      sql.append(" and b.csourceid ", srcBillID);
+      sql.append(" and b.csourcetypecode", "1001Z900000000002215");
+    }
+    else if ("5X".equals(curBillType)) {
+      // 主键，组织（未加），编码，单据类型（未加），交易类型编码和主键（无编码），来源id
+      sql.append("select distinct cfirstid2 id,vfirstcode2 code,");
+      sql.append("cfirsttypecode2 type,vfirsttrantype2 transtypepk,");
+      sql.append(" pk_storereq sourceID");
+      sql.append(" from po_storereq_b where dr = 0 ");
+      sql.append(" and pk_storereq ", srcBillID);
+      sql.append(" and cfirsttypecode2", curBillType);
+    }
+    else if ("20".equals(curBillType)) {
+      // 主键，组织（未加），编码，单据类型（未加），交易类型编码和主键（无编码），来源id
+      sql.append("select distinct csourceid2 id,vsourcecode2 code,");
+      sql.append("csourcetypecode2 type,vsourcetrantype2 transtypepk,");
+      sql.append(" pk_storereq sourceID");
+      sql.append(" from po_storereq_b where dr = 0 ");
+      sql.append(" and pk_storereq ", srcBillID);
+      sql.append(" and csourcetypecode2", curBillType);
+
+      sql.append(" union all ");
+
+      sql.append("select distinct h.pk_praybill id,b.vsourcecode code,");
+      sql.append("'20' type,h.ctrantypeid transtypepk,");
+      sql.append(" b.csourceid sourceID");
+      sql.append(" from po_praybill_b b inner join po_praybill h on h.pk_praybill=b.pk_praybill");
+      sql.append(" where b.dr = 0 ");
+      sql.append(" and h.bislatest", UFBoolean.TRUE);
+      sql.append(" and b.csourceid ", srcBillID);
+      sql.append(" and b.csourcetypecode", "422X");
+    }
+    else {
+      // 主键，组织（未加），编码，单据类型（未加），交易类型编码和主键（无编码），来源id
+      sql.append("select distinct up.csourceid2 id,up.vsourcecode2 code,");
+      sql.append("up.csourcetypecode2 type,up.vsourcetrantype2 transtypepk,");
+      sql.append(" up.pk_storereq sourceID");
+      sql.append(" from po_storereq_b up inner join  ");
+      sql.append(" po_storereq_b down on up.csourceid2=down.pk_storereq and down.dr=0 ");
+      sql.append(" where up.dr = 0 ");
+      sql.append("and up.pk_storereq ", srcBillID);
+      sql.append("and up.csourcetypecode2", curBillType);
+    }
+
+    PersistenceManager sessionManager = null;
+    try {
+      sessionManager = PersistenceManager.getInstance();
+      JdbcSession session = sessionManager.getJdbcSession();
+
+      ArrayList result =
+          (ArrayList) session.executeQuery(sql.toString(),
+              new BeanListProcessor(LightBillVO.class));
+      if (result.size() == 0) {
+        return null;
+      }
+      else {
+        return (LightBillVO[]) result.toArray(new LightBillVO[result.size()]);
+      }
+
+    }
+    catch (DbException e) {
+      Logger.error(e.getMessage(), e);
+      throw new UifRuntimeException("getForwardBills error");
+    }
+    finally {
+      sessionManager.release();
+    }
+  }
+
+  @Override
+  public String[] getForwardBillTypes(String billType) throws BusinessException {
+    // if ("422X".equals(billType)) {
+    // return new String[] {
+    // "422X", "20", "5X", "4455", "4D"
+    // };
+    // }
+    // else {
+    // return super.getForwardBillTypes(billType);
+    // }
+    BilltypeVO billtypeVO = PfDataCache.getBillTypeInfo(billType);
+    if (billtypeVO == null || billtypeVO.getForwardbilltype() == null) {
+      return new String[0];
+    }
+    return billtypeVO.getForwardbilltype().split(",");
+  }
+
+  @Override
+  public LightBillVO[] getSourceBills(String curBillType, String curBillID) {
+    if (!"422X".equals(curBillType)) {
+      return super.getSourceBills(curBillType, curBillID);
+    }
+    LightBillVO[] source = super.getSourceBills(curBillType, curBillID);
+    LightBillVO[] invpsource = this.getInvpSourceBills(curBillType, curBillID);
+    // added by wangzhqf 再联查上游工单【4B36】
+
+    LightBillVO[] m4B36source = null;
+    if (SysInitGroupQuery.isEWMEnabled()) {
+      m4B36source = this.get4B36SourceBills(curBillType, curBillID);
+    }
+    return ArrayUtil.combinArrays(source, invpsource, m4B36source);
+  }
+
+  /**
+   * 来源物资需求申请
+   * <p>
+   * 使用场景：
+   * <ul>
+   * <li>
+   * </ul>
+   * 
+   * @param curBillType
+   * @param curBillID
+   * @return
+   */
+  private LightBillVO[] getInvpSourceBills(String curBillType, String curBillID) {
+    // 来源物资需求申请本身
+    SqlBuilder sqlbuilder = new SqlBuilder();
+    sqlbuilder.append("select distinct head.pk_storereq,head.vbillcode ");
+    sqlbuilder.append(" from po_storereq head ");
+    sqlbuilder
+        .append(" inner join po_storereq_b body on body.pk_storereq = head.pk_storereq ");
+    sqlbuilder.append(" where body.dr = 0 and head.dr = 0 ");
+    sqlbuilder.append(" and body.csourcetypecode2", "422X");
+    sqlbuilder.append(" and body.csourceid2 = ?");
+
+    PersistenceManager sessionManager = null;
+    try {
+      sessionManager = PersistenceManager.getInstance();
+      JdbcSession session = sessionManager.getJdbcSession();
+      SQLParameter para = new SQLParameter();
+      para.addParam(curBillID);
+
+      ResultSetProcessor p = new ResultSetProcessor() {
+        @Override
+        @SuppressWarnings("unchecked")
+        public Object handleResultSet(ResultSet rs) throws SQLException {
+          ArrayList al = new ArrayList();
+          while (rs.next()) {
+            String id = rs.getString(1);
+            String code = rs.getString(2);
+            if (id != null && id.trim().length() > 0) {
+              LightBillVO svo = new LightBillVO();
+              svo.setType("422X");
+              svo.setID(id);
+              svo.setCode(code);
+              al.add(svo);
+            }
+          }
+          return al;
+        }
+      };
+      ArrayList<LightBillVO> result =
+          (ArrayList<LightBillVO>) session.executeQuery(sqlbuilder.toString(),
+              para, p);
+      if (result.size() == 0) {
+        return null;
+      }
+      // 增补上游单据号
+      for (LightBillVO vo : result) {
+        List<String> info = this.getBillCodeAndCorp(vo.getType(), vo.getID());
+        if (info != null) {
+          vo.setCode(info.get(0));
+          vo.setCorp(info.get(1));
+        }
+      }
+      return result.toArray(new nc.vo.trade.billsource.LightBillVO[result
+          .size()]);
+    }
+    catch (DbException e) {
+      Logger.error(e.getMessage(), e);
+      throw new UifRuntimeException(e.getMessage());
+    }
+    finally {
+      sessionManager.release();
+    }
+  }
+
+  /**
+   * 联查上游工单【4B36】
+   * 
+   * @param curBillType
+   * @param curBillID
+   * @return
+   */
+  private LightBillVO[] get4B36SourceBills(String curBillType, String curBillID) {
+    List<LightBillVO> result = new ArrayList<LightBillVO>();
+    DataAccessUtils utils = new DataAccessUtils();
+    StringBuffer sb =
+        new StringBuffer(
+            " select wo_head.PK_WO,wo_head.BILL_CODE,wo_head.PK_GROUP ");
+    sb.append(" from ewm_wo wo_head inner join EWM_WO_PLAN_INV wo_planinv ");
+    sb.append(" on wo_planinv.PK_WO = wo_head.PK_WO ");
+    sb.append(" where wo_head.dr = 0 and wo_planinv.dr = 0 ");
+    sb.append(" and wo_planinv.CSOURCEID2='").append(curBillID).append("' ");
+    sb.append(" and wo_planinv.CSOURCETYPECODE2='").append(curBillType)
+        .append("' ");
+    IRowSet set = utils.query(sb.toString());
+    // 为空，就直接返回
+    if (set.size() == 0) {
+      return null;
+    }
+
+    String[][] idss = set.toTwoDimensionStringArray();
+    for (int i = 0; i < idss.length; i++) {
+      LightBillVO lightvo = new LightBillVO();
+      lightvo.setType("4B36");
+      lightvo.setID(idss[i][0]);
+      lightvo.setCode(idss[i][1]);
+      lightvo.setCorp(idss[i][2]);
+      result.add(lightvo);
+    }
+    return result
+        .toArray(new nc.vo.trade.billsource.LightBillVO[result.size()]);
+  }
+}

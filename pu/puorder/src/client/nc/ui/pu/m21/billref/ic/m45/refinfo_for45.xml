@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<import resource="classpath:nc/ui/pu/m21/billref/ref21_userdef.xml" />
+	
+	<bean id="queryAction" class="nc.ui.pu.m21.billref.ic.m45.OrderQueryActionFor45">
+		<property name="refContext" ref="refContext" />
+	</bean>
+	
+	<bean id="refreshAction"
+		class="nc.ui.pu.m21.billref.ic.m45.OrderRefreshActionFor45">
+		<property name="refContext" ref="refContext"></property>
+	</bean>
+	
+	<!-- 转单参照单据信息 -->
+	<bean id="refInfo" class="nc.ui.pu.m21.billref.ic.m45.OrderRefInfoFor45">
+	
+	<property name="userdefitemListPreparator" ref="userdefitemListPreparator" />
+	<property name="singleUserdefitemListPreparator" ref="singleUserdefitemListPreparator" />
+		<property name="billVO">
+			<bean class="nc.vo.pu.m21.entity.OrderVO">
+			</bean>
+		</property>
+		<property name="headVO">
+			<bean class="nc.vo.pu.m21.entity.OrderHeaderVO">
+			</bean>
+		</property>
+		<property name="bodyVO">
+			<bean class="nc.vo.pu.m21.entity.OrderItemVO">
+			</bean>
+		</property>
+		<property name="viewVO">
+			<bean class="nc.vo.pu.m21.entity.OrderViewVO">
+			</bean>
+		</property>
+		<property name="billNodeKey" value="40040400RC"/> 
+		<property name="billViewNodeKey" value="40040400RL"/>
+		<property name="sourcevoPkName" value="pk_order"></property>
+		<property name="sourcevoBillNOName" value="vbillcode"></property>
+
+		<!-- 单据参照UI初始化处理器，可以处理精度，显示或其它-->
+		<property name="refPanelInit">
+			<bean class="nc.ui.pu.m21.billref.M21RefUIInit" />
+		</property>
+		<property name="fakePKUsed"  value="true"/>
+	</bean>
+</beans>

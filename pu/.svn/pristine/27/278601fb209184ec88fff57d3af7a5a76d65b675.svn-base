@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 消息中心打开的节点时处理 -->
+   <bean id="InitDataListener" class="nc.ui.pubapp.uif2app.model.DefaultFuncNodeInitDataListener">
+       <property name="context" ref="context"/>
+       <property name="model" ref="manageAppModel"/>
+         <property name="queryAction" ref="queryAction" />
+          <property name="voClassName" value="nc.vo.pu.m20.entity.PraybillVO"/>
+       <property name="autoShowUpComponent" ref="billFormEditor"/>
+       <property name="processorMap">
+		      <map>
+		        <entry key = "36">
+		            <bean id ="initProcessor" class ="nc.ui.pu.m20.billref.am.m4b36.InitDataProcessor">
+		           		 <property name="processor" ref="transferViewProcessor"/>
+                	</bean>
+		        </entry>
+		        <entry key = "19">
+	                <bean id ="initProcessorm30" class ="nc.ui.pu.m20.billref.so.m30.M30InitDataProcessor">
+	              		  <property name="processor" ref="transferViewProcessor"/>
+	                </bean>
+           		 </entry>
+           		 <entry key = "48"><!-- 维修计划 -->
+	                <bean id ="initProcessorm4b32" class ="nc.ui.pu.m20.billref.ewm.m4b32.M4B32InitDataProcessor">
+	              		  <property name="processor" ref="transferViewProcessor"/>
+	                </bean>
+           		 </entry>
+               <entry key = "55">
+	                <bean id ="initProcessorm52A1" class ="nc.ui.pu.m20.billref.m52A1.M52A1InitDataProcessor">
+	               		 <property name="model" ref="manageAppModel"/>
+	               		 <property name="listview" ref="listView"/>
+	               		 <property name="billFormEditor" ref="billFormEditor"/>
+	                </bean>
+            	</entry>
+            	<entry key = "40">
+	                <bean id ="initProcessormTbb" class ="nc.ui.pu.m20.billref.tbb.TbbInitDataProcessor">
+	               		 <property name="model" ref="manageAppModel"/>
+	                </bean>
+            	</entry>
+            	<entry key = "89"><!-- 查询多PK联查 -->
+	                <bean id ="PUMutiPkLinkQueryProcessor" class ="nc.ui.pu.billref.PUMutiPkLinkQueryProcessor">
+	               		  <property name="model" ref="manageAppModel"></property>
+						 <property name="autoShowUpComponent" ref="listView" />
+						 <property name="voClass" value="nc.vo.pu.m20.entity.PraybillVO" />
+	                </bean>
+            	</entry>
+            	
+            	<entry key = "470"><!-- 库存计划计划订单 -->
+	                <bean id ="initProcessorm4F" class ="nc.ui.pu.m20.billref.invp.m4f.InitDataProcessor4Fto20">
+	               		  <property name="processor" ref="transferViewProcessor"/>
+	                </bean>
+            	</entry>
+            	<entry key = "426"><!-- 项目 -->
+	                <bean id ="initProcessorm4D26" class ="nc.ui.pu.billref.PuInitDataProcessor">
+	               		  <property name="processor" ref="transferViewProcessor"/>
+	                </bean>
+            	</entry>
+		      </map>
+    </property>
+   </bean>
+</beans>

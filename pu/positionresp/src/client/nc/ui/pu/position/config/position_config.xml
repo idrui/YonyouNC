@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="true">
+	<import resource="position_action.xml" />
+	<import resource="position_editor.xml" />
+  
+  <!-- 环境变量 -->
+  <bean id="context" class="nc.vo.uif2.LoginContext" />
+
+  <!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+  <bean id="boadatorfactory"
+    class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+
+	<!--
+		模型部分配置###########################################################
+	-->
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="manageModelService" class="nc.ui.pu.position.model.PositionModelService">
+	  <property name="context" ref="context"></property>
+	</bean>
+  <!-- 管理应用模型 -->
+  <bean id="manageAppModel" class="nc.ui.pubapp.uif2app.model.BillListManageModel">
+    <property name="service" ref="manageModelService"></property>
+    <property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+    <property name="context" ref="context"></property>
+  </bean>
+
+  <!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+  <bean id="modelDataManager" class="nc.ui.pu.position.model.PositionModelDataManager">
+
+    <property name="model" ref="manageAppModel"></property>
+    <property name="service" ref="manageModelService"></property>
+  </bean>
+
+   <!-- 界面元素 ###########################################################-->
+  <!-- 组织面板 -->
+  <bean id="orgPanel" class="nc.ui.pubapp.uif2app.view.OrgPanel" init-method="initUI">
+    <property name="model" ref="manageAppModel" />
+    <!-- 输入组织类型，值与各种参照的值相同 -->
+    <!--<property name="type" value="库存组织"/>
+    --><property name="dataManager" ref="modelDataManager"/>
+  </bean>
+  
+	 <!-- 节点关闭校验 -->
+  <bean id="ClosingListener" class="nc.ui.pubapp.common.validateservice.ClosingCheck">
+    <property name="model" ref="manageAppModel"/>
+    <property name="saveAction" ref="saveAction"/>
+  </bean>
+  
+
+  <bean id="trantypeTempMender"   class="nc.ui.pubapp.uif2app.funcnode.trantype.TrantypeBillTemplateMender">
+    <constructor-arg ref="context" />
+  </bean>
+  <!-- 模板容器，负责对模板的统一装载 -->
+  <bean id="templateContainer" class="nc.ui.pubapp.uif2app.view.TemplateContainer"
+    init-method="load">
+    <property name="context" ref="context" />
+    <property name="billTemplateMender" ref="trantypeTempMender"></property>
+  </bean>
+ 
+  <!-- 界面元素 ###########################################################-->
+  <!-- 列表视图 -->
+  <bean id="list" class="nc.ui.pu.position.view.PositionListEditor"
+    init-method="initUI">
+    <property name="model" ref="manageAppModel"></property>
+    <property name="multiSelectionEnable" value="true" />
+    <property name="eventHandler" ref="editEventHandler" />
+    <property name="templateContainer" ref="templateContainer"></property>
+    <property name="componentValueManager">
+      <bean class="nc.ui.pubapp.uif2app.view.value.BillListPanelValueManager">
+        <property name="model" ref="manageAppModel"></property>
+      </bean>
+    </property>
+  </bean>
+
+  <!-- 前台校验服务类，保存前负责进行数据校验 -->
+  <bean id="uiValidationSrv" class="nc.bs.uif2.validation.DefaultValidationService">
+    <property name="validators">
+      <list>
+        <bean class="nc.ui.pubapp.uif2app.validation.billlist.NotNullValidator">
+          <property name="listEditor" ref="list" />
+        </bean>
+      </list>
+    </property>
+  </bean>
+
+  <!--
+    界面布局总装###########################################################
+  -->
+  <bean id="container" class="nc.ui.uif2.TangramContainer"
+    init-method="initUI">
+     <property name="constraints">
+      <list>
+      <bean id="down" class="nc.ui.uif2.tangramlayout.TangramLayoutConstraint">
+        <property name="newComponent" ref="list"></property>
+      </bean>
+      <bean id="up" class="nc.ui.uif2.tangramlayout.TangramLayoutConstraint">
+           <property name="newComponent" ref="orgPanel"></property>
+           <property name="targetComponent" ref="list"></property>
+         <property name="direction" value="up"></property>
+           <property name="dividerLocation" value="30"></property>
+        </bean>
+      </list>
+    </property>
+    <property name="editActions">
+      <list>
+        <ref bean="saveAction" />
+        <!-- 分割 -->
+        <ref bean="separatorAction" />
+        <ref bean="cancelAction" />
+        <!-- 分割 -->
+        <ref bean="separatorAction" />
+        <ref bean="lineMenuAction" />      
+      </list>
+    </property>
+    <!-- 此处配置的Action始终可见 -->
+    <property name="actions">
+      <list>
+        <ref bean="addAction" />
+        <ref bean="editAction" />
+        <ref bean="deleteAction" />
+        <!-- 分割 -->
+        <ref bean="separatorAction" />
+        <ref bean="refreshAction" />
+      </list>
+    </property>
+    <property name="model" ref="manageAppModel"></property>
+  </bean>
+  
+
+</beans>

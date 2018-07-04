@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+	<public>
+		<!-- 请购单交易类型查询服务  对外提供 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m20transtype.IBuyrTransTypeQuery</interface>
+			<implementation>nc.pubimpl.pu.m20transtype.BuyrTransTypeQueryImpl</implementation>
+		</component>
+		<!-- 采购订单交易类型查询服务  对外提供 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21transtype.IPoTransTypeQuery</interface>
+			<implementation>nc.vo.pu.pub.pubimpl.PoTransTypeQueryImpl</implementation>
+			<extension class="nc.bs.framework.server.ClientWeaverExtensionProcessor">
+				<wrapWeaver>
+					<wrapper>nc.vo.pu.pub.pubimpl.PoTransTypeQueryImpl</wrapper>
+				</wrapWeaver>
+			</extension>
+		</component>
+		<!-- 采购发票交易类型查询服务  对外提供 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m25transtype.IQueryTranstype</interface>
+			<implementation>nc.pubimpl.pu.m25transtype.QueryM25TranstypeImpl</implementation>
+		</component>
+		<!-- 自动结算规则 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.settle.IAutoSettleRule</interface>
+			<implementation>nc.impl.pu.settle.AutoSettleRuleImpl</implementation>
+		</component>
+		<!-- VAT -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.vat.IVATInfoQuery</interface>
+			<implementation>nc.impl.pu.vat.VATInfoQueryImpl</implementation>
+		</component>
+		<!--分页 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.pub.IPuMaintainApp</interface>
+			<implementation>nc.impl.pu.pub.PuMaintainAppImpl</implementation>
+		</component>
+		
+		<component priority="0" remote="true" singleton="true" tx="CMT" supportAlias="true">
+		  <interface>nc.itf.pu.IOasplwhqMaintain</interface>
+		  <implementation>nc.impl.pu.OasplwhqMaintainImpl</implementation>
+		</component>
+		
+		
+	</public>
+
+</module>

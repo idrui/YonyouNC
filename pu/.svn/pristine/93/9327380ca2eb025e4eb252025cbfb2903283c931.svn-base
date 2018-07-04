@@ -1,0 +1,9 @@
+DELETE FROM pub_bcr_candiattr WHERE pk_nbcr = '0001Z3100000000099KC';
+DELETE FROM pub_bcr_elem WHERE pk_billcodebase in ( select pk_billcodebase from pub_bcr_RuleBase where nbcrcode = 'JT01' );
+DELETE FROM pub_bcr_RuleBase WHERE nbcrcode = 'JT01';
+DELETE FROM pub_bcr_nbcr WHERE pk_nbcr = '0001Z3100000000099KC';
+DELETE FROM pub_bcr_OrgRela WHERE pk_billcodebase = '0001Z3100000000099KD';
+DELETE FROM pub_bcr_RuleBase WHERE pk_billcodebase = '0001Z3100000000099KD';
+DELETE FROM pub_bcr_elem WHERE pk_billcodeelem = '0001Z3100000000099KE';
+DELETE FROM pub_bcr_elem WHERE pk_billcodeelem = '0001Z3100000000099KF';
+DELETE FROM pub_bcr_elem WHERE pk_billcodeelem = '0001Z3100000000099KG';

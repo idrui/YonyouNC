@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<description>
+		该配置文件包括了所有的通用按钮的按钮事件的Bean定义。
+		在各个单据的节点配置文件中，如果按钮逻辑没有变化，只需要import该配置文件就行了。
+	</description>
+
+	<!--
+		Actions ###########################################################
+	-->
+	<bean id="addAction" class="nc.ui.pubapp.uif2app.actions.billlist.AddAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<bean id="costShowOrderAction" class="nc.ui.pu.costfactor.action.CostShowOrderAction">
+      <property name="model" ref="manageAppModel"/>
+      <property name="list" ref="list"/>
+      <property name="modelDataManager" ref="modelDataManager"/>
+      
+     </bean>
+	<bean id="editAction" class="nc.ui.pubapp.uif2app.actions.billlist.EditAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 列表下刷新 -->
+	<bean id="refreshAction" class="nc.ui.pu.costfactor.action.CostFactorRefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<bean id="saveAction" class="nc.ui.pu.costfactor.action.CostFactorSaveAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="validationService" ref="uiValidationSrv" />
+		<property name="editor" ref="list" />
+	</bean>
+	<bean id="cancelAction" class="nc.ui.pu.costfactor.action.CostFactorCancelAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="list" />
+	</bean>
+	<bean id="addLineAction" class="nc.ui.pu.costfactor.action.CostFactorAddLineAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listEditor" ref="list" />
+	</bean>
+	<bean id="delLineAction" class="nc.ui.pu.costfactor.action.CostFactorDelLineAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listEditor" ref="list" />
+	</bean>
+	<!-- 分割 -->
+    <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	<!--需求去掉
+	<bean id="deleteAction" class="nc.ui.pu.costfactor.action.CostFactorDeleteAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="list" />
+	</bean>
+    -->
+</beans>

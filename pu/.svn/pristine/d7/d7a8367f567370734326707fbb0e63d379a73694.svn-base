@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding='gb2312'?>
+	<items docType="SDP_SCRIPT_ITEM">
+	<item>
+		<itemKey>0001</itemKey>
+		<itemName>单据类型</itemName>
+		<itemRule>bd_billtype</itemRule>
+		<sysField>systemcode</sysField>
+		<corpField></corpField>
+		<grpField>pk_billtypecode</grpField>
+		<fixedWhere>systemcode='PO'  and (pk_billtypecode in('21') or PARENTBILLTYPE in('21') and  pk_group ='global00000000000000') </fixedWhere>
+	</item>
+	<!-- <item>
+		<itemKey>0002</itemKey>
+		<itemName>系统类型</itemName>
+		<itemRule>dap_dapsystem</itemRule>
+		<sysField>systypecode</sysField>
+		<corpField></corpField>
+		<grpField>systypecode</grpField>
+		<fixedWhere>systypecode='PO'</fixedWhere>
+	</item>
+	
+	<item>
+		<itemKey>0003</itemKey>
+		<itemName>业务类型</itemName>
+		<itemRule>bd_busitype</itemRule>
+		<sysField></sysField>
+		<corpField>pk_corp</corpField>
+		<grpField>busicode</grpField>
+		<fixedWhere>busicode in ('c001','c002','c005','c007','c008') and pk_corp='0001'</fixedWhere>
+	</item>
+	放pub组件下
+	-->
+	<!--
+	<item>
+		<itemKey>0004</itemKey>
+		<itemName>科目分录</itemName>
+		<itemRule>dap_insubjclass</itemRule>
+		<sysField>pk_billtype</sysField>
+		<corpField>pk_corp</corpField>
+		<grpField></grpField>
+		<fixedWhere>1=2</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0005</itemKey>
+		<itemName>凭证模版</itemName>
+		<itemRule>dap_vouchtemp</itemRule>
+		<sysField>pk_sys</sysField>
+		<corpField>pk_corp</corpField>
+		<grpField>pk_proc</grpField>
+		<fixedWhere>1=2</fixedWhere>
+	</item>
+	-->
+	<item>
+		<itemKey>0007</itemKey>
+		<itemName>单据模版</itemName>
+		<itemRule>pub_billtemplet</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>nodecode</grpField>
+		<fixedWhere> 
+		(nodecode in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418') 
+		or nodecode like '400406%')
+		and (bill_templetname='SYSTEM' or pk_corp = '@@@@') and (modulecode like '4004%' or modulecode='PO')
+		</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0008</itemKey>
+		<itemName>查询模版</itemName>
+		<itemRule>pub_query_templet</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>node_code</grpField>
+		<fixedWhere>(pk_corp='@@@@' and node_code  in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418')) 
+			or (pk_corp='@@@@' and node_code  like '400406%')</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0009</itemKey>
+		<itemName>打印模版</itemName>
+		<itemRule>pub_print_template</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>vnodecode</grpField>
+		<fixedWhere>(pk_corp='@@@@' and vnodecode  in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418')) 
+			or (pk_corp='@@@@' and vnodecode  like '400406%')</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0010</itemKey>
+		<itemName>报表模版</itemName>
+		<itemRule>pub_report_templet</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>parent_code</grpField>
+		<fixedWhere>(pk_corp='@@@@' and node_code  in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418')) 
+			or (pk_corp='@@@@' and node_code  like '400406%')</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0012</itemKey>
+		<itemName>默认模版</itemName>
+		<itemRule>pub_systemplate_base</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>funnode</grpField>
+		<fixedWhere>(funnode in('400404','40040400','40040402','40040404','40040407','40040406','40040408','40040410','40040412','40040414','40040416','40040418') or (funnode like '400406%')) </fixedWhere>
+	</item>
+	<!--
+	<item>
+		<itemKey>0011</itemKey>
+		<itemName>参数设置</itemName>
+		<itemRule>pub_sysinit</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>initcode like 'PO%'</fixedWhere>
+	</item>
+	
+	<item>
+		<itemKey>0013</itemKey>
+		<itemName>参数模板</itemName>
+		<itemRule>pub_sysinittemp</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>initcode like 'PO%'</fixedWhere>
+	</item>
+	放pub组件下
+	-->
+	<item>
+		<itemKey>0014</itemKey>
+		<itemName>功能节点</itemName>
+		<itemRule>sm_funcregister</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>( funcode in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418')  or (funcode like '400406%'))</fixedWhere>
+	</item>
+	<item>
+		<itemKey>0017</itemKey>
+		<itemName>快捷键</itemName>
+		<itemRule>pub_hotkeyregister</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere> ( fun_code in('400404','40040400','40040402','40040404','40040406','40040407','40040408','40040410','40040412','40040414','40040416','40040418')  or (fun_code like '400406%'))</fixedWhere>
+	</item>
+	<!--
+	<item>
+		<itemKey>0016</itemKey>
+		<itemName>单据号规则</itemName>
+		<itemRule>pub_bcr_rulebase</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere> nbcrcode = '21'  and pk_group ='presetdatagrouppk000' </fixedWhere>
+	</item>
+
+	<item>
+		<itemKey>0018</itemKey>
+		<itemName>引用关系</itemName>
+		<itemRule>bd_ref_relation</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>crefid like 'PU%'</fixedWhere>
+	</item>
+	
+	<item>
+		<itemKey>0020</itemKey>
+		<itemName>节点-模块对应关系</itemName>
+		<itemRule>sm_codetocode</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>funccode='4004'</fixedWhere>
+	</item>
+	
+	<item>
+		<itemKey>0022</itemKey>
+		<itemName>基本档案回调接口</itemName>
+		<itemRule>bd_interfaceexec</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>interfaceclassname like '%.pu.%'</fixedWhere>
+	</item>
+		放pub组件下
+	-->
+	<item>
+		<itemKey>0027</itemKey>
+		<itemName>预警类型</itemName>
+		<itemRule>pub_alerttype</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>belong_system='pu' and busi_plugin like '%m21%'</fixedWhere>
+	</item>
+	
+	<item>
+		<itemKey>00271</itemKey>
+		<itemName>消息模板类型</itemName>
+		<itemRule>PUB_MSGTEMP_TYPE</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>tempcode like 'alert400404%' or tempcode like '%_pu_m21' or tempcode = '21'</fixedWhere>
+	</item>
+	<item>
+		<itemKey>00272</itemKey>
+		<itemName>消息模板</itemName>
+		<itemRule>PUB_MSGTEMP</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>tempcode like 'alert400404%' or typecode like '%_pu_m21' or typecode = '21'</fixedWhere>
+	</item>
+	<item>
+		<itemKey>00272</itemKey>
+		<itemName>消息模板项目设置</itemName>
+		<itemRule>pub_print_template</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>pk_corp like '%@@@@%' and CTEMPLATEID in (select PK_OUTTEMPLET from PUB_MSGTEMP where tempcode like 'alert400404%')</fixedWhere>
+	</item>
+
+	<item>
+		<itemKey>0040</itemKey>
+		<itemName>单据号对象</itemName>
+		<itemRule>pub_bcr_nbcr</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>code = '21'</fixedWhere>
+	</item>
+	<!--
+	<item>
+		<itemKey>BD131</itemKey>
+		<itemName>业务处理[会计平台]</itemName>
+		<itemRule>pub_busitrans</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>usesyscode='pu'</fixedWhere>
+	</item>
+	-->
+	<!--
+	<item>
+	    <itemKey>BD132</itemKey>
+	    <itemName>元数据注册(md_module)</itemName>
+	    <itemRule>md_module</itemRule>
+	    <sysField></sysField>
+	    <corpField></corpField>
+	    <grpField></grpField>
+	    <fixedWhere>
+	      id in ('pu')
+	    </fixedWhere>
+  	</item>
+  	放pub组件下
+	-->
+	<item>
+		 <itemKey>BD134</itemKey>
+		 <itemName>数据交换</itemName>
+		 <itemRule>pub_vochange</itemRule>
+		 <sysField></sysField>
+		 <corpField></corpField>
+		 <grpField></grpField>
+		 <fixedWhere>dest_billtype = '21' and pk_group ='global00000000000000'</fixedWhere>
+	</item>
+	<!--
+	<item>
+		<itemKey>BD160</itemKey>
+		<itemName>参照注册</itemName>
+		<itemRule>bd_refinfo</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField>code</grpField>
+		<fixedWhere>module in ('pu')</fixedWhere>
+	</item>
+	-->
+	<item>
+	  <itemKey>BD169</itemKey>
+	  <itemName>自定义菜单</itemName>
+	  <itemRule>SM_MENUITEMREG</itemRule>
+	  <sysField></sysField>
+	  <corpField></corpField>
+	  <grpField></grpField>
+	  <fixedWhere> ( MENUITEMCODE like '400404%'  or (MENUITEMCODE like '400406%'))</fixedWhere>
+ 	</item>
+ 	
+ 	<item>
+	  <itemKey>BD170</itemKey>
+	  <itemName>上下游接口对应关系</itemName>
+	  <itemRule>pub_billitfdef</itemRule>
+	  <sysField></sysField>
+	  <corpField></corpField>
+	  <grpField></grpField>
+	  <fixedWhere>pk_group='global00000000000000' and dest_billtype='21'</fixedWhere>
+ 	</item>
+
+	<item>
+	  <itemKey>BD171</itemKey>
+	  <itemName>分单条件</itemName>
+	  <itemRule>pub_vosplititem</itemRule>
+	  <sysField></sysField>
+	  <corpField></corpField>
+	  <grpField></grpField>
+	  <fixedWhere>dest_billtype = '21'</fixedWhere>
+ 	</item>
+
+	
+	<item>
+	 <itemKey>0100</itemKey>
+	 <itemName>事件类型</itemName>
+	 <itemRule>pub_eventtype</itemRule>
+	 <sysField></sysField>
+	 <corpField></corpField>
+	 <grpField></grpField>
+	 <fixedWhere> (sourceid='8a2b1c3f-0185-40f6-b4a1-eb9d1733ebcf' or sourceid='51d94a40-72b9-49ee-a709-0a61b2b3c98d') </fixedWhere>
+	</item>
+
+	<item>
+		<itemKey>attrpower</itemKey>
+		<itemName>权限过滤树</itemName>
+		<itemRule>md_attr_power</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField>
+		<fixedWhere>beanid='8a2b1c3f-0185-40f6-b4a1-eb9d1733ebcf'</fixedWhere>
+	</item>
+	
+	   <item>
+		<itemKey>0015</itemKey>
+		<itemName>业务规则注册</itemName>
+		<itemRule>pub_pluginitem</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField><!-- 采购订单暂存后台业务规则 -->
+		<fixedWhere> pk_pluginitem in ('1001Z8ORDERTEMPSAVE2', '1001Z8ORDERTEMPSAVE1')</fixedWhere>
+	</item>
+
+	<item>
+		<itemKey>scm_smconfig</itemKey>
+		<itemName>暂存摘要配置</itemName>
+		<itemRule>scm_smconfig</itemRule>
+		<sysField></sysField>
+		<corpField></corpField>
+		<grpField></grpField><!-- 请购单暂存后台业务规则 -->
+		<fixedWhere>pk_group = 'global00000000000000' and funcode in ('40040400')</fixedWhere>
+	</item>
+
+</items>

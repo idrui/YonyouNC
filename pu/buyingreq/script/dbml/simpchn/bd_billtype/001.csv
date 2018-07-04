@@ -1,0 +1,5 @@
+bd_billtype
+pk_billtypeid,billtypename
+20,请购单
+1001Z81000000000199D,普通请购
+2Q,请购单修订

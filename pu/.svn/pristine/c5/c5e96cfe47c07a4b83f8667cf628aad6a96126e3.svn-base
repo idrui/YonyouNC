@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="proscheme/classes" path="proscheme/src/public"/>
+	<classpathentry kind="src" output="proscheme/classes" path="proscheme/src/client"/>
+	<classpathentry kind="src" output="proscheme/classes" path="proscheme/src/private"/>
+	<classpathentry kind="src" output="proscheme/classes" path="proscheme/resources"/>
+	<classpathentry kind="src" output="oasp/classes" path="oasp/src/public"/>
+	<classpathentry kind="src" output="oasp/classes" path="oasp/src/client"/>
+	<classpathentry kind="src" output="oasp/classes" path="oasp/src/private"/>
+	<classpathentry kind="src" output="oasp/classes" path="oasp/resources"/>
+	<classpathentry kind="src" output="api/classes" path="api/src/public"/>
+	<classpathentry kind="src" output="api/classes" path="api/src/test"/>
+	<classpathentry kind="src" output="api/classes" path="api/src/private"/>
+	<classpathentry kind="src" output="buyingreq/classes" path="buyingreq/src/public"/>
+	<classpathentry kind="src" output="buyingreq/classes" path="buyingreq/src/client"/>
+	<classpathentry kind="src" output="buyingreq/classes" path="buyingreq/src/private"/>
+	<classpathentry kind="src" output="buyingreq/classes" path="buyingreq/src/test"/>
+	<classpathentry kind="src" output="buyingreq/classes" path="buyingreq/resources"/>
+	<classpathentry kind="src" output="positionresp/classes" path="positionresp/src/public"/>
+	<classpathentry kind="src" output="positionresp/classes" path="positionresp/src/client"/>
+	<classpathentry kind="src" output="positionresp/classes" path="positionresp/src/private"/>
+	<classpathentry kind="src" output="positionresp/classes" path="positionresp/src/test"/>
+	<classpathentry kind="src" output="positionresp/classes" path="positionresp/resources"/>
+	<classpathentry kind="src" output="puarrival/classes" path="puarrival/src/public"/>
+	<classpathentry kind="src" output="puarrival/classes" path="puarrival/src/client"/>
+	<classpathentry kind="src" output="puarrival/classes" path="puarrival/src/private"/>
+	<classpathentry kind="src" output="puarrival/classes" path="puarrival/src/test"/>
+	<classpathentry kind="src" output="puarrival/classes" path="puarrival/resources"/>
+	<classpathentry kind="src" output="pub/classes" path="pub/src/public"/>
+	<classpathentry kind="src" output="pub/classes" path="pub/src/client"/>
+	<classpathentry kind="src" output="pub/classes" path="pub/src/private"/>
+	<classpathentry kind="src" output="pub/classes" path="pub/src/test"/>
+	<classpathentry kind="src" output="pub/classes" path="pub/resources"/>
+	<classpathentry kind="src" output="puinvoice/classes" path="puinvoice/src/public"/>
+	<classpathentry kind="src" output="puinvoice/classes" path="puinvoice/src/client"/>
+	<classpathentry kind="src" output="puinvoice/classes" path="puinvoice/src/private"/>
+	<classpathentry kind="src" output="puinvoice/classes" path="puinvoice/src/test"/>
+	<classpathentry kind="src" output="puinvoice/classes" path="puinvoice/resources"/>
+	<classpathentry kind="src" output="puorder/classes" path="puorder/src/public"/>
+	<classpathentry kind="src" output="puorder/classes" path="puorder/src/client"/>
+	<classpathentry kind="src" output="puorder/classes" path="puorder/src/private"/>
+	<classpathentry kind="src" output="puorder/classes" path="puorder/src/test"/>
+	<classpathentry kind="src" output="puorder/classes" path="puorder/resources"/>
+	<classpathentry kind="src" output="pureport/classes" path="pureport/src/public"/>
+	<classpathentry kind="src" output="pureport/classes" path="pureport/src/client"/>
+	<classpathentry kind="src" output="pureport/classes" path="pureport/src/private"/>
+	<classpathentry kind="src" output="pureport/classes" path="pureport/src/test"/>
+	<classpathentry kind="src" output="pureport/classes" path="pureport/resources"/>
+	<classpathentry kind="src" output="pusettlement/classes" path="pusettlement/src/public"/>
+	<classpathentry kind="src" output="pusettlement/classes" path="pusettlement/src/client"/>
+	<classpathentry kind="src" output="pusettlement/classes" path="pusettlement/src/private"/>
+	<classpathentry kind="src" output="pusettlement/classes" path="pusettlement/src/test"/>
+	<classpathentry kind="src" output="pusettlement/classes" path="pusettlement/resources"/>
+	<classpathentry kind="src" output="qualityprice/classes" path="qualityprice/src/public"/>
+	<classpathentry kind="src" output="qualityprice/classes" path="qualityprice/src/client"/>
+	<classpathentry kind="src" output="qualityprice/classes" path="qualityprice/src/private"/>
+	<classpathentry kind="src" output="qualityprice/classes" path="qualityprice/resources"/>
+	<classpathentry kind="src" output="storereq/classes" path="storereq/src/public"/>
+	<classpathentry kind="src" output="storereq/classes" path="storereq/src/client"/>
+	<classpathentry kind="src" output="storereq/classes" path="storereq/src/private"/>
+	<classpathentry kind="src" output="storereq/classes" path="storereq/resources"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/SCM_IC"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/EI_LM"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Ant_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Product_Common_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Middleware_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Framework_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Module_Public_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Module_Client_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Module_Private_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Module_Lang_Library"/>
+	<classpathentry kind="con" path="com.yonyou.studio.udt.core.container/Generated_EJB"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

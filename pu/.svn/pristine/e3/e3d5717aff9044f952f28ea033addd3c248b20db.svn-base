@@ -1,0 +1,72 @@
+/**   
+ * Copyright  2018 Yonyou. All rights reserved.
+ * @Description: TODO
+ * @author: wangzy   
+ * @date: 2018年3月22日 下午3:33:51 
+ * @version: V6.5   
+ */
+package nc.ui.pu.cgfa.action;
+
+import java.awt.event.ActionEvent;
+import java.util.List;
+
+import nc.bs.framework.common.NCLocator;
+import nc.itf.pubapp.pub.smart.IBillQueryService;
+import nc.ui.pubapp.uif2app.actions.pflow.CommitScriptAction;
+import nc.ui.uif2.model.BillManageModel;
+import nc.vo.bd.meta.IBDObject;
+import nc.vo.pubapp.pattern.model.entity.bill.AbstractBill;
+
+/**
+ * @Description: 由于提交或者审核后显示到界面的blob值不对，所以调刷新方法
+ *               （实际需要改底层BillUpdate的实现，涉及到的问题太多，先不改了）
+ * @author: wangzy
+ * @date: 2018年3月22日 下午3:33:51
+ */
+public class CgfaSendApprove extends CommitScriptAction {
+
+	@Override
+	public void doAction(ActionEvent e) throws Exception {
+		// TODO 自动生成的方法存根
+		super.doAction(e);
+		// 刷新一下界面
+		//在后台处理，不放在前台 王梓懿 2018-06-11
+		//reFreshDate(this.getModel());
+	}
+
+	/**
+	 * @Title: reFreshDate
+	 * @Description: 弥补平台问题
+	 * 写一个公共适用的方法大家来调取
+	 * @throws Exception
+	 * @return: void
+	 */
+	public static void reFreshDate(BillManageModel bmModel) throws Exception {
+		Object data = bmModel.getSelectedData();
+		if (data == null) {
+			return;
+		}
+		String pk = "";
+		int i = 0;
+		Class<AbstractBill> clazz = null;
+		IBDObject target = bmModel.getBusinessObjectAdapterFactory()
+				.createBDObject(data);
+		pk = (String) target.getId();
+		clazz = (Class<AbstractBill>) data.getClass();
+		if (clazz == null) {
+			return;
+		}
+
+		// 注意：下面的写法只是暂时的写法，为了暂时完成CQ问题，这段代码以后肯定要修改的，在等待批查的接口
+		// 否则会影响效率，产生很多连接数
+		IBillQueryService billQuery = NCLocator.getInstance().lookup(
+				IBillQueryService.class);
+		AbstractBill bills = billQuery.querySingleBillByPk(clazz, pk);
+
+		if (bills == null) {
+			return;
+		}
+		bmModel.directlyUpdate(bills);
+	}
+
+}

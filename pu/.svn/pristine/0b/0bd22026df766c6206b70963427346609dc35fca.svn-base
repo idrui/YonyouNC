@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-07-22 09:32:19" creator="" description="" displayName="pu_orderexe_groupenum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="b7c5823a-0db3-46bb-a086-1a243a1b744c" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:20:04" name="pu_orderexe_groupenum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409005-0008" version="8" versionType="0">
+    <celllist>
+        <Enumerate componentID="b7c5823a-0db3-46bb-a086-1a243a1b744c" createTime="2011-07-22 09:32:49" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="统计方式" fullClassName="nc.vo.pu.report.enumeration.OrderExeStatType" height="100" help="" id="eddf797f-b345-455c-b6e8-1ab66b568ec4" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:20:04" name="exestattype" resid="2400409005-0002" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="80" x="55" y="184">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="采购订单行执行明细" enumID="eddf797f-b345-455c-b6e8-1ab66b568ec4" enumValue="0" hidden="false" id="317bcdfe-d8d3-470f-a952-3d9f774ddc8d" resid="2400409005-0004" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="采购订单行执行汇总" enumID="eddf797f-b345-455c-b6e8-1ab66b568ec4" enumValue="1" hidden="false" id="833f2391-ec69-494e-b3e9-631c33e4ec08" resid="2400409005-0003" sequence="1" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+        <Enumerate componentID="b7c5823a-0db3-46bb-a086-1a243a1b744c" createTime="2011-07-22 11:17:45" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="统计内容" fullClassName="nc.vo.pu.report.enumeration.OrderExeStatContent" height="100" help="" id="f1d616bb-8eeb-45eb-81c5-201561311ea9" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:20:04" name="exestatcontent" resid="2400409005-0007" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="80" x="201" y="186">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="到货" enumID="f1d616bb-8eeb-45eb-81c5-201561311ea9" enumValue="0" hidden="false" id="925281e0-dbf4-4f64-ab6b-88859fe98127" resid="2400409005-0006" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="入库" enumID="f1d616bb-8eeb-45eb-81c5-201561311ea9" enumValue="1" hidden="false" id="cfc9fbd3-2618-47d4-bfb3-81eafc8f12a3" resid="2400409005-0005" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="发票" enumID="f1d616bb-8eeb-45eb-81c5-201561311ea9" enumValue="2" hidden="false" id="9c4c9094-a6f8-462e-850b-bbea55047ebe" resid="2400409005-0000" sequence="2" versionType="0"/>
+                <enumitem description="" enumDisplay="发货、装运、报关、出关" enumID="f1d616bb-8eeb-45eb-81c5-201561311ea9" enumValue="3" hidden="false" id="7ed5690c-de3d-427b-afb4-74f1a7b97ac6" resid="2400409005-0001" sequence="3" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

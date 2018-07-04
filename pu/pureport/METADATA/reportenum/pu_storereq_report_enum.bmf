@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-12-07 10:10:01" creator="" description="" displayName="pu_storereq_report_enum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="78a3eac5-a106-4d45-9c7e-2d8ed7cf5881" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:27:53" name="pu_storereq_report_enum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409009-0006" version="16" versionType="0">
+    <celllist>
+        <Enumerate componentID="78a3eac5-a106-4d45-9c7e-2d8ed7cf5881" createTime="2011-12-07 10:10:10" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="汇总方式" fullClassName="nc.vo.pu.report.enumeration.StoreReqSummaryTypeEnum" height="135" help="" id="2609109b-013a-447d-9ca4-fb8d328d203f" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:28:26" name="StoreReqSummaryTypeEnum" resid="2400409009-0000" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="220" x="24" y="33">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="物料" enumID="2609109b-013a-447d-9ca4-fb8d328d203f" enumValue="1" hidden="false" id="d5789881-0e5e-411f-9470-a660c8e5cdfc" resid="2400409009-0001" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="需求库存组织 + 物料" enumID="2609109b-013a-447d-9ca4-fb8d328d203f" enumValue="2" hidden="false" id="9d02d9c0-a69c-4297-bd78-048d85bdbdaf" resid="2400409009-0002" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="需求仓库 + 物料" enumID="2609109b-013a-447d-9ca4-fb8d328d203f" enumValue="3" hidden="false" id="1c4641f5-72ba-4504-a0a9-a919c4de2144" resid="2400409009-0003" sequence="2" versionType="0"/>
+                <enumitem description="" enumDisplay="需求日期 + 物料" enumID="2609109b-013a-447d-9ca4-fb8d328d203f" enumValue="4" hidden="false" id="ff2ba62f-215b-490b-a2c6-b10dacb1748a" resid="2400409009-0004" sequence="3" versionType="0"/>
+                <enumitem description="" enumDisplay="需求库存组织 + 需求日期 + 物料" enumID="2609109b-013a-447d-9ca4-fb8d328d203f" enumValue="5" hidden="false" id="8373cbc5-b2bf-4dee-abb3-aed4f0b5e22e" resid="2400409009-0005" sequence="4" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

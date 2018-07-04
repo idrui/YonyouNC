@@ -1,0 +1,106 @@
+package nc.ui.pu.cgfa.action;
+
+import java.awt.event.ActionEvent;
+
+import nc.ui.pub.beans.MessageDialog;
+import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.model.BillManageModel;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pub.BusinessException;
+
+/**
+ * @author wangzym
+ * @version 2017年5月5日 下午1:49:34
+ */
+public class LineCloseAction extends NCAction {
+	
+	private ShowUpableBillForm editor;
+	private BillManageModel model;
+
+	public LineCloseAction() {
+		// TODO 自动生成的构造函数存根
+	}
+
+	/**
+	 * @return editor
+	 */
+	public ShowUpableBillForm getEditor() {
+		return editor;
+	}
+
+	/**
+	 * @param editor
+	 *            要设置的 editor
+	 */
+	public void setEditor(ShowUpableBillForm editor) {
+		this.editor = editor;
+	}
+
+	/**
+	 * @return model
+	 */
+	public BillManageModel getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model
+	 *            要设置的 model
+	 */
+	public void setModel(BillManageModel model) {
+		this.model = model;
+		model.addAppEventListener(this);
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see nc.ui.uif2.NCAction#doAction(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void doAction(ActionEvent e) throws Exception {
+		// TODO 自动生成的方法存根
+		Cgfab[] bvos = (Cgfab[]) getModel().getSelectedOperaDatas();
+		int sum = 0;
+		for (Cgfab cgfab : bvos) {
+			if (!"".equals(cgfab.getPrimaryKey())) {
+				sum += 1;
+			}
+		}
+		// 新单据行关闭不查，节省资源
+		if (sum == 0) {
+			lineClose();
+		} else {
+			// 验证此行是否已经有下游数据,如果有，则返回具体行号
+			int[] index=validataHaveForword();
+			if (index.length==0) {
+				lineClose();
+			}else{
+				//弹出提示，第几行已经有下游数据不允许行关闭
+				String errorMsg="";
+				MessageDialog.showErrorDlg(editor, "选取数据错误", errorMsg);
+			}
+			
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	private  int[] validataHaveForword() {
+		// TODO 自动生成的方法存根
+		
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	private void lineClose() {
+		// TODO 自动生成的方法存根
+
+	}
+
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 列表表头行改变事件处理器 -->
+	<bean id="list_head_rowchangehandler" class="nc.ui.pu.est.editor.head.HeadRowChangeHandler">
+		<property name="editor" ref="listView">
+		</property>
+	</bean>
+	
+	<!-- 列表表头编辑后事件处理器 -->
+	<bean id="list_head_before_edithandler"
+		class="nc.ui.pu.est.editor.head.before.m50.HeadBeforeEditEventHandler">
+	</bean>
+	
+	<bean id="list_head_after_edithandler"
+		class="nc.ui.pu.est.editor.head.after.m50.HeadAfterEditEventHandler">
+	</bean>
+	
+	<!-- 表体编辑前事件处理器 -->
+	<bean id="card_before_body_edithandler"
+		class="nc.ui.pu.est.editor.body.before.m50.CardBodyBeforeEditEventHandler">
+	</bean>
+
+	<!-- 表体编辑后事件处理器 -->
+	<bean id="card_after_body_edithandler"
+		class="nc.ui.pu.est.editor.body.after.m50.CardBodyAfterEditEventHandler">
+	</bean>
+	<bean id="goodsRelationCalc" class="nc.ui.pu.est.editor.relacalc.GoodsEstRelationCal" />
+	<bean id="feeRelationCalc" class="nc.ui.pu.est.editor.relacalc.FeeRelationCalculate" >
+	   <property name="editor" ref="listView" />
+	</bean>
+	<!-- 编辑事件 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="ManageAppModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 表头(尾)编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadBeforeEditEvent">
+					<list>
+						<ref bean="list_head_before_edithandler" />
+					</list>
+				</entry>
+				<!-- 表头(尾)编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadAfterEditEvent">
+					<list>
+						<ref bean="list_head_after_edithandler" />
+						<ref bean="goodsRelationCalc" />
+					</list>
+				</entry>
+				<!-- 表体编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent">
+					<list>
+						<ref bean="card_before_body_edithandler" />
+					</list>
+				</entry>
+				<!-- 表体编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent">
+					<list>
+						<ref bean="card_after_body_edithandler" />
+						<ref bean="feeRelationCalc" />
+					</list>
+				</entry>
+				<!-- 列表表头行改变事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+					<list>
+						<ref bean="list_head_rowchangehandler" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

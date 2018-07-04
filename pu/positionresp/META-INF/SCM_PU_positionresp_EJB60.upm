@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.position.IPosition</interface>
+      <implementation>nc.impl.pu.position.PositionImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.position.IQueryPosition</interface>
+      <implementation>nc.pubimpl.pu.position.QueryPositionImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.position.IQueryPositionForMM</interface>
+      <implementation>nc.pubimpl.pu.position.QueryPositionForMMImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.position.IPositionForSplit</interface>
+      <implementation>nc.pubimpl.pu.position.PositionForSplitImpl</implementation>
+    </component>
+  </public>
+
+</module>
+

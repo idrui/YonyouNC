@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<import resource="po_match_m4a_query.xml" />
+	<import resource="po_match_m4t_query.xml" />
+	<import resource="po_match_m47_query.xml" />
+	<import resource="po_match_m45_query.xml" />
+	<!--
+		############################## Actions ###########################
+	-->
+	<!-- 发票 查询-->
+	<bean id="invoiceQryDLGInitializer" class="nc.ui.pu.m27.match.view.query.BaseInvoicStlQryDlgInitializer"/>
+	<bean id="invoiceQueryAction" class="nc.ui.pu.m27.match.action.InvoiceQueryAction">
+		<property name="qryCondDLGInitializer" ref="invoiceQryDLGInitializer"/>
+		<property name="model" ref="manageAppModel" />
+		<property name="nodeKey" value="4004140002"/>		
+	</bean>	
+	<!-- 入库单 -->
+	<bean id="stockQryDLGInitializer" class="nc.ui.pu.m27.match.view.query.StockSettleQryDlgInitializer"/>
+	<bean id="stockQueryAction" class="nc.ui.pu.m27.match.action.StockQueryAction2">
+	    <property name="qryCondDLGInitializer" ref="stockQryDLGInitializer"/>
+		<property name="nodeKey" value="4004140001"/>
+		<property name="model" ref="manageAppModel" />
+		<property name="m4TQueryInfo" ref="m4tqueryinfo" />
+		<property name="m4AQueryInfo" ref="m4aqueryinfo" />
+		<property name="m47QueryInfo" ref="m47queryinfo" />
+		<property name="m45QueryInfo" ref="m45queryinfo" />
+	</bean>
+	
+	<!-- 全选 -->
+<!--	<bean id="selectAllAction" class="nc.ui.pu.m27.match.action.MatchSelectAllAction">-->
+<!--		<property name="model" ref="manageAppModel" />-->
+<!--		<property name="listEditor" ref="queryView" />-->
+<!--	</bean>-->
+	
+	<!-- 全消 -->
+<!--	<bean id="unSelectAllAction" class="nc.ui.pu.m27.match.action.MatchUnSelectAllAction">-->
+<!--		<property name="model" ref="manageAppModel" />-->
+<!--		<property name="listEditor" ref="queryView" />-->
+<!--	</bean>-->
+	
+	<!-- 自动结算 -->
+	<bean id="autoMatchAction" class="nc.ui.pu.m27.match.action.AutoMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+ 	
+	<!-- 同物料结算 -->
+	<bean id="sameMaterialMatchAction" class="nc.ui.pu.m27.match.action.SameMaterialMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 异物料结算 -->
+	<bean id="differenceMaterialMatchAction" class="nc.ui.pu.m27.match.action.DifferenceMaterialMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 费用结算 -->
+	<bean id="feeMatchAction" class="nc.ui.pu.m27.match.action.FeeMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 无发票结算 -->
+	<bean id="withoutInvoiceMatchAction" class="nc.ui.pu.m27.match.action.WithoutInvoiceMatchAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 自动结算规则 -->
+	<bean id="autoMatchRuleAction" class="nc.ui.pu.m27.match.action.AutoMatchRuleAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	
+	<!-- 费用分摊-->
+	<bean id="feeDistributeAction" class="nc.ui.pu.m27.match.action.FeeDistributeAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listView" ref="processView" />
+	</bean>
+	<!-- 发票分摊 -->
+	<bean id="invoiceDistributeMenuAction" class="nc.funcnode.ui.action.MenuAction">
+		<property name="code" value="invoiceDistributeMenuAction" />
+		<property name="name" >
+			<bean id="I18nproc" class="nc.ui.uif2.I18nFB">
+				<property name="resDir" value="4004060_0" />
+				<property name="resId" value="04004060-0239" />
+				<property name="defaultValue" value="发票分摊" />
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<!-- 按数量分摊 -->
+				<bean id="disInvcByNum" class="nc.ui.pu.m27.match.action.InvoiceDistributeByNumAction">
+					<property name="listView" ref="processView" />
+				</bean>
+				<!-- 按金额分摊 -->
+				<bean id="disInvcByMny" class="nc.ui.pu.m27.match.action.InvoiceDistributeByMnyAction">
+					<property name="listView" ref="processView" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 结算 -->
+	<bean id="matchAction" class="nc.ui.pu.m27.match.action.MatchAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="listView" ref="processView" />
+	</bean>
+	
+	<!-- 匹配界面返回到第一个界面 -->
+	<bean id="matchBackAction" class="nc.ui.pu.m27.match.action.MatchBackAction">
+		<property name="listView" ref="queryView" />
+		<property name="model" ref="manageAppModel" />
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="stockQueryAction" />		
+	</bean>
+	
+	<!-- 结算结果页面返回到初始界面 -->
+	<bean id="settleBillBackAction" class="nc.ui.pu.m27.match.action.SettleBillBackAction">
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="stockQueryAction" />
+	</bean>
+	
+	<!-- 联查入库单 -->
+	<bean id="linkQueryStock" class="nc.ui.pu.m27.match.action.LinkQueryStockAction">
+		<property name="listView" ref="resultView" />
+	</bean>
+	
+	<!-- 联查发票 -->
+	<bean id="linkQueryInvoice" class="nc.ui.pu.m27.match.action.LinkQueryInvoiceAction">
+		<property name="listView" ref="resultView" />
+	</bean>
+	
+	<!-- 取消匹配 -->
+	<bean id="cancelMatchAction" class="nc.ui.pu.m27.match.action.CancelMatchAction">
+		<property name="invoiceQueryAction" ref="invoiceQueryAction" />
+		<property name="stockQueryAction" ref="stockQueryAction" />
+	</bean>
+
+  <!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+
+	<!-- 此bean不是必须的，如果没有各个界面按钮的差异，可以将一下三个bean都去掉 -->
+	<bean id="toftpanelActionContributors" class="nc.ui.uif2.actions.ActionContributors">
+		<property name="contributors">
+			<list>
+				<ref bean="actionsOfQueryView" />
+				<ref bean="actionsOfProcessView" />
+				<ref bean="actionsOfResultView" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfQueryView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="queryView" />
+		<!-- 可以配置非编辑状态下和编辑状态下分别可见的Action，没有此需求时可以配置得一样 -->
+		<property name="actions">
+			<list>
+				<ref bean="invoiceQueryAction" />
+				<ref bean="stockQueryAction" />
+				<ref bean="separatorAction"/> 
+<!--				<ref bean="selectAllAction" />-->
+<!--				<ref bean="unSelectAllAction" />-->
+<!--				<ref bean="separatorAction"/> -->
+				<ref bean="autoMatchAction" />
+				<ref bean="sameMaterialMatchAction" />
+				<ref bean="differenceMaterialMatchAction" />
+				<ref bean="feeMatchAction" />
+				<ref bean="withoutInvoiceMatchAction" />
+				<ref bean="autoMatchRuleAction" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfProcessView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="processView" />
+		<!-- 可以配置非编辑状态下和编辑状态下分别可见的Action，没有此需求时可以配置得一样 -->
+		<property name="actions">
+			<list>
+				<ref bean="feeDistributeAction" />
+				<ref bean="invoiceDistributeMenuAction" />
+				<ref bean="matchAction" />
+				<ref bean="matchBackAction" />
+ 			</list>
+		</property>
+	</bean>
+
+	<!-- 构造方法中传入的界面显示时，配置的Action才可见 -->
+	<bean id="actionsOfResultView" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="resultView" />
+		<!-- 可以配置非编辑状态下和编辑状态下分别可见的Action，没有此需求时可以配置得一样 -->
+		<property name="actions">
+			<list>				
+				<ref bean="linkQueryStock" />
+				<ref bean="linkQueryInvoice" />
+				<ref bean="cancelMatchAction" />
+				<ref bean="settleBillBackAction" />
+			</list>
+		</property>
+	</bean>
+</beans>

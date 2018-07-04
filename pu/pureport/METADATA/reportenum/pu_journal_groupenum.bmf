@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-04-13 15:09:23" creator="" description="" displayName="pu_journal_groupenum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="c3811299-cfa6-4903-8b8f-2539bb9123c3" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:16:53" name="pu_journal_groupenum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409004-0006" version="18" versionType="0">
+    <celllist>
+        <Enumerate componentID="c3811299-cfa6-4903-8b8f-2539bb9123c3" createTime="2011-04-13 15:09:33" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="汇总依据" fullClassName="nc.vo.pu.report.enumeration.GroupEnum" height="100" help="" id="8a829c12-b791-4b21-89b5-f9e551471edd" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:16:53" name="groupenum" resid="2400409004-0004" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="80" x="47" y="83">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="物料基本分类" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="0" hidden="false" id="a19754ae-4ad5-40a2-8428-f1b2fe0dd459" resid="2UC000-000602" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="物料" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="1" hidden="false" id="369078d8-b21d-4133-9077-0b387ec7c597" resid="2UC000-000594" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="采购组织" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="2" hidden="false" id="b7ae13bc-48d2-458d-ae52-7d1670032f8f" resid="2UC000-000980" sequence="2" versionType="0"/>
+                <enumitem description="" enumDisplay="采购部门" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="3" hidden="false" id="958e1194-dede-4765-ad42-2be2089af8f9" resid="2UC000-000984" sequence="3" versionType="0"/>
+                <enumitem description="" enumDisplay="采购员" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="4" hidden="false" id="863e7702-8c28-49a8-8ab0-5ecc55929a43" resid="2UC000-000977" sequence="4" versionType="0"/>
+                <enumitem description="" enumDisplay="月份" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="5" hidden="false" id="c3aa40f9-3b67-4a44-8006-64f0c92703fb" resid="2UC000-000495" sequence="5" versionType="0"/>
+                <enumitem description="" enumDisplay="日期" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="6" hidden="false" id="73666ab4-3234-47ff-9dfc-19350c57cbac" resid="2UC000-000467" sequence="6" versionType="0"/>
+                <enumitem description="" enumDisplay="供应商" enumID="8a829c12-b791-4b21-89b5-f9e551471edd" enumValue="7" hidden="false" id="5e35fc97-23bd-43b5-bddd-915ab140c719" resid="2UC000-000089" sequence="7" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+        <Enumerate componentID="c3811299-cfa6-4903-8b8f-2539bb9123c3" createTime="2011-04-13 15:21:28" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="统计内容" fullClassName="nc.vo.pu.report.enumeration.OrderType" height="100" help="" id="32408ac5-3137-4545-80c3-5ac6c87776b6" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:16:53" name="ordertype" resid="2400409004-0002" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="80" x="196" y="88">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="采购订单" enumID="32408ac5-3137-4545-80c3-5ac6c87776b6" enumValue="0" hidden="false" id="0e797437-d296-4301-be14-277e5bbf9fec" resid="2UC000-000983" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="到货单" enumID="32408ac5-3137-4545-80c3-5ac6c87776b6" enumValue="1" hidden="false" id="68b8ea8a-14ea-4afc-921b-548f05d4303f" resid="2400409004-0001" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="入库单" enumID="32408ac5-3137-4545-80c3-5ac6c87776b6" enumValue="2" hidden="false" id="06852629-7559-41cf-a34d-0058c2d5cb6f" resid="2400409004-0005" sequence="2" versionType="0"/>
+                <enumitem description="" enumDisplay="采购发票" enumID="32408ac5-3137-4545-80c3-5ac6c87776b6" enumValue="3" hidden="false" id="fca75acb-f80a-43f6-a092-97afa78ae4be" resid="2400409004-0000" sequence="3" versionType="0"/>
+                <enumitem description="" enumDisplay="采购结算" enumID="32408ac5-3137-4545-80c3-5ac6c87776b6" enumValue="4" hidden="false" id="4d77e9fd-98bd-44a5-94ad-739ef29a88b6" resid="2400409004-0003" sequence="4" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>    
+    <!-- 价格结算单 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m24.IPricestlQuery</interface>
+      <implementation>nc.impl.pu.m24.PricestlQueryImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m24.IPricestlApprove</interface>
+      <implementation>nc.impl.pu.m24.PricestlApproveImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m24.IPricestlMaintain</interface>
+      <implementation>nc.impl.pu.m24.PricestlMaintainImpl</implementation>
+    </component>
+    
+    <!-- 价格结算单查询服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m24.IQueryPricestl</interface>
+      <implementation>nc.pubimpl.pu.m24.QueryPricestlImpl</implementation>
+    </component>
+  </public>
+  
+</module>
+

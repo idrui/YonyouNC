@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module>
+	<public>
+		<component name="wsxsaght0001">
+			<interface>nc.itf.pu.m21.IMsgXSAGHT0001</interface>
+			<implementation>nc.impl.pu.m21.MsgXSAGHT0001Impl</implementation>
+			<extension class="nc.uap.ws.deploy.OxbWSExtensionProcessor">
+				<wsdl>/nc/itf/pu/m21/IMsgXSAGHT0001.wsdl</wsdl>
+				<address>/wsxsaght0001</address>
+			</extension>
+		</component>
+	</public>
+	<private>
+	</private>
+</module>

@@ -1,0 +1,15 @@
+/bin
+/out
+**/classes/
+*.class
+.project
+.checkstyle
+.classpath
+.jupiter
+.module_prj
+.settings/
+module.xml
+component.xml
+/build.properties
+/build.xml
+/manifest.xml

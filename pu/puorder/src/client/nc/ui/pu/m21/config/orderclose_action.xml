@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- Actions ###########################################################-->
+	<!--查询-->
+	<bean id="orderQryDLGInitializer" class="nc.ui.pu.m21.view.OrderCloseQueryDLGInitializer"/>
+	<bean id="queryAction" class="nc.ui.pu.m21.action.orderclose.CloseQueryAction">
+		<property name="model" ref="batchBillTableModel"/>
+		<property name="list" ref="list"/>
+		<property name="orgPanel" ref="orgPanel"/>
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="qryCondDLGInitializer" ref="orderQryDLGInitializer"/>
+		<property name="templateContainer" ref="queryTemplateContainer"/>
+		<property name="hasQueryArea" value="false" />
+	</bean>
+	
+	<!--刷新-->
+	<bean id="refreshAction" class="nc.ui.pu.m21.action.orderclose.CloseRefreshAction">
+		<property name="model" ref="batchBillTableModel"/>
+		<property name="list" ref="list"/>
+		<property name="dataManager" ref="modelDataManager" />
+	</bean>
+	
+	<!-- 整单关闭菜单 -->
+	<bean id="allBillCloseMenuAction" class="nc.ui.pu.m21.action.orderclose.allclose.AllCloseMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="finalAllCloseAction" />
+				<ref bean="arriveAllCloseAction" />
+				<ref bean="storeAllCloseAction" />
+				<ref bean="invoiceAllCloseAction" />
+				<ref bean="payAllCloseAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 最终关闭 -->
+	<bean id="finalAllCloseAction" class="nc.ui.pu.m21.action.orderclose.allclose.FinalAllCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 到货关闭 -->
+	<bean id="arriveAllCloseAction" class="nc.ui.pu.m21.action.orderclose.allclose.ArriveAllCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 入库关闭 -->
+	<bean id="storeAllCloseAction" class="nc.ui.pu.m21.action.orderclose.allclose.StoreAllCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 开票关闭 -->
+	<bean id="invoiceAllCloseAction" class="nc.ui.pu.m21.action.orderclose.allclose.InvoiceAllCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 付款关闭 -->
+	<bean id="payAllCloseAction" class="nc.ui.pu.m21.action.orderclose.allclose.PayAllCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 整单打开菜单 -->
+	<bean id="allBillOpenMenuAction" class="nc.ui.pu.m21.action.orderclose.allopen.AllOpenMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="finalAllOpenAction" />
+				<ref bean="arriveAllOpenAction" />
+				<ref bean="storeAllOpenAction" />
+				<ref bean="invoiceAllOpenAction" />
+				<ref bean="payAllOpenAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 最终打开 -->
+	<bean id="finalAllOpenAction" class="nc.ui.pu.m21.action.orderclose.allopen.FinalAllOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 到货打开 -->
+	<bean id="arriveAllOpenAction" class="nc.ui.pu.m21.action.orderclose.allopen.ArriveAllOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 入库打开 -->
+	<bean id="storeAllOpenAction" class="nc.ui.pu.m21.action.orderclose.allopen.StoreAllOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 开票打开 -->
+	<bean id="invoiceAllOpenAction" class="nc.ui.pu.m21.action.orderclose.allopen.InvoiceAllOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 付款打开 -->
+	<bean id="payAllOpenAction" class="nc.ui.pu.m21.action.orderclose.allopen.PayAllOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 行关闭菜单 -->
+	<bean id="rowCloseMenuAction" class="nc.ui.pu.m21.action.orderclose.rowclose.RowCloseMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="rowCloseAction" />
+				<ref bean="arriveRowCloseAction" />
+				<ref bean="storeRowCloseAction" />
+				<ref bean="invoiceRowCloseAction" />
+				<ref bean="payRowCloseAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 行关闭 -->
+	<bean id="rowCloseAction" class="nc.ui.pu.m21.action.orderclose.rowclose.RowCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 到货关闭 -->
+	<bean id="arriveRowCloseAction" class="nc.ui.pu.m21.action.orderclose.rowclose.ArriveRowCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 入库关闭 -->
+	<bean id="storeRowCloseAction" class="nc.ui.pu.m21.action.orderclose.rowclose.StoreRowCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 开票关闭 -->
+	<bean id="invoiceRowCloseAction" class="nc.ui.pu.m21.action.orderclose.rowclose.InvoiceRowCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 付款关闭 -->
+	<bean id="payRowCloseAction" class="nc.ui.pu.m21.action.orderclose.rowclose.PayRowCloseAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 行打开菜单 -->
+	<bean id="rowOpenMenuAction" class="nc.ui.pu.m21.action.orderclose.rowopen.RowOpenMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="rowOpenAction" />
+				<ref bean="arriveRowOpenAction" />
+				<ref bean="storeRowOpenAction" />
+				<ref bean="invoiceRowOpenAction" />
+				<ref bean="payRowOpenAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 行关闭 -->
+	<bean id="rowOpenAction" class="nc.ui.pu.m21.action.orderclose.rowopen.RowOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 到货关闭 -->
+	<bean id="arriveRowOpenAction" class="nc.ui.pu.m21.action.orderclose.rowopen.ArriveRowOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 入库关闭 -->
+	<bean id="storeRowOpenAction" class="nc.ui.pu.m21.action.orderclose.rowopen.StoreRowOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 开票关闭 -->
+	<bean id="invoiceRowOpenAction" class="nc.ui.pu.m21.action.orderclose.rowopen.InvoiceRowOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!-- 付款关闭 -->
+	<bean id="payRowOpenAction" class="nc.ui.pu.m21.action.orderclose.rowopen.PayRowOpenAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list"/>
+	</bean>
+	
+	<!--联查单据-->
+  <bean id="linkQueryAction" class="nc.ui.pu.m21.action.orderclose.CloseLinkQueryAction">
+    <property name="model" ref="batchBillTableModel"/>
+    <property name="billType" value="21"/>
+  </bean>
+  
+  <!-- 联查 -->
+  <bean id="closeLinkBillAction" class="nc.ui.pu.m21.action.LinkBillMenuAction">
+    <property name="actions">
+      <list>
+        <ref bean="linkQueryAction"/>        
+      </list>
+    </property>
+  </bean>
+	<!-- 打印处理类，精度等 -->
+    <bean id="printProcessor" class="nc.ui.pu.m21.action.processor.OrderPrintProcessor">
+		<property name="model" ref="batchBillTableModel" />
+	</bean>
+	<!-- 预览 -->
+	<bean id="closePreviewAction" class="nc.ui.pu.m21.action.orderclose.ClosePrintAction">
+		<property name="code" value="previewAction" />
+		<property name="preview" value="true" />
+		<property name="model" ref="batchBillTableModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+	<!-- 打印 -->
+	<bean id="closePrintAction" class="nc.ui.pu.m21.action.orderclose.ClosePrintAction">
+		<property name="code" value="printAction" />
+		<property name="preview" value="false" />
+		<property name="model" ref="batchBillTableModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>	
+	<!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	 <!-- 打印按钮组 -->
+  <bean id="printMenuAction" class="nc.funcnode.ui.action.GroupAction">
+    <property name="code" value="printMenuAction" />
+    <property name="actions">
+      <list>
+        <ref bean="closePrintAction" />
+        <ref bean="closePreviewAction" />
+      </list>
+    </property>
+  </bean>
+</beans>

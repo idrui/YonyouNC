@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- 界面按钮扩展配置文件 -->
+
+<beans>
+	
+	<bean id="remoteCallCombinatorCaller" class="nc.ui.uif2.editor.UIF2RemoteCallCombinatorCaller">
+		<property name="remoteCallers">
+			<list>
+				<ref bean="pfAddInfoLoader" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 按钮组 -->
+	<bean id="addMenuGroup" class="nc.ui.pubapp.uif2app.actions.AddMenuAction" init-method="initUI">
+		<!-- 当前单据的单据类型 -->
+		<property name="billType" value="JT01" />
+		<!-- 当前单据的所有上游单据的一个全集 -->
+		<property name="actions">
+			<list>
+			    <ref bean="addAction" />
+				<ref bean="separatorAction" />
+				<ref bean="AddQG20Action" />
+				<ref bean="separatorAction" />
+			</list>
+		</property>
+		<property name="model" ref="bmModel" />
+		<property name="pfAddInfoLoader" ref="pfAddInfoLoader"></property>
+	</bean>
+	
+	<!-- 新增按钮处理 -->
+	<bean id="pfAddInfoLoader" class="nc.ui.pubapp.uif2app.actions.PfAddInfoLoader">
+		<property name="billType" value="JT01" />
+		<property name="model" ref="bmModel" />
+	</bean>
+	
+	
+	<!-- 参照请购单节点20 -->
+	<bean id="AddQG20Action" class="nc.ui.pu.cgfa.billref.AddQG20Action">
+		<!-- 来源单据类型编码 -->
+		<property name="sourceBillType" value="20" />
+		<!-- 来源单据类型名称 -->
+		<property name="sourceBillName" value="参照请购单" />
+
+		<!-- 是否流程单据，如果是流程单据，可以删除 -->
+		<property name="flowBillType" value="false" />
+		<property name="model" ref="bmModel" />
+		<property name="editor" ref="billForm" />
+		<property name="transferViewProcessor" ref="transferProcessorforTR10" />
+	</bean>
+	
+	<bean name="transferProcessorforTR10" class="nc.ui.pubapp.billref.dest.TransferViewProcessor">
+		<property name="list" ref="billListView" />
+		<property name="actionContainer" ref="container" />
+		<property name="cardActionContainer" ref="actionsOfCard" />
+		<property name="transferLogic" ref="QG20RefTJ01TRansferBillDataLogic" />
+		<property name="billForm" ref="billForm" />
+		<property name="cancelAction" ref="cancelAction" />
+		<property name="saveAction" ref="saveScriptAction" />
+	</bean>
+	
+	<bean name="QG20RefTJ01TRansferBillDataLogic" class="nc.ui.pu.cgfa.billref.QG20RefTJ01TRansferBillDataLogic">
+		<property name="billForm" ref="billForm" />
+	</bean>
+
+</beans>

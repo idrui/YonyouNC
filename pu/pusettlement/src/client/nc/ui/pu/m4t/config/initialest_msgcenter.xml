@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 消息中心打开的节点时处理 -->
+	<bean id="InitDataListener"
+		class="nc.ui.pubapp.uif2app.model.DefaultFuncNodeInitDataListener">
+		<property name="context" ref="context" />
+		<property name="model" ref="ManageAppModel" />
+		 <property name="queryAction" ref="queryAction" />
+		<property name="voClassName" value="nc.vo.pu.m4t.entity.InitialEstVO" />
+		<property name="autoShowUpComponent" ref="billFormEditor" />
+	</bean>
+
+</beans>

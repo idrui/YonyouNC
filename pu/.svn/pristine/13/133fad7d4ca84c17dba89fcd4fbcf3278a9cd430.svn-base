@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-lazy-init="true">
+
+	<!-- 引入所有按钮的Action配置 -->
+	<import resource="orderclose_action.xml" />
+	<import resource="classpath:nc/ui/pu/m21/billref/ref21_userdef.xml"/>
+	<import resource="orderclose_msgcenter.xml"/>
+	
+	<!-- 引入所有编辑事件配置 -->
+
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.vo.uif2.LoginContext" />
+	<!--
+		模型部分配置###########################################################
+	-->
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+	</bean>
+	<!-- 查询模板加载bean -->
+	<bean id="queryTemplateContainer" class="nc.ui.uif2.editor.QueryTemplateContainer">
+		<property name="context" ref="context"></property>
+	</bean>	
+	
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="batchModelService" class="nc.ui.pu.m21.service.OrderCloseService">
+	</bean>
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<!-- 对于有元数据的VO，可以使用下面的配置	 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.CAVO2BDObjectAdapterFactory">
+		<property name="id_field" value="pk_order_b" />
+	</bean>
+	
+	<!-- 批量操作应用模型 -->
+	<bean id="batchBillTableModel" class="nc.ui.pu.m21.service.OrderCloseManageModel">
+		<property name="context" ref="context"></property>
+<!--		<property name="service" ref="batchModelService"></property>-->
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+<!--		-->
+		<!--
+			<property name="validationService"
+			ref="batchValidateSerice"></property>
+		-->
+	</bean>
+	
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.query2.model.ModelDataManager">
+		<property name="model" ref="batchBillTableModel"></property>
+		<property name="service" ref="batchModelService"></property>
+	</bean>
+	
+	<!-- 赋值策略 -->
+	<bean id="valueSetter" class="nc.ui.pu.m21.view.OrderCloseBillValueSetter" />
+
+	<!-- 界面元素 ###########################################################-->
+	<!-- 组织面板 -->
+	<bean id="orgPanel" class="nc.ui.pu.m21.view.OrderCloseOrgPanel"
+		init-method="initUI">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="type" value="采购组织" />
+	</bean>
+	
+	<!-- 列表控件的取值策略 -->
+	<bean id="componentValueManager"
+		class="nc.ui.uif2.editor.value.BillListPanelMetaDataValueAdapter">
+		<!--
+			<property name="bodyVOName"
+			value="nc.vo.pu.m21.entity.OrderCloseVO"/>
+		-->
+	</bean>
+	<!-- 列表控件 -->
+	<bean id="list" class="nc.ui.pu.m21.view.OrderCloseListView"
+		init-method="initUI">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="billListPanelValueSetter" ref="valueSetter" />
+		<property name="multiSelectionEnable" value="true" />
+		<property name="multiSelectionMode" value="1" />
+		<property name="templateContainer" ref="templateContainer"/>
+		<property name="userdefitemListPreparator" ref="userdefAndMarAsstListPreparator" />
+	</bean>
+	
+	<!-- 自由项、自定义项组件的列表配置 -->
+	<bean id="userdefAndMarAsstListPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillListDataPrepare">
+		<property name="billListDataPrepares">
+			<list>
+				<ref bean="userdefitemlistPreparator" />
+				<ref bean="marAsstPreparator" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 列表自定义项处理 -->
+	<bean name="userdefitemlistPreparator" class="nc.ui.uif2.editor.UserdefitemContainerListPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="pu.po_order" />
+					<property name="pos" value="0" />
+					<property name="prefix" value="vdef" />
+				</bean>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+					<property name="pos" value="1" />
+					<property name="tabcode" value="material" />
+					<property name="prefix" value="vbdef" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 自由项组件的配置 -->
+	<bean id="marAsstPreparator"
+		class="nc.ui.pubapp.uif2app.view.material.assistant.MarAsstPreparator">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="container" ref="userdefitemContainer" />
+		<property name="prefix" value="vfree" />
+		<property name="materialField" value="pk_material" />
+		<!--<property name="storeStateField" value="cstateid" /> -->
+		<property name="projectField" value="cprojectid" />
+		<!--<property name="supplierField" value="pk_supplier" /> -->
+		<property name="productorField" value="cproductorid" />
+		<property name="customerField" value="casscustid" />
+		<property name="signatureField" value="cffileid" />
+	</bean>
+	
+	<bean id="userdefitemContainer" class="nc.ui.uif2.userdefitem.UserDefItemContainer">
+		<property name="context" ref="context" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="pu.po_order" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="materialassistant" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	 	
+ 	<bean id="queryArea" class="nc.ui.pubapp.uif2app.tangramlayout.UEQueryAreaShell"
+		init-method="initUI">
+		<property name="queryAreaCreator" ref="queryAction" />
+	</bean>
+	
+	<!--
+		界面布局总装###########################################################
+	-->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.HSNode">
+				<property name="left">
+					<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+						<property name="component" ref="queryArea" />
+					</bean>
+				</property>
+				<property name="right">
+					<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+						<property name="up">
+							<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+								<property name="component" ref="orgPanel" />
+							</bean>
+						</property>
+						<property name="down">
+							<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+								<property name="component" ref="list" />
+							</bean>
+						</property>
+						<property name="dividerLocation" value="30f" />
+					</bean>
+				</property>
+				<property name="dividerLocation" value="0.22f" />
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<ref bean="queryAction" />
+				<ref bean="refreshAction" />
+				<ref bean="separatorAction" />
+				<ref bean="allBillCloseMenuAction" />
+				<ref bean="allBillOpenMenuAction" />
+				<ref bean="rowCloseMenuAction" />
+				<ref bean="rowOpenMenuAction" />
+				<ref bean="separatorAction" />
+				<ref bean="closeLinkBillAction" />
+				<ref bean="separatorAction" />
+				<ref bean="printMenuAction" />
+			</list>
+		</property>
+	</bean>
+		
+	<bean id="remoteCallCombinatorCaller" class="nc.ui.uif2.editor.UIF2RemoteCallCombinatorCaller">
+		<property name="remoteCallers">
+			<list>
+				<ref bean="queryTemplateContainer" />
+				<ref bean="templateContainer" />
+				<ref bean="userdefitemContainer" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

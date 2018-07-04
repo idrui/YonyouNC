@@ -1,0 +1,6 @@
+insert into pub_vochange(pk_vochange,backclass,dest_billtype,dest_transtype,dr,frontclass,pk_busitype,pk_group,reservebackclass,reservefrontclass,src_billtype,src_billui,src_nodekey,src_qrytemplate,src_transtype,ts,upgradeexclass,dest_systype,src_systype) values('0001Z810000000003GJN','nc.vo.pu.m23.vochange.ChangeVOAdjustor21To23','23','~',0,'nc.vo.pu.m23.vochange.ChangeVOAdjustor21To23','~','global00000000000000',null,null,'21','nc.ui.pu.m21.billref.pu.m23.SourceRefDlgFor23','4004040023','<nc.ui.pu.m21.billref.pu.m23.OrderReferQueryFor23>','~','2014-12-01 22:32:15','nc.bs.upgrade.PFExchangeUpgradeExForSCM',null,null)
+go
+
+insert into pub_vochange(pk_vochange,backclass,dest_billtype,dest_transtype,dr,frontclass,pk_busitype,pk_group,reservebackclass,reservefrontclass,src_billtype,src_billui,src_nodekey,src_qrytemplate,src_transtype,ts,upgradeexclass,dest_systype,src_systype) values('0001Z810000000003GJO','nc.vo.pu.m23.vochange.ChangeVOAdjustor61To23','23','~',0,'nc.vo.pu.m23.vochange.ChangeVOAdjustor61To23','~','global00000000000000',null,null,'61','nc.ui.sc.m61.billref.pu.m23.SourceRefDlgFor23','4012010123','<nc.ui.sc.m61.billref.pu.m23.ReferQueryFor23>','~','2014-12-01 22:32:15','nc.bs.upgrade.PFExchangeUpgradeExForSCM',null,null)
+go
+

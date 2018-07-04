@@ -1,0 +1,209 @@
+/**
+ * 
+ */
+package nc.bs.pu.cgfa.ace.rule;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import nc.impl.pubapp.pattern.data.vo.VOUpdate;
+import nc.impl.pubapp.pattern.rule.ICompareRule;
+import nc.uap.wfm.utils.AppUtil;
+import nc.vo.am.transfer.BillCompareTool;
+import nc.vo.pu.cgfa.AggCgfa;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.util.StringUtil;
+import nc.vo.pubapp.util.VOSortUtils.VOComparator;
+
+/**
+ * @author wangzym
+ * @version 2017年5月5日 下午6:09:09
+ */
+public class RewriteForPrayBillUpdateRule implements ICompareRule<AggCgfa> {
+
+	public RewriteForPrayBillUpdateRule() {
+		// TODO 自动生成的构造函数存根
+	}
+
+	// 删除的来源主键集合
+	private List<String> delIndex = new ArrayList<String>();
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see nc.impl.pubapp.pattern.rule.ICompareRule#process(java.lang.Object[],
+	 * java.lang.Object[])
+	 */
+	@Override
+	public void process(AggCgfa[] vos, AggCgfa[] originVOs) {
+		// TODO 只针对表体
+		AggCgfa vo = vos[0];
+		AggCgfa originVO = originVOs[0];
+		HashMap<String, Integer> res = compareAgg(vo, originVO);
+		// delIndex去重
+		HashSet<String> hs = new HashSet<String>(delIndex);
+		List<String> distinctDelIndex = new ArrayList<String>(hs);
+		reWriteDel(distinctDelIndex);
+		reWrite(res);
+
+	}
+
+	/**
+	 * @param delIndex2
+	 */
+	private void reWriteDel(List<String> delIndex2) {
+		// TODO 自动生成的方法存根
+		// 没有删除行的操作
+		if (delIndex2.size() == 0) {
+			return;
+		} else {
+			PraybillItemVO[] bvos = new PraybillItemVO[delIndex2.size()];
+			for (int i = 0; i < delIndex2.size(); i++) {
+				PraybillItemVO praybillitemvo = new PraybillItemVO();
+				;
+				praybillitemvo.setPrimaryKey(delIndex2.get(i));
+				praybillitemvo.setAttributeValue("whetherlineclose",
+						UFBoolean.FALSE);
+				praybillitemvo.setAttributeValue("sts_req", "02");
+				// 设置成可以参照
+				praybillitemvo.setSts_req("02");
+				bvos[i] = praybillitemvo;
+			}
+
+			VOUpdate<PraybillItemVO> update = new VOUpdate<PraybillItemVO>();
+			String[] names = new String[] { "sts_req", "whetherlineclose", };
+			update.update(bvos, names);
+		}
+
+	}
+
+	/**
+	 * @param vo
+	 * @param originVO
+	 * @return
+	 */
+	private HashMap<String, Integer> compareAgg(AggCgfa vo, AggCgfa originVO) {
+		// TODO 自动生成的方法存根
+		// 比较两个vo的表体长度是否一致
+		if (vo.getChildrenVO().length == originVO.getChildrenVO().length) {
+			// 如果一致则直接比较
+			// 比较的字段（是否行关闭：whetherlineclose ）
+			Cgfab[] bvos = (Cgfab[]) vo.getChildrenVO();
+			Cgfab[] oriBvos = (Cgfab[]) originVO.getChildrenVO();
+			HashMap<String, Integer> res = new HashMap<String, Integer>();
+			for (int i = 0; i < bvos.length; i++) {
+				Cgfab cgfab = bvos[i];
+				Cgfab oriCgfab = oriBvos[i];
+
+				String newcg = cgfab.getAttributeValue("whetherlineclose") == null ? null
+						: cgfab.getAttributeValue("whetherlineclose")
+								.toString();
+				String oricg = oriCgfab.getAttributeValue("whetherlineclose") == null ? null
+						: oriCgfab.getAttributeValue("whetherlineclose")
+								.toString();
+				int result = 0;
+				if (newcg.equals(oricg)) {
+
+				} else if ("Y".equals(newcg)) {
+					result = 1;
+				}
+
+				// 新的vo有修改则需要回写
+				if (result == 1) {
+					res.put((String) cgfab.getAttributeValue("csrcid"), result);
+				}
+			}
+			return res;
+
+		}// 两个字段不一样长说明有删行
+		else {
+			Cgfab[] bvos = (Cgfab[]) vo.getChildrenVO();
+			// 数据库里边的数据多有删行
+			List<String> temp = new ArrayList<String>();
+			// 被删除的行，将值赋成未被参照过
+			for (Cgfab cgfab : bvos) {
+				temp.add(cgfab.getPrimaryKey());
+			}
+
+			ArrayList<Cgfab> oriBvosL = new ArrayList<Cgfab>();
+			Cgfab[] oriBvos = (Cgfab[]) originVO.getChildrenVO();
+			for (Cgfab cgfab : oriBvos) {
+				oriBvosL.add(cgfab);
+			}
+			ArrayList<Cgfab> oriBvosLC = (ArrayList<Cgfab>) oriBvosL.clone();
+			for (int i = 0; i < oriBvosL.size(); i++) {
+				Cgfab cgfab = oriBvosL.get(i);
+				if (temp.contains(cgfab.getPrimaryKey())) {
+					continue;
+				} else {
+					delIndex.add((String) cgfab.getAttributeValue("csrcid"));
+					oriBvosLC.remove(cgfab);
+
+				}
+
+			}
+
+			// 遍历现有的值，数据库更新是否行关闭
+			HashMap<String, Integer> res = new HashMap<String, Integer>();
+			for (int i = 0; i < bvos.length; i++) {
+				Cgfab cgfab = bvos[i];
+				Cgfab oriCgfab = oriBvosLC.toArray(new Cgfab[oriBvosLC.size()])[i];
+				// VOComparator<Cgfab> compare = new VOComparator<Cgfab>(
+				// new String[] { "whetherlineclose" });
+				// int result = compare.compare(cgfab, oriCgfab);
+				String newcg = cgfab.getAttributeValue("whetherlineclose") == null ? null
+						: cgfab.getAttributeValue("whetherlineclose")
+								.toString();
+				String oricg = oriCgfab.getAttributeValue("whetherlineclose") == null ? null
+						: oriCgfab.getAttributeValue("whetherlineclose")
+								.toString();
+				int result = 0;
+				if (newcg.equals(oricg)) {
+
+				} else if ("Y".equals(newcg)) {
+					result = 1;
+				}
+
+				// 新的vo有修改则需要回写
+				if (result == 1) {
+					res.put((String) cgfab.getAttributeValue("csrcid"), result);
+				}
+			}
+			return res;
+		}
+
+	}
+
+	/**
+	 * @param res
+	 */
+	private void reWrite(HashMap<String, Integer> res) {
+		// TODO 自动生成的方法存根
+		// 没有需要回写行关闭的数据
+		if (res.size() == 0) {
+			return;
+		}
+		List<PraybillItemVO> bvos = new ArrayList<PraybillItemVO>();
+		for (Map.Entry<String, Integer> map : res.entrySet()) {
+			PraybillItemVO bvo = new PraybillItemVO();
+			bvo.setPrimaryKey(map.getKey());
+			bvo.setPk_praybill_b(map.getKey());
+			bvo.setAttributeValue("whetherlineclose", UFBoolean.TRUE);
+			bvo.setSts_req("02");
+			bvo.setAttributeValue("sts_req", "02");
+			bvos.add(bvo);
+		}
+		// 持久化操作，更新上游的是否行关闭
+		VOUpdate<PraybillItemVO> update = new VOUpdate<PraybillItemVO>();
+		update.update(bvos.toArray(new PraybillItemVO[bvos.size()]),
+				new String[] { "whetherlineclose", "sts_req" });
+
+	}
+
+}

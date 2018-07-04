@@ -1,0 +1,3 @@
+insert into bd_billtype(pk_billtypeid,accountclass,billcoderule,billstyle,billtypename,canextendtransaction,checkclassname,classname,component,datafinderclz,def1,def2,def3,dr,emendenumclass,forwardbilltype,isaccount,isapprovebill,isbizflowbill,iseditableproperty,isenablebutton,islock,isroot,istransaction,ncbrcode,nodecode,parentbilltype,pk_billtypecode,pk_group,pk_org,referclassname,systemcode,transtype_class,ts,webnodecode,wherestring,comp,isenabletranstypebcr) values('1001Z810000000003DWX',null,null,null,'~',null,'nc.bs.scmpub.pf.PfBeforeAndAfterAction',null,'期初暂估单',null,null,null,null,null,null,'25,27,23E1','N','N','Y','Y','Y','N','N','Y','4T','40041600','4T','4T-01','global00000000000000','~',null,'PO',null,'2013-12-04 16:31:52','~',null,null,null)
+go
+

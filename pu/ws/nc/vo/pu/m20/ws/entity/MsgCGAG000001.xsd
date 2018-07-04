@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xsd:schema  elementFormDefault="unqualified"  attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+ jaxb:version="2.0"
+xmlns:ns0="http://entity.ws.m20.pu.vo.nc/MsgCGAG000001"
+targetNamespace="http://entity.ws.m20.pu.vo.nc/MsgCGAG000001" >
+	<xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="nc.vo.pu.m20.ws.entity"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="MsgCGAG000001" type="ns0:MsgCGAG000001"/>
+
+    <xsd:complexType name="MsgCGAG000001"  >
+                <xsd:sequence>
+                    <xsd:element name="itemDrawnumber"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="itemMaterial"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="fileList"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="itemName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="itemSpec"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="itemType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="qty"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="itemId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="companyName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="itemPlanprice"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="mrRemark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="buyerCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="uom"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="extSysId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="deliveryDate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="mrId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="mrLineId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orignFactoryName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

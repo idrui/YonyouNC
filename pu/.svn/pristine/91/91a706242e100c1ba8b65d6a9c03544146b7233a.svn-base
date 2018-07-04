@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Manifest>
+  <BusinessComponet name="pub" dispname="采购公共组件">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="sourcingrule" dispname="货源定义">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="positionresp" dispname="岗位设置">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="storereq" dispname="物资需求申请">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="buyingreq" dispname="请购">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="puorder" dispname="采购订单">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="puarrival" dispname="到货">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="puinvoice" dispname="采购发票">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="pusettlement" dispname="采购结算">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="pupricedeter" dispname="询报及价格审批">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="vendorprice" dispname="供应商价格">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="qualityprice" dispname="优质优价">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="pureport" dispname="采购报表">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  <BusinessComponet name="oasp" dispname="OA审批">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+  
+   <BusinessComponet name="proscheme" dispname="采购方案">
+    <public>
+      <src name="src/public"/>
+    </public>
+    <client>
+      <src name="src/client"/>
+    </client>
+    <private>
+      <src name="src/private"/>
+    </private>
+    <test>
+      <src name="src/test"/>
+    </test>
+    <resource>
+      <src name="src/resources"/>
+    </resource>
+  </BusinessComponet>
+
+</Manifest>

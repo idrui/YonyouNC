@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="liuchx">
+  <ReviewIssue id="GMRLI66P">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:15:43:441 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:15:56:206 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>liuchx</ReviewerId>
+    <AssignedTo>liuchx</AssignedTo>
+    <File line="27">buyingreq/src/private/nc/bs/pu/m20/query/AbstractRefQueryBP.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary>test</Summary>
+    <Description>testll</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GMRLXH5M">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:27:37:498 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:28:24:386 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>liuchx</ReviewerId>
+    <AssignedTo>liuchx</AssignedTo>
+    <File line="78">buyingreq/src/private/nc/bs/pu/m20/query/AbstractRefQueryBP.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110421小组交流 </Summary>
+    <Description>建议用view查询 </Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GMRM8HG8">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:36:11:096 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:36:38:283 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>liuchx</ReviewerId>
+    <AssignedTo>liuchx</AssignedTo>
+    <File></File>
+    <Type>item.label.unset</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110421小组交流 </Summary>
+    <Description>sql.append(" and " + this.itemtb + ".nnum is not null");
+可以去掉</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GMRMXGVO">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:55:36:756 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:56:06:816 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>liuchx</ReviewerId>
+    <AssignedTo>liuchx</AssignedTo>
+    <File></File>
+    <Type>item.label.unset</Type>
+    <Severity>item.severity.label.minor</Severity>
+    <Summary>20110421小组交流 </Summary>
+    <Description>转单子类相应处理 去掉 is not null</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GMRN0PTI">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:58:08:310 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 19:58:45:543 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>liuchx</ReviewerId>
+    <AssignedTo>liuchx</AssignedTo>
+    <File></File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary>20110421小组交流 </Summary>
+    <Description>"Y"  改为 UFBoolean</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+</Review>

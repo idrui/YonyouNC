@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		编辑控件元素##########################################################
+	-->
+
+	<!-- 财务组织的编辑事件 -->
+	<bean id="financeOrgainzation" class="nc.ui.pu.m27.settlebill.editor.org.OrgChangedEventHandler">
+		<property name="cardForm" ref="billFormEditor" />
+		<property name="listView" ref="listView" />
+	</bean>
+	
+	<!-- 列表表头换行事件 -->
+	<bean id="listHeadRowChangedEvent" class="nc.ui.pu.m27.settlebill.editor.list.ListHeadRowChangedEventHandler" />
+
+	<!-- 事件处理 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 财务组织切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.OrgChangedEvent">
+					<list>
+						<ref bean="financeOrgainzation" />
+					</list>
+				</entry>
+				<!-- 表头换行事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+					<list>
+						<ref bean="listHeadRowChangedEvent" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

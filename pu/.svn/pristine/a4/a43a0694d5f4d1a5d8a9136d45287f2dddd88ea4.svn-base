@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- 请购单操作及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPraybillMaintain</interface>
+      <implementation>nc.impl.pu.m20.PraybillMaintainImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPraybillApprove</interface>
+      <implementation>nc.impl.pu.m20.PraybillApproveImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPraybillPublishToEC</interface>
+      <implementation>nc.impl.pu.m20.PraybillPublishToECImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPraybillRevise</interface>
+      <implementation>nc.impl.pu.m20.PraybillReviseImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPraybillPriceInfo</interface>
+      <implementation>nc.impl.pu.m20.PraybillPriceInfoImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.ISupplierQuotas</interface>
+      <implementation>nc.impl.pu.m20.SupplierQuotasImpl</implementation>
+    </component>
+    <!-- 请购安排操作及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPrayarrange</interface>
+      <implementation>nc.impl.pu.m20.PrayarrangeImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.IPrayarrangeQuery</interface>
+      <implementation>nc.impl.pu.m20.PrayarrangeQueryImpl</implementation>
+    </component>
+    <!-- 提供给采购合同的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.ct.z2.IQuery20ForZ2</interface>
+      <implementation>nc.pubimpl.pu.m20.ct.z2.QueryForZ2Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.ct.z2.IReWrite20ForZ2</interface>
+      <implementation>nc.pubimpl.pu.m20.ct.z2.ReWrite20ForZ2Impl</implementation>
+    </component>
+    <!-- 提供给采购订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m21.IQuery20For21</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m21.QueryFor21Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m21.IReWrite20For21</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m21.ReWrite20For21Impl</implementation>
+    </component>
+    <!-- 提供给价格审批单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m28.IQuery20For28</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m28.QueryFor28Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m28.IReWrite20For28</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m28.ReWrite20For28Impl</implementation>
+    </component>
+    <!-- 提供给询报价单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m29.IQuery20For29</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m29.QueryFor29Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pu.m29.IReWrite20For29</interface>
+      <implementation>nc.pubimpl.pu.m20.pu.m29.ReWrite20For29Impl</implementation>
+    </component>
+    <!-- 提供给计划订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mm.m55B4.IPushSave20For55B4</interface>
+      <implementation>nc.pubimpl.pu.m20.mm.m55B4.PushSave20For55B4Impl</implementation>
+    </component>
+    <!-- 提供给生产订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mm.a2.IPushSave20ForA2</interface>
+      <implementation>nc.pubimpl.pu.m20.mm.a2.PushSave20ForA2Impl</implementation>
+    </component>
+    <!-- 提供给离散生产订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mm.c2.IPushSave20ForC2</interface>
+      <implementation>nc.pubimpl.pu.m20.mm.c2.PushSave20ForC2Impl</implementation>
+    </component>
+    <!-- 提供给离散制造的齐套分析查询供给-请购单字段映射服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mmpub.setanalysis.IQueryPrayOrderMapForSa</interface>
+      <implementation>nc.pubimpl.pu.m20.mmpub.setanalysis.QueryPrayOrderMapForSaImpl</implementation>
+    </component>
+    <!-- 提供给离散制造的需求跟踪查询供给-请购单字段映射服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mmdp.dt.IQueryPrayOrderMapForDT</interface>
+      <implementation>nc.pubimpl.pu.m20.mmdp.dt.QueryPrayOrderMapForDTImpl</implementation>
+    </component>
+    <!-- 提供给离散制造的ECA查询请购单信息服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.ecn.eco.IQueryPrayBillForECA</interface>
+      <implementation>nc.pubimpl.pu.m20.ecn.eco.QueryPrayBillForECAImpl</implementation>
+    </component>
+    <!-- 请购单为"供需预订维护"节点提供的单据追溯接口 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mmpps.lotreq.IQueryPrayBillForLotreg</interface>
+      <implementation>nc.pubimpl.pu.m20.mmpps.lotreg.QueryPrayBillForLotregImpl</implementation>
+    </component>
+    <!-- 提供给生产制造的执行数量查询服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mm.IQueryPrayExec</interface>
+      <implementation>nc.pubimpl.pu.m20.mm.QueryPrayExecImpl</implementation>
+    </component>
+    <!-- 请购单提供给离散制造的供给查询服务-->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.mmpps.IPrayBillSupply</interface>
+      <implementation>nc.pubimpl.pu.m20.mmpps.PrayBillSupplyImpl</implementation>
+    </component>
+     <!-- 提供给资产维修工单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.am.m4b36.IQuery20For4b36</interface>
+      <implementation>nc.pubimpl.pu.m20.am.m4b36.Query20For4b36Impl</implementation>
+    </component>
+    <!-- 提供给资产配置申请单取消审批时，删除请购单服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.aim.m4A08.IDelete20For4A08</interface>
+      <implementation>nc.pubimpl.pu.m20.aim.m4a08.Delete20For4A08Impl</implementation>
+    </component>
+    <!-- 提供给资产配置申请单审批时，推式保存请购单服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.aim.m4A08.IPushSave20For4A08</interface>
+      <implementation>nc.pubimpl.pu.m20.aim.m4a08.PushSave20For4A08Impl</implementation>
+    </component>
+    <!-- 提供给销售订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.so.m30.IPushSave20For30</interface>
+      <implementation>nc.pubimpl.pu.m20.so.m30.PushSave20For30Impl</implementation>
+    </component>
+    <!-- 提供给交易类型的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pub.IQueryPrayBill</interface>
+      <implementation>nc.pubimpl.pu.m20.pub.QueryPrayBillImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.so.m30.IDelete20For30</interface>
+      <implementation>nc.pubimpl.pu.m20.so.m30.Delete20For30Impl</implementation>
+    </component>
+    <!-- 提供给委外订单的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.sc.m61.IQuery20For61</interface>
+      <implementation>nc.pubimpl.pu.m20.sc.m61.QueryFor61Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.sc.m61.IReWrite20For61</interface>
+      <implementation>nc.pubimpl.pu.m20.sc.m61.ReWrite20For61Impl</implementation>
+    </component>
+    <!-- 提供给库存计划的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.invp.IBuyingreqQueryForInvp</interface>
+      <implementation>nc.pubimpl.pu.m20.invp.BuyingreqQueryForInvpImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.invp.m4f.IPushSave20For4F</interface>
+      <implementation>nc.pubimpl.pu.m20.invp.m4f.PushSave20For4FImpl</implementation>
+    </component>
+    <!-- 为项目提供的查询服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.pim.IBuyingReqQueryForPIM</interface>
+      <implementation>nc.pubimpl.pu.m20.pim.BuyingReqQueryForPIMImpl</implementation>
+    </component>
+    
+    <!-- 给进口合同提供的服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.it.m5801.IReWrite20For5801</interface>
+      <implementation>nc.pubimpl.pu.m20.it.m5801.ReWrite20For5801Impl</implementation>
+    </component>
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.it.m5801.IQuery20For5801</interface>
+      <implementation>nc.pubimpl.pu.m20.it.m5801.Query20For5801Impl</implementation>
+    </component>
+    
+    <!-- 请购单61升级 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.upgrade.IM20UpgradeToV61</interface>
+      <implementation>nc.impl.pu.m20.upgrade.M20UpgradeToV61Impl</implementation>
+    </component>
+    
+    <!-- 请购单63升级 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m20.upgrade.IM20UpgradeToV63</interface>
+      <implementation>nc.impl.pu.m20.upgrade.M20UpgradeToV63Impl</implementation>
+    </component>
+    
+     <!-- 提供给库存计划需求平衡提供的服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.invp.inv9.IBuyingreqQueryForInv9</interface>
+      <implementation>nc.pubimpl.pu.m20.invp.inv9.BuyingreqQueryForInv9Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.invp.inv9.IPushSave20ForInv9</interface>
+      <implementation>nc.pubimpl.pu.m20.invp.inv9.PushSave20ForInv9Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.invp.inv9.IDelete20ForInv9</interface>
+      <implementation>nc.pubimpl.pu.m20.invp.inv9.Delete20ForInv9Impl</implementation>
+    </component>
+    
+    <!-- 2015年7月24日 wangweir 生产V65版本不需要此接口 begin -->
+    <!--打开单据按钮触发  由单据主键获取节点和单据主键的对应关系 -->
+    <!--<component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">-->
+      <!--<interface>nc.pubitf.pu.m20.mmdp.altc.IQueryPrayOrderMapForALTC</interface>-->
+      <!--<implementation>nc.pubimpl.pu.m20.mmdp.altc.QueryPrayOrderMapForALTCImpl</implementation>-->
+    <!--</component>-->
+    <!-- 变更处理按钮触发 根据单据主键和变更建议更新请购单-->
+    <!--<component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">-->
+      <!--<interface>nc.pubitf.pu.m20.mmdp.altc.IUpdateParyOrderService</interface>-->
+      <!--<implementation>nc.pubimpl.pu.m20.mmdp.altc.UpdateParyOrderServiceImpl</implementation>-->
+    <!--</component>-->
+    <!--2015年7月24日 wangweir 生产V65版本不需要此接口 end -->   
+    
+  </public>
+</module>
+

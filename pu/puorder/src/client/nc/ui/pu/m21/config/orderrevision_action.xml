@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		按钮事件元素##########################################################
+	-->
+
+	<!--
+		Actions ###########################################################
+	-->
+	<!-- 切换到卡片界面的拦截器 -->
+	<bean id="formInterceptor"
+		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="billFormEditor" />
+	</bean>
+	
+	<!-- 切换到列表界面的拦截器 -->
+	<bean id="listInterceptor"
+		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="listView" />
+	</bean>
+	
+	<bean id="qryDLGInitializer" class="nc.ui.pu.m21.view.OrderReviseQueryDLGInitializer"/>
+	<!-- 查询-->
+	<bean id="queryAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultQueryAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<!--<property name="interceptor" ref="listInterceptor" />-->
+		<property name="qryCondDLGInitializer" ref="qryDLGInitializer" />
+		<property name="showUpComponent" ref="listView" />
+		<property name="templateContainer" ref="queryTemplateContainer" />
+		<property name="hasQueryArea" value="false" />
+	</bean>
+	<!-- 刷新 -->
+	<!-- 列表下刷新 -->
+	<bean id="refreshAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 卡片下刷新 -->
+	<!-- -->
+	<bean id="cardRefreshAction" class="nc.ui.pubapp.uif2app.actions.RefreshSingleAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	 
+	<!-- 修订-->
+	<bean id="reviseAction" class="nc.ui.pu.m21.action.OrderReviseAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="interceptor" ref="formInterceptor"/>
+		<property name="permissioncode" value="21" />
+		<property name="powercheck" value="true"/>
+	</bean>
+	<!-- 保存-->
+	<bean id="saveAction" class="nc.ui.pu.m21.action.ReviseSaveAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="actionName" value="REVISE" />
+		<property name="billType" value="21" />
+	</bean>
+	<!-- 取消-->
+	<bean id="cancelAction" class="nc.ui.pu.m21.action.RCancelAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="billForm" ref="billFormEditor" />
+	</bean>
+
+	<!-- 打印处理类，精度等 -->
+    <bean id="printProcessor" class="nc.ui.pu.m21.action.processor.OrderPrintProcessor">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 打印预览 -->
+	<bean id="revisePreviewAction" class="nc.ui.pu.m21.action.PrintAction">
+		<property name="preview" value="true" />
+		<property name="model" ref="manageAppModel" />
+		<!--<property name="editor"  ref="billFormEditor"  />  
+		--><property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+	<!-- 打印 -->
+	<bean id="revisePrintAction" class="nc.ui.pu.m21.action.PrintAction">
+		<property name="preview" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" /> 
+	</bean>
+	
+	<!-- 附件管理 -->
+	<bean id="docMngAction"  class="nc.ui.pubapp.uif2app.actions.FileDocManageAction">
+    <property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 辅助功能 -->
+	<bean id="reviseAssistAction" class="nc.ui.pu.m21.action.ReviseAssistAction">
+		<property name="actions">
+			<list>
+				<ref bean="docMngAction" />
+				<ref bean="editRecordAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	
+	<!-- 修订记录返回 -->
+    <bean id="returnAction" class="nc.ui.pu.m21.action.ReturnAction">
+        <property name="listView" ref="listView" />
+        <property name="refreshAction" ref="refreshAction" />
+    </bean>
+    
+    <!-- 修订记录 -->
+    <bean id="editRecordAction" class="nc.ui.pu.m21.action.OrderRHisAction">
+        <property name="editor" ref="listViewRecord" />
+		<property name="model" ref="manageAppModel" />
+    </bean>
+    
+	<!-- 联查 -->
+	<bean id="linkBillMenuAction" class="nc.ui.pu.m21.action.LinkBillMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="linkQueryAction" />
+				<ref bean="separatorAction" />
+				<ref bean="linkMppAction" />
+				<ref bean="kitQueryAction" />
+				<ref bean="ATPAction" />
+				<ref bean="billSaleNumAction" />
+				<ref bean="billGrossProfitAction" />
+				<ref bean="apAction" />
+				<ref bean="payExecStatAction" />
+				<ref bean="separatorAction" />
+				<ref bean="approveStatusAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="linkBillMenuActionForCard" class="nc.ui.pu.m21.action.LinkBillMenuAction">
+		<property name="actions">
+			<list>
+				<ref bean="kitQueryAction" />
+				<ref bean="ATPAction" />
+				<ref bean="billSaleNumAction" />
+				<ref bean="billGrossProfitAction" />
+				<ref bean="apAction" />
+				<ref bean="payExecStatAction" />
+			</list>
+		</property>
+	</bean>	
+	
+		<!-- 联查单据 -->
+	<bean id="linkQueryAction" class="nc.ui.pu.pub.action.PULinkQueryAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="billType" value="21" />
+	</bean>
+	
+		<!-- 联查采购计划 -->
+	<bean id="linkMppAction" class="nc.ui.pu.m21.action.OrderLinkQueryMppAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="billForm" ref="billFormEditor" />
+		<property name="list" ref="listView" />
+	</bean>
+	    
+	<!-- 成套件信息 -->
+	<bean id="kitQueryAction" class="nc.ui.pu.m21.action.KitQueryAction">
+		<property name="editor" ref="billFormEditor" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+
+	<!-- 存量查询 -->
+	<bean id="ATPAction" class="nc.ui.pu.m21.action.OrderATPAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="billForm" ref="billFormEditor" />
+		<property name="list" ref="listView" />
+	</bean>
+
+	<!-- 销量查询 -->
+	<bean id="billSaleNumAction" class="nc.ui.pu.m21.action.BillSaleNumAction">
+		<property name="billForm" ref="billFormEditor" />
+		<!-- 保留注释UE新增模板 -->
+		<!--<property name="billForm_Add" ref="billFormEditor_Add" /> -->
+		<property name="list" ref="listView" />
+		<property name="model" ref="manageAppModel" />
+	</bean>			    
+
+	<!-- 毛利预估 -->
+	<bean id="billGrossProfitAction" class="nc.ui.pu.m21.action.BillGrossProfitAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="billForm" ref="billFormEditor" />
+		<!-- 保留注释UE新增模板 -->
+		<!--<property name="billForm_Add" ref="billFormEditor_Add" /> -->
+	</bean>	
+
+	<!-- 供应商应付 -->
+	<bean id="apAction" class="nc.ui.pu.m21.action.ApQueryAction">
+		<property name="billForm" ref="billFormEditor" />
+		<!-- 保留注释UE新增模板 -->
+		<!--<property name="billForm_Add" ref="billFormEditor_Add" /> -->
+		<property name="model" ref="manageAppModel" />
+	</bean>	
+	
+	<!-- 付款执行情况 -->
+	<bean id="payExecStatAction" class="nc.ui.pu.m21.action.PayExecStatAction">
+		<!-- <property name="billForm" ref="billFormEditor" /> -->
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+	<!-- 审批流状态 -->
+	<bean id="approveStatusAction"
+		class="nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>	
+		
+	<!-- 打印 -->
+	<bean id="revisePrintMenuAction" class="nc.funcnode.ui.action.GroupAction">
+		<property name="code" value="printMenuAction" />
+		<property name="actions">
+			<list>
+				<ref bean="revisePrintAction" />
+				<ref bean="revisePreviewAction" />
+				<ref bean="printCountQueryAction"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 打印次数查询 -->
+	<bean id="printCountQueryAction" class="nc.ui.scmpub.action.SCMPrintCountQueryAction">
+		<property name="model" ref="manageAppModel" />
+		<!-- 单据日期属性名称 -->
+		<property name="billdateFieldName" value="dbilldate"/>
+		<!-- 单据类型编码 -->
+		<property name="billType" value="21" />
+	</bean>
+
+</beans>

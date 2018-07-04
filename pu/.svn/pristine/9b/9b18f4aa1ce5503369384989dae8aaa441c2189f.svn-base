@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-05-17 10:53:47" creator="" description="" displayName="pu_prayexe_enum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="ffbec0ae-16bc-467e-9b64-76df016ad7f8" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:21:31" name="pu_prayexe_enum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409006-0004" version="15" versionType="0">
+    <celllist>
+        <Enumerate componentID="ffbec0ae-16bc-467e-9b64-76df016ad7f8" createTime="2011-05-17 10:54:06" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="请购单执行情况" fullClassName="nc.vo.pu.report.enumeration.PrayBillGroupEnum" height="167" help="" id="587c1a2b-8729-4e4f-bc73-117b6eb1bb81" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:21:31" name="praybillenum" resid="2400409006-0001" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="181" x="75" y="35">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="请购单行执行明细" enumID="587c1a2b-8729-4e4f-bc73-117b6eb1bb81" enumValue="0" hidden="false" id="2ae421b0-596c-4fa9-a2ef-24469028cc49" resid="2400409006-0002" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="请购单行执行汇总" enumID="587c1a2b-8729-4e4f-bc73-117b6eb1bb81" enumValue="1" hidden="false" id="b97aca48-9f36-4916-9aed-eee70eb6f7d1" resid="2400409006-0003" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="物料执行汇总" enumID="587c1a2b-8729-4e4f-bc73-117b6eb1bb81" enumValue="2" hidden="false" id="034477d8-7d48-4e9e-ae50-ab990952b548" resid="2400409006-0000" sequence="2" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

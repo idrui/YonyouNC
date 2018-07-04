@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+	<public>
+		<!-- START=====================采购订单本业务组件内部的服务========================== -->
+		<!-- 接口多表事务回滚-->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IMsgXSAGHT0001Save</interface>
+			<implementation>nc.impl.pu.m21.MsgXSAGHT0001SaveImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IMsgXSAGHT0001</interface>
+			<implementation>nc.impl.pu.m21.MsgXSAGHT0001Impl</implementation>
+		</component>
+</module>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createIndustry="0" createTime="2011-04-28 19:17:41" creator="" description="" displayName="poarrive" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="26a1470a-48fb-4910-b98a-8ffa591fb065" industry="0" industryChanged="false" industryIncrease="false" industryName="基础行业" isSource="false" isbizmodel="true" mainEntity="" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="poarrive" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004040_2" resid="2400404002-0008" version="38" versionType="0">
+    <celllist>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:18:13" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="修改操作" fullClassName="nc.vopu.poarrive.edit" height="100" help="BUSILOG" id="c2831764-936f-4a8b-b04f-33cb78aaf70c" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="edit" needlog="true" resid="2400404002-0003" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="134" y="26">
+            <refoperationlist>
+                <refoperation id="cb9e9691-4586-47e3-834f-11309efa8fd4" industry="0" isAuthorization="true" isSource="false" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="c2831764-936f-4a8b-b04f-33cb78aaf70c" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:18:15" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="取消审批操作" fullClassName="nc.vopu.poarrive.unapprove" height="100" help="" id="13db67f7-3694-497b-9485-9101eb9b5668" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="unapprove" needlog="true" resid="2400404002-0001" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="133" y="240">
+            <refoperationlist>
+                <refoperation id="414e2535-2911-4f0a-a7f7-c615a9bc44ca" industry="0" isAuthorization="true" isSource="false" opItfID="85c91493-3814-4a52-b46e-fc963b8bd04f" ownerElementID="13db67f7-3694-497b-9485-9101eb9b5668" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:18:16" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="新增操作" fullClassName="nc.vopu.poarrive.insert" height="100" help="BUSILOG" id="f64b9d3e-639e-453c-b880-1d496a42bc04" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="ADD" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="insert" needlog="true" resid="2400404002-0007" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="31" y="35">
+            <refoperationlist>
+                <refoperation id="77ec33b7-a9a7-4c98-9ef2-0e730707ba37" industry="0" isAuthorization="true" isSource="false" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="f64b9d3e-639e-453c-b880-1d496a42bc04" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:18:19" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="审批操作" fullClassName="nc.vopu.poarrive.approve" height="100" help="" id="43d63958-ad92-493d-9090-d39a10396ba3" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="approve" needlog="true" resid="2400404002-0005" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="26" y="248">
+            <refoperationlist>
+                <refoperation id="9c3a4fb5-51e4-45d7-886b-85b719bf595c" industry="0" isAuthorization="true" isSource="false" opItfID="85c91493-3814-4a52-b46e-fc963b8bd04f" ownerElementID="43d63958-ad92-493d-9090-d39a10396ba3" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:25:12" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="提交操作" fullClassName="nc.vopu.poarrive.commit" height="100" help="" id="f42f1d69-aeb2-4447-9de6-8217ff41af24" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="commit" needlog="false" resid="2400404002-0004" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="151" y="128">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:26:34" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="删除操作" fullClassName="nc.vopu.poarrive.delete" height="100" help="BUSILOG" id="dd08c3c7-bbf8-4990-ac51-613bda609192" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="DELETE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="delete" needlog="true" resid="2400404002-0006" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="40" y="142">
+            <refoperationlist>
+                <refoperation id="0c95af50-a4a2-4d89-a0fa-7646e5b71465" industry="0" isAuthorization="true" isSource="false" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="dd08c3c7-bbf8-4990-ac51-613bda609192" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:26:46" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="收回操作" fullClassName="nc.vopu.poarrive.uncommit" height="100" help="" id="8d9844c3-ef54-4773-8a69-aab94ae93ebd" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="uncommit" needlog="false" resid="2400404002-0002" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="236" y="238">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2011-04-28 19:27:34" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="打印操作" fullClassName="nc.vopu.poarrive.print" height="100" help="" id="5e82f4b8-d3f3-4938-b261-c8aa82d9a6df" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="print" needlog="false" resid="2400404002-0000" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="378" y="112">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2012-01-05 14:01:10" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="查询操作" fullClassName="nc.vopu.poarrive.query" height="100" help="" id="d20a8c02-5310-4a72-ab0a-53ced72e14b8" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:24:53" name="query" needlog="false" resid="24004000-0003" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="272" y="28">
+            <refoperationlist/>
+        </busioperation>
+        <opinterface componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2012-05-02 15:08:50" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="到货单审批" fullClassName="nc.itf.pu.m23.approve.IArriveApprove" height="100" help="BUSILOG" id="85c91493-3814-4a52-b46e-fc963b8bd04f" implClsName="nc.impl.pu.m23.approve.ArriveApproveImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2013-01-24 10:01:23" name="IArriveApprove" remote="true" resid="2400404002-0009" singleton="true" transprop="CMT" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="527" y="105">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="审批" forBusinessEntity="N" help="" id="9c3a4fb5-51e4-45d7-886b-85b719bf595c" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="approveArrive" opItfID="85c91493-3814-4a52-b46e-fc963b8bd04f" ownerElementID="85c91493-3814-4a52-b46e-fc963b8bd04f" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="取消审批" forBusinessEntity="N" help="" id="414e2535-2911-4f0a-a7f7-c615a9bc44ca" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="unApproveArrive" opItfID="85c91493-3814-4a52-b46e-fc963b8bd04f" ownerElementID="85c91493-3814-4a52-b46e-fc963b8bd04f" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+        <opinterface componentID="26a1470a-48fb-4910-b98a-8ffa591fb065" createIndustry="0" createTime="2012-05-02 15:43:29" creator="" dataType="8fbe8162-4588-465e-9b07-78befaf383ce" dbtype="" description="" displayName="到货单维护" fullClassName="nc.itf.pu.m23.maintain.IArriveMaintain" height="100" help="BUSILOG" id="206a19d0-496d-4f28-85fc-83d411b17031" implClsName="nc.impl.pu.m23.maintain.ArriveMaintainImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2013-01-24 10:05:24" name="IArriveMaintain" remote="true" resid="2400404002-0010" singleton="true" transprop="CMT" typeDisplayName="到货单主表" typeName="po_arriveorder" version="" versionType="0" visibility="public" width="80" x="533" y="238">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="删除" forBusinessEntity="N" help="" id="0c95af50-a4a2-4d89-a0fa-7646e5b71465" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="deleteArrive" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="206a19d0-496d-4f28-85fc-83d411b17031" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="aggVOArray" isAggVO="true" name="aggVOArray" operationID="0c95af50-a4a2-4d89-a0fa-7646e5b71465" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="env" isAggVO="false" name="env" operationID="0c95af50-a4a2-4d89-a0fa-7646e5b71465" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="保存" forBusinessEntity="N" help="" id="9b0c36f9-8b72-4baf-ba69-92c1a8889682" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="saveBase" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="206a19d0-496d-4f28-85fc-83d411b17031" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="arriveClientVos" isAggVO="true" name="arriveClientVos" operationID="9b0c36f9-8b72-4baf-ba69-92c1a8889682" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="envs" isAggVO="false" name="envs" operationID="9b0c36f9-8b72-4baf-ba69-92c1a8889682" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="新增" forBusinessEntity="N" help="" id="77ec33b7-a9a7-4c98-9ef2-0e730707ba37" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="insert" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="206a19d0-496d-4f28-85fc-83d411b17031" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="新增vo数组" isAggVO="true" name="aggVOArray" operationID="77ec33b7-a9a7-4c98-9ef2-0e730707ba37" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="环境信息" isAggVO="false" name="env" operationID="77ec33b7-a9a7-4c98-9ef2-0e730707ba37" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="修改" forBusinessEntity="N" help="" id="cb9e9691-4586-47e3-834f-11309efa8fd4" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="update" opItfID="206a19d0-496d-4f28-85fc-83d411b17031" ownerElementID="206a19d0-496d-4f28-85fc-83d411b17031" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="修改vo数组" isAggVO="true" name="aggVOArray" operationID="cb9e9691-4586-47e3-834f-11309efa8fd4" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="环境信息" isAggVO="false" name="env" operationID="cb9e9691-4586-47e3-834f-11309efa8fd4" paramTypeForLog="7" paramdefclassname="" sequence="1" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

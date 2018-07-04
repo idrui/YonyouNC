@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+jaxb:version="2.0"
+xmlns:ns0="http://m21.pu.itf.nc/IMsgXSAGHT0001"
+targetNamespace="http://m21.pu.itf.nc/IMsgXSAGHT0001">
+
+<jaxws:bindings>
+	<jaxws:package name="nc.itf.pu.m21"/>
+</jaxws:bindings>
+
+<wsdl:types>
+   <xsd:schema xmlns:ns="http://m21.pu.itf.nc/IMsgXSAGHT0001"
+			xmlns:msgXSAGHT0001Head="http://entity.m21.pu.vo.nc/MsgXSAGHT0001Head"
+			attributeFormDefault="unqualified"
+			elementFormDefault="unqualified"
+			targetNamespace="http://m21.pu.itf.nc/IMsgXSAGHT0001" jaxb:version="2.0">
+	<xsd:annotation>
+    	<xsd:appinfo>
+   			<jaxb:schemaBindings>
+    			<jaxb:package name="nc.itf.pu.m21"/>
+    		</jaxb:schemaBindings>
+   		</xsd:appinfo>
+   	</xsd:annotation>
+	 <xsd:import namespace="http://entity.m21.pu.vo.nc/MsgXSAGHT0001Head" schemaLocation="/nc/vo/pu/m21/entity/MsgXSAGHT0001Head.xsd"/>
+	<xsd:element name="MXSAGHT0001Head">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="msgXSAGHT0001Head"  minOccurs="0" nillable="true" type="msgXSAGHT0001Head:MsgXSAGHT0001Head"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+	<xsd:element name="MXSAGHT0001HeadResponse">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="return"  minOccurs="0" nillable="true" type="xsd:string"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+   </xsd:schema>
+</wsdl:types>
+    <wsdl:message name="MXSAGHT0001HeadRequest">
+        <wsdl:part name="parameters"  element="ns0:MXSAGHT0001Head"/>
+    </wsdl:message>
+    <wsdl:message name="MXSAGHT0001HeadResponse">
+        <wsdl:part name="parameters"  element="ns0:MXSAGHT0001HeadResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="IMsgXSAGHT0001PortType">
+        <wsdl:operation name="MXSAGHT0001Head">
+            <wsdl:input message="ns0:MXSAGHT0001HeadRequest" wsaw:Action="urn:MXSAGHT0001Head"/>
+            <wsdl:output message="ns0:MXSAGHT0001HeadResponse" wsaw:Action="urn:MXSAGHT0001HeadResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    
+    <wsdl:binding name="IMsgXSAGHT0001SOAP11Binding" type="ns0:IMsgXSAGHT0001PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="MXSAGHT0001Head">
+            <soap:operation soapAction="urn:MXSAGHT0001Head" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="IMsgXSAGHT0001">
+        <wsdl:port name="IMsgXSAGHT0001SOAP11port_http" binding="ns0:IMsgXSAGHT0001SOAP11Binding">
+            <soap:address location="http://localhost/uapws/service/IMsgXSAGHT0001"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+jaxb:version="2.0"
+xmlns:ns0="http://m20.pu.wsitf.nc/IMsgCGAG000001"
+targetNamespace="http://m20.pu.wsitf.nc/IMsgCGAG000001">
+
+<jaxws:bindings>
+	<jaxws:package name="nc.wsitf.pu.m20"/>
+</jaxws:bindings>
+
+<wsdl:types>
+   <xsd:schema xmlns:ns="http://m20.pu.wsitf.nc/IMsgCGAG000001"
+			xmlns:msgCGAG000001Head="http://entity.ws.m20.pu.vo.nc/MsgCGAG000001Head"
+			attributeFormDefault="unqualified"
+			elementFormDefault="unqualified"
+			targetNamespace="http://m20.pu.wsitf.nc/IMsgCGAG000001" jaxb:version="2.0">
+	<xsd:annotation>
+    	<xsd:appinfo>
+   			<jaxb:schemaBindings>
+    			<jaxb:package name="nc.wsitf.pu.m20"/>
+    		</jaxb:schemaBindings>
+   		</xsd:appinfo>
+   	</xsd:annotation>
+	 <xsd:import namespace="http://entity.ws.m20.pu.vo.nc/MsgCGAG000001Head" schemaLocation="/nc/vo/pu/m20/ws/entity/MsgCGAG000001Head.xsd"/>
+	<xsd:element name="receiveMsgCGAG000001">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="msgCGAG000001Head"  minOccurs="0" nillable="true" type="msgCGAG000001Head:MsgCGAG000001Head"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+	<xsd:element name="receiveMsgCGAG000001Response">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="return"  minOccurs="0" nillable="true" type="xsd:string"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+   </xsd:schema>
+</wsdl:types>
+    <wsdl:message name="receiveMsgCGAG000001Request">
+        <wsdl:part name="parameters"  element="ns0:receiveMsgCGAG000001"/>
+    </wsdl:message>
+    <wsdl:message name="receiveMsgCGAG000001Response">
+        <wsdl:part name="parameters"  element="ns0:receiveMsgCGAG000001Response"/>
+    </wsdl:message>
+
+    <wsdl:portType name="IMsgCGAG000001PortType">
+        <wsdl:operation name="receiveMsgCGAG000001">
+            <wsdl:input message="ns0:receiveMsgCGAG000001Request" wsaw:Action="urn:receiveMsgCGAG000001"/>
+            <wsdl:output message="ns0:receiveMsgCGAG000001Response" wsaw:Action="urn:receiveMsgCGAG000001Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    
+    <wsdl:binding name="IMsgCGAG000001SOAP11Binding" type="ns0:IMsgCGAG000001PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="receiveMsgCGAG000001">
+            <soap:operation soapAction="urn:receiveMsgCGAG000001" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="IMsgCGAG000001">
+        <wsdl:port name="IMsgCGAG000001SOAP11port_http" binding="ns0:IMsgCGAG000001SOAP11Binding">
+            <soap:address location="http://localhost/uapws/service/IMsgCGAG000001"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

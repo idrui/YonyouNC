@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- 采购订单查询API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m21.api.IOrderQueryAPI</interface>
+      <implementation>nc.pubimpl.pu.m21.api.OrderQueryAPIImpl</implementation>
+    </component>
+    <!-- 采购订单持久化API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m21.api.IOrderMaintainAPI</interface>
+      <implementation>nc.pubimpl.pu.m21.api.OrderMaintainAPIImpl</implementation>
+    </component>
+	<!-- 到货单查询API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m23.api.IArriveBillQueryAPI</interface>
+      <implementation>nc.pubimpl.pu.m23.api.ArriveBillQueryAPIImpl</implementation>
+    </component>
+    <!-- 到货单持久化API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m23.api.IArriveBillMaintainAPI</interface>
+      <implementation>nc.pubimpl.pu.m23.api.ArriveBillMaintainAPIImpl</implementation>
+    </component>
+    <!-- 物资需求申请单查询API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.api.IStoreReqAppQueryAPI</interface>
+      <implementation>nc.pubimpl.pu.m422x.api.StoreReqAppQueryAPIImpl</implementation>
+    </component>
+    <!-- 物资需求申请单持久化API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.api.IStoreReqAppMaintainAPI</interface>
+      <implementation>nc.pubimpl.pu.m422x.api.StoreReqAppMaintainAPIImpl</implementation>
+    </component>
+    <!-- 请购单查询API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.api.IPrayBillQueryAPI</interface>
+      <implementation>nc.pubimpl.pu.m20.api.PrayBillQueryAPIImpl</implementation>
+    </component>
+    <!-- 请购单持久化API服务及实现 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m20.api.IPrayBillMaintainAPI</interface>
+      <implementation>nc.pubimpl.pu.m20.api.PrayBillMaintainAPIImpl</implementation>
+    </component>
+  </public>
+</module>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-03-10 08:33:18" creator="" description="" displayName="pu_return_report_groupenum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="f47c1b15-e37f-4292-89c6-c4d4e853de36" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:23:21" name="pu_return_report_groupenum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409008-0003" version="9" versionType="0">
+    <celllist>
+        <Enumerate componentID="f47c1b15-e37f-4292-89c6-c4d4e853de36" createTime="2011-03-10 08:33:41" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="退货类型" fullClassName="nc.vo.pu.report.enumeration.ReturntypeEnum" height="100" help="" id="079d81df-600a-48e9-83fc-4134e49f6d8f" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:23:21" name="returntype" resid="2400409008-0000" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="80" x="202" y="102">
+            <enumitemlist>
+                <enumitem description="ARRIVAL_RTN" enumDisplay="到货退货" enumID="079d81df-600a-48e9-83fc-4134e49f6d8f" enumValue="0" hidden="false" id="243b4c1a-b3af-4ae2-b8c4-579ec3402b39" resid="2400409008-0001" sequence="0" versionType="0"/>
+                <enumitem description="INV_RTN" enumDisplay="库存退货" enumID="079d81df-600a-48e9-83fc-4134e49f6d8f" enumValue="1" hidden="false" id="820ff9ef-7035-4eec-be05-3e4a8a30b9e9" resid="2400409008-0002" sequence="1" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

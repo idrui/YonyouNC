@@ -1,0 +1,18 @@
+package nc.itf.pu.m21;
+
+import java.util.List;
+import java.util.Map;
+
+
+import nc.vo.pu.m21.entity.MsgXSAGHT0001Head;
+
+
+/*
+ * 2017-03-06 攀枝花生产订单接口接口类
+ */
+
+public interface IMsgXSAGHT0001 {
+	
+	public String MXSAGHT0001Head(MsgXSAGHT0001Head msgxsaght0001head);
+	
+}

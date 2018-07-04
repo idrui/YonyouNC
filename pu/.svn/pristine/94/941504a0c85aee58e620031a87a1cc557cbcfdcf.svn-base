@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="general" class="nc.pubapp.pade.code.funnode.FunNodePara">
+        <property name="moduleName" value="pu" />
+	    <property name="bpfPath" value="test.bpf"/>
+	    <property name="funcode" value="40019104"/>
+	    <property name="clientPackName" value="nc.ui.pu.newoaryxx"/>
+			    <property name="metaData" value="oasp\METADATA\newoaryxx.bmf"/>
+	    <property name="xmlPath" value="oasp\src\client\nc\ui\pu\newoaryxx\ace\view\Newoaryxx_config.xml"/>
+	    <property name="metaDataType" value="singleType" />
+		<property name="funcregispath" value="oasp/designmodel/funcmodel/newoaryxx/funcregis/40019104.func" />
+		<property name="quetempath" value="${quetempath}" />
+		<property name="printtempath" value="${printtempath}" />
+		<property name="systembasepath" value="oasp/designmodel/systemplatebase/newoaryxx/40019104/40019104.stb" />
+		<property name="extendSuffix" value=""/>
+		<property name="uif2ModelFilePath" value="oasp\designmodel\ace\uif2model\40019104.umf"/>
+		<property name="busiCompName" value="oasp"/>
+		<property name="metaDataId" value="b5a153aa-8dfc-466c-a5d4-fa736977be03"/>
+	</bean>
+
+	<bean id="templet" class="nc.pubapp.pade.code.funnode.Templet">
+		<property name="tempStyle" value="1" />
+		<property name="nodeKey" value="" />
+		<property name="templetPath" value="oasp/designmodel/templet/newoaryxx/billtemplet/40019104.btf" />
+	</bean>
+	
+	<bean id="FilePackNameBean" class="nc.pubapp.pade.code.engine.FilePackNamePara">
+		<property name="filePackNameList">
+			 <list>
+				  <value>nc.ui.pu.newoaryxx.action.NewoaryxxAddLineAction.java</value>
+				  <value>nc.ui.pu.newoaryxx.handler.BodyAfterEditHandler.java</value>
+				  <value>nc.ui.pu.newoaryxx.handler.BodyBeforeEditHandler.java</value>
+			 </list>
+		</property>
+	</bean>
+
+</beans>

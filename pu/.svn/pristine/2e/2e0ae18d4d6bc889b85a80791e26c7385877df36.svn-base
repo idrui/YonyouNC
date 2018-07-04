@@ -1,0 +1,60 @@
+package nc.ui.pu.m20.action;
+
+import java.awt.event.ActionEvent;
+
+import nc.bs.framework.common.NCLocator;
+import nc.bs.trade.business.HYPubBO;
+import nc.itf.pu.dw66to20.query.IDW66QueryMaintain;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.editor.IBillCardPanelEditor;
+import nc.ui.uif2.model.AbstractAppModel;
+import nc.vo.pu.m20.entity.PraybillVO;
+
+public class RefuseAction extends NCAction {
+
+	private IBillCardPanelEditor editor;
+
+	private AbstractAppModel model;
+
+	private static final long serialVersionUID = 1L;
+
+	public IBillCardPanelEditor getEditor() {
+		return editor;
+	}
+
+	public void setEditor(IBillCardPanelEditor editor) {
+		this.editor = editor;
+	}
+
+	public AbstractAppModel getModel() {
+		return model;
+	}
+
+	public void setModel(AbstractAppModel model) {
+		this.model = model;
+	}
+
+	public RefuseAction() {
+		this.setBtnName("¾Ü¾ø");
+		this.setCode("refuse");
+	}
+
+	@Override
+	public void doAction(ActionEvent e) throws Exception {
+//		HYPubBO  bo=new HYPubBO();
+		int[] a = this.editor.getBillCardPanel().getBillTable()
+				.getSelectedRows();
+//		PraybillVO aggvo=(PraybillVO) this.getModel().getSelectedData();
+		IDW66QueryMaintain sb=NCLocator.getInstance().lookup(IDW66QueryMaintain.class);
+		for (int i = 0; i < a.length; i++) {
+			int j = a[i];
+			String pk_praybill_b =(String)this.editor.getBillCardPanel().getBodyValueAt(j, "pk_praybill_b");
+			
+//			PraybillItemVO[] bvo=(PraybillItemVO[]) bo.queryByCondition(PraybillItemVO.class," pk_praybill_b='" + pk_praybill_b + "'" );
+			sb.Changestsreg(pk_praybill_b);
+		this.editor.getBillCardPanel().setBodyValueAt("09", j, "sts_req");
+		}
+//		this.getModel().directlyUpdate(aggvo);
+	}
+
+}

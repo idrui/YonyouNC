@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 采购入到委托加工入查询模板的映射 -->
+	<bean id="m47queryinfo" class="nc.ui.pu.m27.match.view.query.SettleQueryInfo">
+		<!--委托加工入库单的主实体ID-->
+		<constructor-arg>
+			<value>b400a60d-07a3-4e33-896e-58fec030eab7</value>
+		</constructor-arg>
+		<!--采购入查询模板到委托加工入查询模板映射-->
+		<constructor-arg>
+			<map>
+				<entry key="pk_stockps_b.pk_financeorg">
+					<value>pk_stockps_b.pk_financeorg</value>
+				</entry>
+				<entry key="dbilldate">
+					<value>dbilldate</value>
+				</entry>
+				<entry key="pk_stockps_b.pk_srcmaterial.code">
+					<value>pk_stockps_b.pk_srcmaterial.code</value>
+				</entry>
+				<entry key="pk_stockps_b.pk_material.pk_marbasclass">
+					<value>pk_stockps_b.pk_material.pk_marbasclass</value>
+				</entry>
+				<entry key="vbillcode">
+					<value>vbillcode</value>
+				</entry>
+				<entry key="pk_stockps_b.vordercode">
+					<value>pk_stockps_b.vordercode</value>
+				</entry>
+				<entry key="pk_stockps_b.vctcode">
+					<value>pk_stockps_b.vctcode</value>
+				</entry>
+				<entry key="pk_stockps_b.pk_org">
+					<value>pk_stockps_b.pk_org</value>
+				</entry>
+				<entry key="pk_stordoc">
+					<value>pk_stordoc</value>
+				</entry>
+				<entry key="pk_stockps_b.vnotebody">
+					<value>pk_stockps_b.vnotebody</value>
+				</entry>
+				<entry key="pk_stockps_b.pk_supplier">
+					<value>pk_stockps_b.pk_supplier</value>
+				</entry>
+				<entry key="pk_stockps_b.cffileid">
+					<value>pk_stockps_b.cffileid</value>
+				</entry>
+				<entry key="pk_stockps_b.cffileid.vskucode">
+					<value>pk_stockps_b.cffileid.vskucode</value>
+				</entry>
+				<entry key="approver">
+					<value>approver</value>
+				</entry>
+				<entry key="taudittime">
+					<value>taudittime</value>
+				</entry>
+				<entry key="billmaker">
+					<value>billmaker</value>
+				</entry>
+				<entry key="vdef1">
+					<value>vdef1</value>
+				</entry>
+				<entry key="vdef2">
+					<value>vdef2</value>
+				</entry>
+				<entry key="vdef3">
+					<value>vdef3</value>
+				</entry>
+				<entry key="vdef4">
+					<value>vdef4</value>
+				</entry>
+				<entry key="vdef5">
+					<value>vdef5</value>
+				</entry>
+				<entry key="vdef6">
+					<value>vdef6</value>
+				</entry>
+				<entry key="vdef7">
+					<value>vdef7</value>
+				</entry>
+				<entry key="vdef8">
+					<value>vdef8</value>
+				</entry>
+				<entry key="vdef9">
+					<value>vdef9</value>
+				</entry>
+				<entry key="vdef10">
+					<value>vdef10</value>
+				</entry>
+				<entry key="vdef11">
+					<value>vdef11</value>
+				</entry>
+				<entry key="vdef12">
+					<value>vdef12</value>
+				</entry>
+				<entry key="vdef13">
+					<value>vdef13</value>
+				</entry>
+				<entry key="vdef14">
+					<value>vdef14</value>
+				</entry>
+				<entry key="vdef15">
+					<value>vdef15</value>
+				</entry>
+				<entry key="vdef16">
+					<value>vdef16</value>
+				</entry>
+				<entry key="vdef17">
+					<value>vdef17</value>
+				</entry>
+				<entry key="vdef18">
+					<value>vdef18</value>
+				</entry>
+				<entry key="vdef19">
+					<value>vdef19</value>
+				</entry>
+				<entry key="vdef20">
+					<value>vdef20</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef1">
+					<value>pk_stockps_b.vbdef1</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef2">
+					<value>pk_stockps_b.vbdef2</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef3">
+					<value>pk_stockps_b.vbdef3</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef4">
+					<value>pk_stockps_b.vbdef4</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef5">
+					<value>pk_stockps_b.vbdef5</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef6">
+					<value>pk_stockps_b.vbdef6</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef7">
+					<value>pk_stockps_b.vbdef7</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef8">
+					<value>pk_stockps_b.vbdef8</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef9">
+					<value>pk_stockps_b.vbdef9</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef10">
+					<value>pk_stockps_b.vbdef10</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef11">
+					<value>pk_stockps_b.vbdef11</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef12">
+					<value>pk_stockps_b.vbdef12</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef13">
+					<value>pk_stockps_b.vbdef13</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef14">
+					<value>pk_stockps_b.vbdef14</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef15">
+					<value>pk_stockps_b.vbdef15</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef16">
+					<value>pk_stockps_b.vbdef16</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef17">
+					<value>pk_stockps_b.vbdef17</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef18">
+					<value>pk_stockps_b.vbdef18</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef19">
+					<value>pk_stockps_b.vbdef19</value>
+				</entry>
+				<entry key="pk_stockps_b.vbdef20">
+					<value>pk_stockps_b.vbdef20</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

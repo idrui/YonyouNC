@@ -1,0 +1,144 @@
+package nc.ui.pu.m23.action.maintain;
+
+import java.awt.event.ActionEvent;
+
+import nc.itf.scmpub.reference.uap.group.SysInitGroupQuery;
+import nc.itf.uap.pf.busiflow.PfButtonClickContext;
+import nc.ui.pu.m23.editor.card.utils.BackReasonEditUtil;
+import nc.ui.pu.pub.util.PuVDefFilterUtil;
+import nc.ui.pub.bill.BillCardPanel;
+import nc.ui.pub.pf.PfUtilClient;
+import nc.ui.pubapp.uif2app.actions.AbstractReferenceAction;
+import nc.ui.pubapp.uif2app.event.OrgChangedEvent;
+import nc.ui.pubapp.uif2app.funcnode.trantype.TrantypeFuncUtils;
+import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.uif2.model.AbstractAppModel;
+import nc.vo.jcom.lang.StringUtil;
+import nc.vo.pu.m23.entity.ArriveItemVO;
+import nc.vo.pu.m23.entity.ArriveVO;
+import nc.vo.pub.AggregatedValueObject;
+import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.scmpub.res.billtype.POBillType;
+import nc.vo.scmpub.res.billtype.SCBillType;
+
+import org.apache.commons.lang.ArrayUtils;
+
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * <ul>
+ * <li>到货单 增加--委外订单 按钮处理类Action
+ * </ul>
+ * <p>
+ * <p>
+ * 
+ * @version 6.0
+ * @since 6.0
+ * @author hanbin
+ * @time 2010-1-12 下午02:15:12
+ */
+public class AddFrom61UIAction extends AbstractReferenceAction {
+
+  private static final long serialVersionUID = -5713497160947266223L;
+
+  private ShowUpableBillForm editor = null;
+
+  private AbstractAppModel model = null;
+
+  public AddFrom61UIAction() {
+    super();
+    this.setSourceBillName(SCBillType.Order.getName());
+    this.setSourceBillType(SCBillType.Order.getCode());
+  }
+
+  @Override
+  public void doAction(ActionEvent e) throws Exception {
+    if (!SysInitGroupQuery.isSCEnabled()) {
+      ExceptionUtils.wrappBusinessException(nc.vo.ml.NCLangRes4VoTransl
+          .getNCLangRes().getStrByID("4004040_0", "04004040-0002")/*
+                                                                   * @res
+                                                                   * "委外加工模块未启用,无法转单!"
+                                                                   */);
+    }
+    PfUtilClient.childButtonClickedNew(this.createPfButtonClickContext());
+
+    if (PfUtilClient.isCloseOK()) {
+      AggregatedValueObject[] retObjArray = PfUtilClient.getRetVos();
+      if (ArrayUtils.isEmpty(retObjArray)) {
+        return;
+      }
+      ArriveVO[] retVOArray = (ArriveVO[]) retObjArray;
+
+      // 转单公共处理
+      this.getTransferViewProcessor().processBillTransfer(retVOArray);
+
+      BillCardPanel card = this.editor.getBillCardPanel();
+      // 设置退货理由
+      new BackReasonEditUtil(card).setEnabled();
+
+      // 触发编辑事件
+      String stockOrg = retVOArray[0].getHVO().getPk_org();
+      this.model.fireEvent(new OrgChangedEvent(null, stockOrg));
+      new PuVDefFilterUtil()
+          .setOrgForDefRef(card, this.getModel().getContext());
+    }
+    this.setEditable();
+  }
+
+  public ShowUpableBillForm getEditor() {
+    return this.editor;
+  }
+
+  public AbstractAppModel getModel() {
+    return this.model;
+  }
+
+  public void setEditor(ShowUpableBillForm editor) {
+    this.editor = editor;
+  }
+
+  public void setModel(AbstractAppModel model) {
+    this.model = model;
+  }
+
+  private PfButtonClickContext createPfButtonClickContext() {
+    PfButtonClickContext context = new PfButtonClickContext();
+    context.setParent(this.getModel().getContext().getEntranceUI());
+    context.setSrcBillType(this.getSourceBillType());
+    context.setPk_group(this.getModel().getContext().getPk_group());
+    context.setUserId(this.getModel().getContext().getPk_loginUser());
+    // 如果该节点是由交易类型发布的，那么这个参数应该传交易类型，否则传单据类型
+    String vtrantype =
+        TrantypeFuncUtils.getTrantype(this.getModel().getContext());
+    if (StringUtil.isEmptyWithTrim(vtrantype)) {
+      context.setCurrBilltype(POBillType.Arrive.getCode());
+    }
+    else {
+      context.setCurrBilltype(vtrantype);
+    }
+    context.setUserObj(null);
+    context.setSrcBillId(null);
+    context.setBusiTypes(this.getBusitypes());
+    // 上面的参数在原来调用的方法中都有涉及，只不过封成了一个整结构，下面两个参数是新加的参数
+    // 上游的交易类型集合
+    context.setTransTypes(this.getTranstypes());
+    // 标志在交换根据目的交易类型分组时，查找目的交易类型的依据，有三个可设置值：1（根据接口定义）、
+    // 2（根据流程配置）、-1（不根据交易类型分组）
+    context.setClassifyMode(PfButtonClickContext.ClassifyByBusiflow);
+    return context;
+  }
+
+  /**
+   * 设置编辑性
+   */
+  private void setEditable() {
+    BillCardPanel panel = this.editor.getBillCardPanel();
+    for (int i = 0; i < panel.getRowCount(); ++i) {
+      // zhangshqb 2015-4-28 636需求新增收货利润中心以及结算利润中心，均不可编辑
+      panel.setCellEditable(i, ArriveItemVO.PK_APLIABCENTER, false);
+      panel.setCellEditable(i, ArriveItemVO.PK_APLIABCENTER_V, false);
+      panel.setCellEditable(i, ArriveItemVO.PK_ARRLIABCENTER, false);
+      panel.setCellEditable(i, ArriveItemVO.PK_ARRLIABCENTER_V, false);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+--注册OA生产厂参照
+insert into BD_REFINFO (
+CODE,NAME,PK_REFINFO, REFCLASS,REFTYPE,RESID,
+DR, ISNEEDPARA, ISSPECIALREF,METADATATYPENAME, MODULENAME,PARA1, PARA2, PARA3, REFSYSTEM,  RESERV1, RESERV2,RESERV3, RESIDPATH, TS, WHEREPART)
+values ('20161119', 'OA审批生产厂字典','OA01Z01000020161119','nc.ui.pu.qst.newoascc.ref.NewOaSccRefModel',0,'OA审批生产厂字典',
+ 0, null, null, null, 'uap',  null, null, null, null,  null, null, null, 'ref', '2016-11-19 10:08:08', null);
+
+commit; 
+
+--OA用户字典参照
+insert into BD_REFINFO (
+CODE,NAME,PK_REFINFO, REFCLASS,REFTYPE,RESID,
+DR, ISNEEDPARA, ISSPECIALREF,METADATATYPENAME, MODULENAME,PARA1, PARA2, PARA3, REFSYSTEM,  RESERV1, RESERV2,RESERV3, RESIDPATH, TS, WHEREPART)
+values ('20161201', 'OA用户基础字典','OA01Z01000020161201','nc.ui.pu.qst.newoascc.ref.NewOaRyxxRefModel',0,'OA用户基础字典',
+ 0, null, null, null, 'uap',  null, null, null, null,  null, null, null, 'ref', '2016-11-19 10:08:08', null);
+
+commit; 

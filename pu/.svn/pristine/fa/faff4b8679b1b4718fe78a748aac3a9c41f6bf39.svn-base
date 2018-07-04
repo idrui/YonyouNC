@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="stbTotal" class="nc.pubapp.pade.systemplatebase.vo.SystempletBaseTotal"><property name="funcNode" value="40019102"/>
+<property name="stbList">
+<list><bean class="nc.pubapp.pade.systemplatebase.vo.SystemplateBase"><property name="dr" value="0"/>
+<property name="funnode" value="40019102"/>
+<property name="layer" value="0"/>
+<property name="moduleid" value="4001"/>
+<property name="nodekey" value="bt"/>
+<property name="pk_systemplate" value="0001Z31000000000GEE8"/>
+<property name="templateid" value="0001Z31000000000GECQ"/>
+<property name="templatename" value="单据模板"/>
+<property name="tempstyle" value="0"/>
+</bean>
+<bean class="nc.pubapp.pade.systemplatebase.vo.SystemplateBase"><property name="dr" value="0"/>
+<property name="funnode" value="40019102"/>
+<property name="layer" value="0"/>
+<property name="moduleid" value="4001"/>
+<property name="nodekey" value="qt"/>
+<property name="pk_systemplate" value="0001Z31000000000GEF9"/>
+<property name="templateid" value="0001Z31000000000GEE9"/>
+<property name="templatename" value="查询模板"/>
+<property name="tempstyle" value="1"/>
+</bean>
+</list>
+</property>
+</bean>
+
+</beans>

@@ -1,0 +1,113 @@
+/**
+ * 
+ */
+package nc.impl.pu;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+
+import nc.impl.pubapp.pattern.data.vo.VOUpdate;
+import nc.impl.pubapp.pattern.database.DataAccessUtils;
+import nc.itf.pu.IQueryForLineClose;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pubapp.pattern.data.IRowSet;
+
+/**
+ * @author wangzym
+ * @version 2017年5月5日 下午3:13:26
+ */
+public class QueryForLineCloseImpl implements IQueryForLineClose {
+
+	/**
+	 * 
+	 */
+	public QueryForLineCloseImpl() {
+		// TODO 自动生成的构造函数存根
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see nc.itf.pu.IQueryForLineClose#hasForword(java.lang.String[])
+	 */
+	@Override
+	public int[] hasForword(HashMap<Integer, String> bpks) {
+		// TODO 自动生成的方法存根
+		List<Integer> rows = new ArrayList<Integer>();
+		DataAccessUtils dao = new DataAccessUtils();
+		for (Map.Entry<Integer, String> entry : bpks.entrySet()) {
+			String bpk = entry.getValue();
+			String sql = "select count(*) from  PURP_PRICEAUDIT_B where  csrcbid='"
+					+ bpk + "'";
+			IRowSet rs = dao.query(sql);
+			String[] result = rs.toOneDimensionStringArray();
+			if (Integer.parseInt(result[0]) != 0) {
+				rows.add(entry.getKey());
+			}
+
+		}
+		int[] rowss = new int[rows.size()];
+		Integer[] row = rows.toArray(new Integer[rows.size()]);
+		for (int i = 0; i < row.length; i++) {
+			Integer integer = row[i];
+			rowss[i] = integer.intValue();
+
+		}
+		return rowss;
+	}
+
+	/*
+	 * （非 Javadoc）
+	 * 
+	 * @see nc.itf.pu.IQueryForLineClose#reWritePrayBill(java.lang.String[],
+	 * java.lang.String)
+	 */
+	@Override
+	public void reWritePrayBill(String[] bpks, String actionName) {
+		// TODO 自动生成的方法存根
+		// 回写上游请购单，将上游行关闭设置成最新的值，并且设置sts_req为02让下游可以参照到
+		if (actionName.equals("hgb")) {
+			// 行关闭
+			PraybillItemVO[] bvos = new PraybillItemVO[bpks.length];
+			for (int i = 0; i < bpks.length; i++) {
+				PraybillItemVO praybillitemvo = new PraybillItemVO();
+				;
+				praybillitemvo.setPrimaryKey(bpks[i]);
+				praybillitemvo.setAttributeValue("whetherlineclose",
+						UFBoolean.TRUE);
+				praybillitemvo.setAttributeValue("sts_req", "02");
+				// 设置成可以参照
+				praybillitemvo.setSts_req("02");
+				bvos[i] = praybillitemvo;
+			}
+
+			VOUpdate<PraybillItemVO> update = new VOUpdate<PraybillItemVO>();
+			String[] names = new String[] { "sts_req", "whetherlineclose", };
+			update.update(bvos, names);
+
+		} else if (actionName.equals("qxhgb")) {
+			// 取消行关闭
+			PraybillItemVO[] bvos = new PraybillItemVO[bpks.length];
+			for (int i = 0; i < bpks.length; i++) {
+				PraybillItemVO praybillitemvo = new PraybillItemVO();
+				;
+				praybillitemvo.setPrimaryKey(bpks[i]);
+				praybillitemvo.setAttributeValue("whetherlineclose",
+						UFBoolean.FALSE);
+				praybillitemvo.setAttributeValue("sts_req", "03");
+				// 设置成可以参照
+				praybillitemvo.setSts_req("03");
+				bvos[i] = praybillitemvo;
+			}
+
+			VOUpdate<PraybillItemVO> update = new VOUpdate<PraybillItemVO>();
+			String[] names = new String[] { "sts_req", "whetherlineclose", };
+			update.update(bvos, names);
+		}
+
+	}
+
+}

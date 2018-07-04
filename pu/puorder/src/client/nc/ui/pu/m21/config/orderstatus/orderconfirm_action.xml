@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		按钮事件元素##########################################################
+	-->
+
+
+	<!-- 确认-->
+	<bean id="confirmAction" class="nc.ui.pu.m21.action.status.confirm.ConfirmAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="service" ref="manageModelService" />
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="validateService" ref="validateSerice" />
+<!--		<property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 反确认 -->
+	<bean id="unConfirmAction" class="nc.ui.pu.m21.action.status.confirm.UnConfirmAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="service" ref="manageModelService" />
+		<property name="dataManager" ref="modelDataManager" />
+<!--		<property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 查询-->
+	<bean id="qryDLGInitializer" class="nc.ui.pu.m21.view.ConfirmDLGInitializer"/>
+	<bean id="queryAction" class="nc.ui.pu.m21.action.status.confirm.ConfirmQueryAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="qryCondDLGInitializer" ref="qryDLGInitializer"/>
+		<property name="hasQueryArea" value="false" />
+	</bean>
+
+	<!-- 刷新 -->
+	<bean id="refreshAction" class="nc.ui.pu.m21.action.status.confirm.RefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+	</bean>
+  <!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+</beans>

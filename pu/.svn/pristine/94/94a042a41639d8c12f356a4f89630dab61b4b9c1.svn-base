@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2009-06-15 10:58:02" creator="" description="" displayName="采购单据状态" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="5f9e8412-53d6-4235-833c-bb5f8c6fe63a" isbizmodel="false" mainEntity="" modifier="" modifyTime="2011-10-24 14:56:41" name="pu_ibillstatus" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004000_2" resid="2400400005-0001" version="16" versionType="0">
+    <celllist>
+        <Enumerate componentID="5f9e8412-53d6-4235-833c-bb5f8c6fe63a" createTime="2009-06-15 10:58:40" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="采购单据状态" fullClassName="nc.vo.pu.pub.enumeration.POEnumBillStatus" height="196" help="" id="50910066-884c-4763-be3f-0f07e3cf48ee" modInfoClassName="" modifier="" modifyTime="2011-10-24 14:56:41" name="POEnumBillStatus" resid="2400400005-0001" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="141" x="240" y="127">
+            <enumitemlist>
+                <enumitem description="FREE" enumDisplay="自由" enumID="50910066-884c-4763-be3f-0f07e3cf48ee" enumValue="0" hidden="false" id="b37ce6d2-9c43-47ea-86d6-8c759136b69c" resid="2400400005-0004" sequence="0" versionType="0"/>
+                <enumitem description="COMMIT" enumDisplay="提交" enumID="50910066-884c-4763-be3f-0f07e3cf48ee" enumValue="1" hidden="false" id="e4b62bcb-aab2-4b0f-93c6-9ca8e14ff2a6" resid="2400400005-0002" sequence="1" versionType="0"/>
+                <enumitem description="APPROVING" enumDisplay="正在审批" enumID="50910066-884c-4763-be3f-0f07e3cf48ee" enumValue="2" hidden="false" id="5fe2cba9-a15e-4713-bed2-180ceb4b1f14" resid="2400400005-0005" sequence="2" versionType="0"/>
+                <enumitem description="APPROVE" enumDisplay="审批通过" enumID="50910066-884c-4763-be3f-0f07e3cf48ee" enumValue="3" hidden="false" id="09c79774-8f63-44dc-b6aa-dfd55a232adb" resid="2400400005-0003" sequence="3" versionType="0"/>
+                <enumitem description="NOPASS" enumDisplay="审批未通过" enumID="50910066-884c-4763-be3f-0f07e3cf48ee" enumValue="4" hidden="false" id="d76cd02a-dfd1-4652-8975-cafb8d6b96dc" resid="2400400005-0000" sequence="4" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

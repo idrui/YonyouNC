@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding='gb2312'?>
+<businessprocessors>
+    <businessprocessor billtype="20" classname="nc.bs.pu.m20.pfxx.M20PfxxPlugin" locklevel="3" metadataid="faa17d57-f79a-49df-9958-b98c1ef4a976" name="请购单">
+    </businessprocessor>
+    <businessprocessor billtype="21" classname="nc.bs.pu.m21.pfxx.M21PfxxPlugin" locklevel="3" metadataid="8a2b1c3f-0185-40f6-b4a1-eb9d1733ebcf" name="采购订单">
+    </businessprocessor>
+    <businessprocessor billtype="25" classname="nc.bs.pu.m25.pfxx.M25PfxxPlugin" locklevel="3" metadataid="7695103a-8c77-4913-b53f-5d19e96d0913" name="采购发票">
+    </businessprocessor>
+</businessprocessors>

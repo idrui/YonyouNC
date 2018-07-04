@@ -1,0 +1,7 @@
+<module priority="1025">
+    <aops>
+           <aspect class="nc.bs.aop.log.BusilogAspect"  component="nc.pubitf.pu.m21.pub.IOrderClosePubService"/> 
+
+           <aspect class="nc.bs.aop.log.BusilogAspect"  component="nc.itf.pu.m21.IOrderMaintain"/> 
+    </aops>
+</module>

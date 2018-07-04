@@ -1,0 +1,353 @@
+package nc.ui.pu.cgfa.action;
+
+import java.awt.event.ActionEvent;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import nc.ui.pubapp.uif2app.view.ShowUpableBillListView;
+import nc.bs.framework.common.NCLocator;
+import nc.bs.pub.pf.PfUtilTools;
+import nc.bs.trade.business.HYPubBO;
+import nc.md.data.access.NCObject;
+import nc.md.model.MetaDataException;
+import nc.md.persist.framework.MDPersistenceService;
+import nc.pub.pushlet.util.Log;
+import nc.ui.pubapp.uif2app.query2.model.ModelDataManager;
+import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.trade.business.HYPubBO_Client;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.model.BillManageModel;
+import nc.uif.pub.exception.UifException;
+import nc.vo.lm.pgcgdhxx.AggAgxsht001HVO;
+import nc.vo.lm.zbwtxxjk.AggZbwtxxjkHVO;
+import nc.vo.lm.zbwtxxjk.ZbwtxxbjBVO;
+import nc.vo.lm.zbwtxxjk.ZbwtxxgysBVO;
+import nc.vo.pu.cgfa.AggCgfa;
+import nc.vo.pu.cgfa.Cgfa;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pub.AggregatedValueObject;
+import nc.vo.pub.VOStatus;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.lang.UFDouble;
+import nc.vo.ws.vo.BidDelgMain;
+import nc.vo.ws.vo.BidDelgSub;
+import nc.vo.ws.vo.BidDelgSupplier;
+import nc.wsitf.lm.IMsgAGXSHT0001sat;
+import nc.wsitf.lm.IMsgBidDelg;
+
+public class SendZbwt extends NCAction{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3678026089572123911L;
+	private ShowUpableBillForm editor;
+	private ShowUpableBillListView billlist;
+	private BillManageModel model;
+	private ModelDataManager dataManager;
+	
+	
+	public SendZbwt(){
+		this.setBtnName("传招标委托");
+		this.setCode("czbwt");
+	}
+	public ShowUpableBillListView getBilllist() {
+		return billlist;
+	}
+	public void setBilllist(ShowUpableBillListView billlist) {
+		this.billlist = billlist;
+	}
+	public ShowUpableBillForm getEditor() {
+		return editor;
+	}
+	public void setEditor(ShowUpableBillForm editor) {
+		this.editor = editor;
+	}
+	public BillManageModel getModel() {
+		return model;
+	}
+	public void setModel(BillManageModel model) {
+		this.model = model;
+		model.addAppEventListener(this);
+	}
+
+	public ModelDataManager getDataManager() {
+		return dataManager;
+	}
+	public void setDataManager(ModelDataManager dataManager) {
+		this.dataManager = dataManager;
+	}
+	@SuppressWarnings("null")
+	@Override
+	
+	
+	public void doAction(ActionEvent e) throws Exception {
+		// TODO 自动生成的方法存根
+		Object[] obj = model.getSelectedOperaDatas();
+//		billlist.getBillListPanel().getBillValueVO(3, AggCgfa.class.getName(), Cgfa.class.getName(), Cgfab.class.getName());
+//		billlist.getBillListPanel().getMultiSelectedVOs( AggCgfa.class.getName(), Cgfa.class.getName(), Cgfab.class.getName());
+		List<AggCgfa> AggCgfa = new ArrayList<AggCgfa>();
+		NCObject[] ncObjects;
+		for(int i=0;i<obj.length;i++){
+			AggCgfa aggvos = (AggCgfa) obj[i];
+			String pkid=(String) aggvos.getParent().getAttributeValue("pk_equipment_id");
+			ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond
+					(Cgfab.class,"pk_equipment_id='"+pkid+"'",false);
+			Cgfab[] cgfabvo = new Cgfab[ncObjects.length];
+			if(ncObjects!=null){
+				for(int j=0;j<ncObjects.length;j++){
+					cgfabvo[j]=(Cgfab) ncObjects[j].getContainmentObject();
+				}
+				aggvos.setChildren(Cgfab.class, cgfabvo);
+			}
+			AggCgfa.add(aggvos);
+		}
+		AggCgfa aggvo;
+		BidDelgMain bidDelgMain = new BidDelgMain();
+		List<BidDelgSub> bidDelgSubList = new ArrayList<BidDelgSub>();
+		List<BidDelgSupplier> bidDelgSupplierList = new ArrayList<BidDelgSupplier>();
+		List<AggZbwtxxjkHVO> aggZbwtxxjkHVOList = new ArrayList<AggZbwtxxjkHVO>();
+		
+		IMsgBidDelg iMsgBidDelg = (IMsgBidDelg)NCLocator.getInstance().lookup(IMsgBidDelg.class);
+		String selectmax = iMsgBidDelg.selectmax();
+		String objid="";
+		SimpleDateFormat dr = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+		String datetime = dr.format(new Date());
+		if(selectmax!=null&&!selectmax.equals("")){
+			if(selectmax.substring(2, 10).equals(datetime)){
+				int sum = Integer.parseInt(selectmax.substring(10, 13))+1+1000;
+				objid ="GM"+datetime+String.valueOf(sum).substring(1, 4);
+			}else{
+				objid ="GM"+datetime+"001";
+			}
+		}else{
+			objid ="GM"+datetime+"001";
+		}
+		
+		aggvo = (AggCgfa) obj[0];
+		Cgfa cgfa = aggvo.getParentVO();
+		bidDelgMain.setObjid(objid);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		bidDelgMain.setAuthTime(df.format(new Date()));
+		bidDelgMain.setPurchasecode(null == cgfa.getAttributeValue("billno")? "":cgfa.getAttributeValue("billno").toString());
+		bidDelgMain.setNameAuthItem(null == cgfa.getAttributeValue("project_name")? "":cgfa.getAttributeValue("project_name").toString());
+		bidDelgMain.setNameAuth(null == cgfa.getAttributeValue("salesman")? "":cgfa.getAttributeValue("salesman").toString());
+		bidDelgMain.setQuotationType(null == cgfa.getAttributeValue("offer_type")? "":cgfa.getAttributeValue("offer_type").toString());
+		UFDouble rate= (UFDouble) (null == cgfa.getAttributeValue("rate")? new UFDouble(0):(UFDouble) cgfa.getAttributeValue("rate"));
+		bidDelgMain.setTaxRate(BigDecimal.valueOf(rate.intValue()));
+		String typebuy = null == cgfa.getAttributeValue("typebuy")? "":cgfa.getAttributeValue("typebuy").toString();
+		if(typebuy.equals("01")){
+			bidDelgMain.setTenderMode("公开招标");
+		}else if(typebuy.equals("02")){
+			bidDelgMain.setTenderMode("邀请招标");
+		}else if(typebuy.equals("03")){
+			bidDelgMain.setTenderMode("公开竞价");
+		}else if(typebuy.equals("04")){
+			bidDelgMain.setTenderMode("邀请竞价");
+		}else if(typebuy.equals("05")){
+			bidDelgMain.setTenderMode("竞争性谈判");
+		}else if(typebuy.equals("06")){
+			bidDelgMain.setTenderMode("单一来源");
+		}
+		bidDelgMain.setQualVerifyMode(null == cgfa.getAttributeValue("qualification_way")? "":cgfa.getAttributeValue("qualification_way").toString());
+		bidDelgMain.setBidEvalMode(null == cgfa.getAttributeValue("bidification_way")? "":cgfa.getAttributeValue("bidification_way").toString());
+		bidDelgMain.setPayMode(null == cgfa.getAttributeValue("paymant")? "":cgfa.getAttributeValue("paymant").toString());
+		bidDelgMain.setClassBusiness(null == cgfa.getAttributeValue("business_type")? "":cgfa.getAttributeValue("business_type").toString());
+		bidDelgMain.setTenderProp(null == cgfa.getAttributeValue("tenderProp")? "":cgfa.getAttributeValue("tenderProp").toString());
+		String isBaseTender= (String) (null == cgfa.getAttributeValue("isBaseTender")? "0":(String)cgfa.getAttributeValue("isBaseTender"));
+		bidDelgMain.setIsBaseTender(BigDecimal.valueOf(Integer.valueOf(isBaseTender)));
+		String baseTenderSum= (String) (null == cgfa.getAttributeValue("baseTenderSum")? "0":cgfa.getAttributeValue("baseTenderSum"));
+		bidDelgMain.setBaseTenderSum(BigDecimal.valueOf(Integer.valueOf(baseTenderSum)));
+		bidDelgMain.setLeadTime(null == cgfa.getAttributeValue("leadTime")? "":cgfa.getAttributeValue("leadTime").toString());
+		bidDelgMain.setPurchaseReq(null == cgfa.getAttributeValue("requirements")? "":cgfa.getAttributeValue("requirements").toString());
+		bidDelgMain.setQualReq(null == cgfa.getAttributeValue("supplier_requirements")? "":cgfa.getAttributeValue("supplier_requirements").toString());
+		String combination_standard= (String) (null == cgfa.getAttributeValue("combination_standard")? "0":cgfa.getAttributeValue("combination_standard"));
+		bidDelgMain.setIsCombination(BigDecimal.valueOf(Integer.valueOf(combination_standard)));
+		UFDouble ratereply= (UFDouble) (null == cgfa.getAttributeValue("ratereply")?new UFDouble(0):cgfa.getAttributeValue("ratereply"));
+		bidDelgMain.setResponseRate(BigDecimal.valueOf(ratereply.doubleValue()));
+		String limitedPriceTop= (String) (null == cgfa.getAttributeValue("limitedPriceTop")? "0":cgfa.getAttributeValue("limitedPriceTop"));
+		bidDelgMain.setLimitedPriceTop(BigDecimal.valueOf(Integer.valueOf(limitedPriceTop)));			
+		String forecastPrice= (String) (null == cgfa.getAttributeValue("forecastPrice")? "0":cgfa.getAttributeValue("forecastPrice"));
+		bidDelgMain.setForecastPrice(BigDecimal.valueOf(Integer.valueOf(forecastPrice)));
+		bidDelgMain.setForecastDesc(null == cgfa.getAttributeValue("estimate")? "":cgfa.getAttributeValue("estimate").toString());
+		bidDelgMain.setLimitedPriceTopStd(null == cgfa.getAttributeValue("limitedPriceTopStd")? "":cgfa.getAttributeValue("limitedPriceTopStd").toString());
+		int sumgys=0;
+		for(int i=0;i<AggCgfa.size();i++){
+			aggvo = (AggCgfa) AggCgfa.get(i);
+			Cgfa cgfas = aggvo.getParentVO();
+			String supplier = null == cgfas.getAttributeValue("suppliercode")? "":cgfas.getAttributeValue("suppliercode").toString().trim();//suppliercode 供应商编码
+			String[] suppliers =supplier.split(",");
+			if(suppliers[0]!=null&&!suppliers[0].toString().equals("")){
+				sumgys+=suppliers.length;
+				for(int k=0;k<suppliers.length;k++){
+					BidDelgSupplier bidDelgSupplier = new BidDelgSupplier();
+					bidDelgSupplier.setObjid(objid);
+					bidDelgSupplier.setIdSupplier(suppliers[k].trim());
+					bidDelgSupplierList.add(bidDelgSupplier);
+				}
+			}
+			Cgfab[] cgfab = (Cgfab[]) aggvo.getChildrenVO();
+			for(int j=0;j<cgfab.length;j++){
+				BidDelgSub bidDelgSub = new BidDelgSub();
+				bidDelgSub.setObjid(objid);
+				bidDelgSub.setNumberInt(null == cgfab[j].getAttributeValue("pk_equipment_sub")? "":cgfab[j].getAttributeValue("pk_equipment_sub").toString());
+				bidDelgSub.setClasscode(null == cgfab[j].getAttributeValue("billno")? "":cgfab[j].getAttributeValue("billno").toString());
+				bidDelgSub.setProjectname(null == cgfab[j].getAttributeValue("project_name")? "":cgfab[j].getAttributeValue("project_name").toString());
+				Integer plan_num= (Integer) (null == cgfab[j].getAttributeValue("plan_num")? "":cgfab[j].getAttributeValue("plan_num"));
+				bidDelgSub.setProductcount(BigDecimal.valueOf(plan_num));
+				bidDelgSub.setUnit(null == cgfab[j].getAttributeValue("unit")? "":cgfab[j].getAttributeValue("unit").toString());
+				UFDouble plan_priceb= (UFDouble) (null == cgfab[j].getAttributeValue("plan_priceb")?new UFDouble(0):cgfab[j].getAttributeValue("plan_priceb"));
+				bidDelgSub.setPrice(BigDecimal.valueOf(plan_priceb.doubleValue()));
+				UFDouble plansum_pricea= (UFDouble) (null == cgfab[j].getAttributeValue("plansum_pricea")?new UFDouble(0):cgfab[j].getAttributeValue("plansum_pricea"));
+				bidDelgSub.setSubprice(BigDecimal.valueOf(plansum_pricea.doubleValue()));
+				bidDelgSub.setWorkplace(null == cgfab[j].getAttributeValue("workplace")? "":cgfab[j].getAttributeValue("workplace").toString());
+//				bidDelgSub.setProductinfo(null == cgfab[j].getAttributeValue("workplace")? "":cgfab[j].getAttributeValue("workplace").toString());//物料名称需转换
+				bidDelgSub.setProductdepict(null == cgfab[j].getAttributeValue("materialname")? "":cgfab[j].getAttributeValue("materialname").toString());
+				bidDelgSub.setMaterial(null == cgfab[j].getAttributeValue("material")? "":cgfab[j].getAttributeValue("material").toString());
+//				bidDelgSub.setBuildstandard(null == cgfab[j].getAttributeValue("material")? "":cgfab[j].getAttributeValue("material").toString());//原始制造商需转换
+				bidDelgSub.setZzField2(null == cgfab[j].getAttributeValue("rated_life")? "":cgfab[j].getAttributeValue("rated_life").toString());
+				bidDelgSub.setCreatdate(df.format(new Date()));
+				bidDelgSub.setRemark(null == cgfab[j].getAttributeValue("fobprice")? "":cgfab[j].getAttributeValue("fobprice").toString());
+				bidDelgSubList.add(bidDelgSub);
+			}
+			
+			AggregatedValueObject[] srcVosAfterFilter = new AggregatedValueObject[] {
+					aggvo //中间表
+					    };
+	    	//中间表AGGVO包装类名	nc.vo.lm.zbwtxxjk.AggZbwtxxjkHVO
+			AggZbwtxxjkHVO aggZbwtxxjkHVO;
+			aggZbwtxxjkHVO = (AggZbwtxxjkHVO) PfUtilTools.runChangeData("JT01", "DW89", srcVosAfterFilter[0]);//5720-Cxx-pgdh是出口合同（上游）单据交易类型，DW40是下游单据类型
+			aggZbwtxxjkHVO.getParent().setStatus(VOStatus.NEW);
+			aggZbwtxxjkHVO.getParent().setAttributeValue("objid", objid);
+			aggZbwtxxjkHVOList.add(aggZbwtxxjkHVO);
+			
+		} 
+		ZbwtxxgysBVO[] zbwtxxgysBVO = new ZbwtxxgysBVO[sumgys];
+		int mxgys=0;
+		for(int i=0;i<AggCgfa.size();i++){
+			aggvo = (AggCgfa) AggCgfa.get(i);
+			Cgfa cgfas = aggvo.getParentVO();
+			String supplier = null == cgfas.getAttributeValue("suppliercode")? "":cgfas.getAttributeValue("suppliercode").toString().trim();//suppliercode 供应商编码
+			String[] suppliers =supplier.split(",");
+			if(suppliers[0]!=null&&!suppliers[0].toString().equals("")){
+				sumgys+=suppliers.length;
+				for(int k=0;k<suppliers.length;k++){
+					ZbwtxxgysBVO bidDelgSupplier = new ZbwtxxgysBVO();
+					bidDelgSupplier.setObjid(objid);
+					bidDelgSupplier.setId_supplier(suppliers[k].trim());
+					bidDelgSupplier.setStatus(2);
+					zbwtxxgysBVO[mxgys+k]=bidDelgSupplier;
+				}
+				mxgys+=suppliers.length;
+			}
+		}
+		bidDelgMain.setBidDelgSubList(bidDelgSubList);
+		bidDelgMain.setBidDelgSupplierList(bidDelgSupplierList);
+		String result=iMsgBidDelg.IMsgBidDelg(bidDelgMain);
+		AggZbwtxxjkHVO aggZbwtxxjk= new AggZbwtxxjkHVO();
+		aggZbwtxxjk.setParent(aggZbwtxxjkHVOList.get(0).getParent());
+		int summx=0;
+		for(int l=0;l<aggZbwtxxjkHVOList.size();l++){
+			AggZbwtxxjkHVO aggZbwtxxjkHVO=aggZbwtxxjkHVOList.get(l);
+			if(aggZbwtxxjkHVO.getChildren(ZbwtxxbjBVO.class)!=null){
+				summx+= aggZbwtxxjkHVO.getChildren(ZbwtxxbjBVO.class).length;
+			}
+		}
+		if(summx!=0){
+			ZbwtxxbjBVO[] zbwtxxbjBVO = new ZbwtxxbjBVO[summx];
+			int mxwz=0;
+	
+			for(int l=0;l<aggZbwtxxjkHVOList.size();l++){
+				AggZbwtxxjkHVO aggZbwtxxjkHVO=aggZbwtxxjkHVOList.get(l);
+				ZbwtxxbjBVO[] zbwtxxbj = new ZbwtxxbjBVO[aggZbwtxxjkHVO.getChildren(ZbwtxxbjBVO.class).length];
+				zbwtxxbj=(ZbwtxxbjBVO[]) aggZbwtxxjkHVO.getChildren(ZbwtxxbjBVO.class);
+				for(int n=0;n<zbwtxxbj.length;n++){
+					zbwtxxbj[n].setObjid(objid);
+					zbwtxxbjBVO[mxwz+n] = zbwtxxbj[n];
+				}
+				mxwz+=zbwtxxbj.length;
+			}
+			
+			////////////////////////////////////////////////
+			for (ZbwtxxbjBVO zbwtxxbjBVO2 : zbwtxxbjBVO) {
+				zbwtxxbjBVO2.setStatus(2);
+			}
+			aggZbwtxxjk.setChildren(ZbwtxxbjBVO.class, zbwtxxbjBVO);
+		}
+		//////////////////////
+		aggZbwtxxjk.setChildren(ZbwtxxgysBVO.class, zbwtxxgysBVO);
+		aggZbwtxxjk.getParent().setStatus(VOStatus.NEW);
+		if ("1".equals(result)){
+			aggZbwtxxjk.getParent().setAttributeValue("msgflag", 2);
+			aggZbwtxxjk.getParent().setAttributeValue("dr", 0);
+			
+		}else{
+			aggZbwtxxjk.getParent().setAttributeValue("msgflag", 1);
+			aggZbwtxxjk.getParent().setAttributeValue("dr", 0);
+		}
+		HYPubBO_Client bo = new HYPubBO_Client();
+		NCObject objs = NCObject.newInstance(aggZbwtxxjk);
+		MDPersistenceService.lookupPersistenceService().saveBill(objs);
+/*		try {
+			bo.saveBill(aggZbwtxxjk);
+		} catch (UifException e2) {
+			// TODO 自动生成的 catch 块
+			e2.printStackTrace();
+		}*/
+		for(int m=0;m<AggCgfa.size();m++){
+			AggCgfa aggvocgfa=(AggCgfa) AggCgfa.get(m);
+			aggvocgfa.getParent().setAttributeValue("seq_bj", objid);
+			aggvocgfa.getParent().setAttributeValue("fsbz", "Y");
+			aggvocgfa.getParent().setStatus(VOStatus.UPDATED);
+			aggvocgfa.getAllChildrenVO();
+			HYPubBO bos = new HYPubBO();
+			try {
+				bos.saveBill(aggvocgfa);
+			} catch (UifException e2) {
+				// TODO 自动生成的 catch 块
+				e2.printStackTrace();
+			}
+		}
+		int selectRow = model.getSelectedRow();
+		this.getDataManager().refresh();
+		model.setSelectedRow(selectRow);
+		editor.setValue(model.getSelectedData());
+	}
+	@SuppressWarnings({ "unused", "null" })
+	@Override
+	protected boolean isActionEnable() {
+		
+		Object[] obj = model.getSelectedOperaDatas();
+		NCObject[] ncObjects = null ;
+		boolean isEnable = super.isActionEnable();
+		if (isEnable && this.getModel().getSelectedOperaDatas() != null) {
+			for(int i=0;i<obj.length;i++){
+				AggCgfa aggvos = (AggCgfa) obj[i];
+				String pkid=(String) aggvos.getParent().getAttributeValue("pk_equipment_id");
+				try {
+					ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond
+							(Cgfab.class,"pk_equipment_id='"+pkid+"' and dr=0",false);
+				} catch (MetaDataException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				if(ncObjects==null){
+					return false;
+				}
+			}
+//			if (this.getModel().getSelectedOperaDatas() != null) {
+//				for(int i=0;i<obj.length;i++){
+//					AggCgfa aggvos = (AggCgfa) obj[i];
+//					UFBoolean fsbz=(UFBoolean) aggvos.getParent().getAttributeValue("fsbz");
+//					if(fsbz.booleanValue()==true){
+//						return false;
+//					}
+//				}
+//			}
+		}
+		return true;
+	}
+}

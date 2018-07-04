@@ -1,0 +1,49 @@
+package nc.ui.pu.cgfa.action;
+
+import java.awt.event.ActionEvent;
+
+import nc.pub.pushlet.util.Log;
+import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.model.BillManageModel;
+
+public class SendZbwt extends NCAction{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3678026089572123911L;
+	private ShowUpableBillForm editor;
+	private BillManageModel model;
+	
+	
+	
+	public SendZbwt(){
+		this.setBtnName("传招标委托");
+		this.setCode("czbwt");
+	}
+	
+	
+	
+	public ShowUpableBillForm getEditor() {
+		return editor;
+	}
+	public void setEditor(ShowUpableBillForm editor) {
+		this.editor = editor;
+	}
+	public BillManageModel getModel() {
+		return model;
+	}
+	public void setModel(BillManageModel model) {
+		this.model = model;
+	}
+
+	@Override
+	
+	
+	public void doAction(ActionEvent e) throws Exception {
+		// TODO 自动生成的方法存根
+
+	}
+	
+}

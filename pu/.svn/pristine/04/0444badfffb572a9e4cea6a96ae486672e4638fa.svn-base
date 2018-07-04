@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="true">
+	<import resource="orderoutcustom_action.xml" />
+	<import resource="orderoutcustom_editor.xml" />
+	<import resource="orderstatus_msgcenter.xml" />
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.ui.pu.pub.editor.ClientContext" />
+
+	<!--
+		模型部分配置###########################################################
+	-->
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="manageModelService" class="nc.ui.pu.m21.service.onway.OrderOutcustomService">
+		<property name="onwayQuery" value="nc.itf.pu.m21.IOnwayQuery"></property>
+		<property name="statusMaintain" value="nc.itf.pu.m21.IStatusMaintain"></property>
+	</bean>
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+	<!-- 管理应用模型 -->
+	<bean id="manageAppModel" class="nc.ui.pu.m21.editor.list.SelectBillManageModel">
+		<property name="service" ref="manageModelService"></property>
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+		<property name="context" ref="context"></property>
+	</bean>
+
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.query2.model.ModelDataManager">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="service" ref="manageModelService"></property>
+	</bean>
+
+	<!-- 模板容器，负责对模板的统一装载 -->
+	<bean id="billTemplateMender"
+		class="nc.ui.pubapp.uif2app.funcnode.trantype.TrantypeBillTemplateMender">
+		<constructor-arg>
+			<ref bean="context" />
+		</constructor-arg>
+	</bean>
+	<bean id="templateContainer" class="nc.ui.pubapp.uif2app.view.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+		<property name="billTemplateMender" ref="billTemplateMender" />
+	</bean>
+	
+	<!-- 前台校验 -->
+    <bean id="validateSerice"
+        class="nc.ui.pu.m21.service.onway.OrderOutcustomValidationService">
+        <property name="editor" ref="billFormEditor" />
+    </bean>
+
+	<!-- 界面元素 ###########################################################-->
+	<!-- 卡片视图 -->
+	<bean id="billFormEditor" class="nc.ui.pu.m21.view.OnwayStatusBillForm"
+		init-method="initUI">
+		<property name="showOrgPanel" value="false"></property>
+		<property name="model" ref="manageAppModel"></property>
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="userdefitemPreparator" ref="userdefAndMarAsstCardPreparator" />
+		<property name="blankChildrenFilter" ref="blankChildrenFilter" />
+	</bean>
+
+    <!-- 过滤非选择项 -->
+    <bean id="blankChildrenFilter" class="nc.ui.pu.m21.view.OnwayBlankChilrenFilter">
+    </bean>
+	<bean id="cardInfoPnl" class="nc.ui.pubapp.uif2app.tangramlayout.UECardLayoutToolbarPanel">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!--
+		界面布局总装###########################################################
+	-->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.TBNode">
+				<property name="showMode" value="CardLayout"></property>
+				<property name="tabs">
+					<list>
+						<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+							<property name="up">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="component" ref="cardInfoPnl" />
+								</bean>
+							</property>
+							<property name="down">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="name">
+										 <bean class="nc.ui.uif2.I18nFB">
+										     <property name="resDir" value="common" />
+										     <property name="resId" value="UC001-0000106" />
+										     <property name="defaultValue" value="卡片" />
+										 </bean>
+									</property>
+									<property name="component" ref="billFormEditor" />
+								</bean>
+							</property>
+							<property name="dividerLocation" value="30f" />
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<ref bean="separatorAction"/> 
+				<ref bean="queryAction" />
+        		<ref bean="refreshAction" />
+        		<ref bean="separatorAction"/> 
+				<ref bean="outcustomAction" />
+				<ref bean="unoutcustomAction" />
+				<ref bean="separatorAction"/> 
+				<ref bean="browseActionGroup" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="billBodySortMediator" class="nc.ui.pubapp.uif2app.model.BillBodySortMediator">
+		<constructor-arg ref="manageAppModel" />
+		<constructor-arg ref="billFormEditor" />
+	</bean>
+
+	<!-- 自由项、自定义项组件的卡片配置 -->
+	<bean id="userdefAndMarAsstCardPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillDataPrepare">
+		<property name="billDataPrepares">
+			<list>
+				<ref bean="userdefitemPreparator" />
+				<ref bean="marAsstPreparator" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 自由项组件的配置 -->
+	<bean id="marAsstPreparator"
+		class="nc.ui.pu.pub.view.PUMarAsstPreparator">
+		<property name="model" ref="manageAppModel" />
+		<property name="container" ref="userdefitemContainer" />
+		<property name="prefix" value="vfree" />
+		<property name="materialField" value="pk_material" />
+		<property name="projectField" value="cprojectid" />
+		<property name="productorField" value="cproductorid" />
+	</bean>
+	
+	<bean id="userdefitemContainer" class="nc.ui.uif2.userdefitem.UserDefItemContainer">
+		<property name="context" ref="context" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="pu.po_order" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="materialassistant" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 卡片自定义项配置 -->
+	<bean name="userdefitemPreparator" class="nc.ui.uif2.editor.UserdefitemContainerPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="pu.po_order" />
+					<property name="pos" value="0" />
+					<property name="prefix" value="vdef" />
+				</bean>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="vbdef" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

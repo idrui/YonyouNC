@@ -1,0 +1,213 @@
+/**
+ * $文件说明$
+ * 
+ * @author linsf
+ * @version 6.0
+ * @see
+ * @since 6.0
+ * @time 2010-2-4 上午10:24:37
+ */
+package nc.vo.pu.m20.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nc.vo.it.m5805.entity.DetailBVO;
+import nc.vo.it.m5805.entity.DetailVO;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.lang.UFDouble;
+import nc.vo.pubapp.pattern.model.entity.view.AbstractDataView;
+import nc.vo.pubapp.pattern.model.meta.entity.view.DataViewMetaFactory;
+import nc.vo.pubapp.pattern.model.meta.entity.view.IDataViewMeta;
+import nc.vo.pubapp.pattern.model.tool.BillComposite;
+
+import org.apache.commons.lang.ArrayUtils;
+
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * <ul>
+ * <li>
+ * </ul>
+ * <p>
+ * <p>
+ * 
+ * @version 6.0
+ * @since 6.0
+ * @author linsf
+ * @time 2010-2-4 上午10:24:37
+ */
+public class PraybillViewVO extends AbstractDataView {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -3352088347886056536L;
+
+  /** 由视图VO得到请购单VO **/
+  public static PraybillVO[] getPraybillVO(AbstractDataView[] views) {
+    if (ArrayUtils.isEmpty(views)) {
+      return null;
+    }
+    List<PraybillHeaderVO> headers = new ArrayList<PraybillHeaderVO>();
+    List<PraybillItemVO> items = new ArrayList<PraybillItemVO>();
+    for (AbstractDataView view : views) {
+      headers.add((PraybillHeaderVO) view.getVO(PraybillHeaderVO.class));
+      items.add((PraybillItemVO) view.getVO(PraybillItemVO.class));
+    }
+
+    BillComposite<PraybillVO> bc =
+        new BillComposite<PraybillVO>(PraybillVO.class);
+    PraybillVO tempVO = new PraybillVO();
+    bc.append(tempVO.getMetaData().getParent(),
+        headers.toArray(new PraybillHeaderVO[headers.size()]));
+    bc.append(tempVO.getMetaData().getVOMeta(PraybillItemVO.class),
+        items.toArray(new PraybillItemVO[items.size()]));
+    return bc.composite();
+
+    // return (PraybillVO[]) AggVOUtil.createBillVO(headers
+    // .toArray(new PraybillHeaderVO[headers.size()]), items
+    // .toArray(new PraybillItemVO[items.size()]), PraybillVO.class);
+  }
+
+  /** 行关闭 **/
+  public UFBoolean getBrowclose() {
+    return (UFBoolean) this.getAttributeValue(PraybillItemVO.BROWCLOSE);
+  }
+
+  /** 本币币种 **/
+  public String getCcurrencyid() {
+    return (String) this.getAttributeValue(PraybillHeaderVO.CCURRENCYID);
+  }
+
+  public PraybillHeaderVO getHead() {
+    return (PraybillHeaderVO) this.getVO(PraybillHeaderVO.class);
+  }
+
+  public PraybillItemVO getItem() {
+    return (PraybillItemVO) this.getVO(PraybillItemVO.class);
+  }
+
+  /**
+   * 父类方法重写
+   * 
+   * @see nc.vo.pubapp.pattern.model.entity.view.AbstractDataView#getMetaData()
+   */
+  @Override
+  public IDataViewMeta getMetaData() {
+    return DataViewMetaFactory.getInstance().getBillViewMeta(PraybillVO.class);
+  }
+
+  /** 累计订货数量 **/
+  public UFDouble getNaccumulatenum() {
+    return (UFDouble) this.getAttributeValue(PraybillItemVO.NACCUMULATENUM);
+  }
+
+  /** 数量 **/
+  public UFDouble getNassistnum() {
+    return (UFDouble) this.getAttributeValue(PraybillItemVO.NASTNUM);
+  }
+
+  /** 生成合同次数 **/
+  public Integer getNgenct() {
+    return (Integer) this.getAttributeValue(PraybillItemVO.NGENCT);
+  }
+
+  /** 主数量 **/
+  public UFDouble getNnum() {
+    return (UFDouble) this.getAttributeValue(PraybillItemVO.NNUM);
+  }
+
+  /** 生成价格审批单次数 **/
+  public Integer getNpriceauditbill() {
+    return (Integer) this.getAttributeValue(PraybillItemVO.NPRICEAUDITBILL);
+  }
+
+  /** 生成询报价单次数 **/
+  public Integer getNquotebill() {
+    return (Integer) this.getAttributeValue(PraybillItemVO.NQUOTEBILL);
+  }
+
+  /** 本币价税合计 **/
+  public UFDouble getNtaxmny() {
+    return (UFDouble) this.getAttributeValue(PraybillItemVO.NTAXMNY);
+  }
+
+  /** 主本币含税单价 **/
+  public UFDouble getNtaxprice() {
+    return (UFDouble) this.getAttributeValue(PraybillItemVO.NTAXPRICE);
+  }
+
+  /** 请购单行ID **/
+  public String getPk_praybill_b() {
+    return (String) this.getAttributeValue(PraybillItemVO.PK_PRAYBILL_B);
+  }
+
+  /** 采购组织 **/
+  public String getPk_purchaseorg() {
+    return (String) this.getAttributeValue(PraybillItemVO.PK_PURCHASEORG);
+  }
+
+  public void setHead(PraybillHeaderVO head) {
+    this.setVO(head);
+  }
+
+  public void setItem(PraybillItemVO item) {
+    this.setVO(item);
+  }
+
+  /** 累计订货数量 **/
+  public void setNaccumulatenum(UFDouble naccumulatenum) {
+    this.setAttributeValue(PraybillItemVO.NACCUMULATENUM, naccumulatenum);
+  }
+
+  /** 数量 **/
+  public void setNassistnum(UFDouble nassistnum) {
+    this.setAttributeValue(PraybillItemVO.NASTNUM, nassistnum);
+  }
+
+  /** 生成合同次数 **/
+  public void setNgenct(Integer ngenct) {
+    this.setAttributeValue(PraybillItemVO.NGENCT, ngenct);
+  }
+
+  /** 主数量 **/
+  public void setNnum(UFDouble nnum) {
+    this.setAttributeValue(PraybillItemVO.NNUM, nnum);
+  }
+
+  /** 生成价格审批单次数 **/
+  public void setNpriceauditbill(Integer npriceauditbill) {
+    this.setAttributeValue(PraybillItemVO.NPRICEAUDITBILL, npriceauditbill);
+  }
+
+  /** 生成询报价单次数 **/
+  public void setNquotebill(Integer nquotebill) {
+    this.setAttributeValue(PraybillItemVO.NQUOTEBILL, nquotebill);
+  }
+
+  /** 本币价税合计 **/
+  public void setNtaxmny(UFDouble ntaxmny) {
+    this.setAttributeValue(PraybillItemVO.NTAXMNY, ntaxmny);
+  }
+
+  /** 主本币含税单价 **/
+  public void setNtaxprice(UFDouble ntaxprice) {
+    this.setAttributeValue(PraybillItemVO.NTAXPRICE, ntaxprice);
+  }
+  /**
+   * Add By Wangzym 20170227
+   * @return
+   */
+  public PraybillVO changeTOBill()
+     {
+	  PraybillVO billVO = new PraybillVO();
+       billVO.setParent(getHead());
+       PraybillItemVO[] items = { getItem() };
+       
+   
+       billVO.setBVO(items);
+       return billVO;
+     }
+
+}

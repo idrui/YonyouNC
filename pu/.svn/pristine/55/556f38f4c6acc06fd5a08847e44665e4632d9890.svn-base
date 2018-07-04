@@ -1,0 +1,4 @@
+bd_billtype
+pk_billtypeid,billtypename
+23,到货单
+1001Z810000000001JAH,普通到货

@@ -1,0 +1,3 @@
+bd_billtype
+pk_billtypeid,billtypename
+24,价格结算单

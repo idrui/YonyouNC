@@ -1,0 +1,94 @@
+package nc.impl.pu;
+
+import nc.impl.pubapp.pattern.data.view.SchemeViewQuery;
+import nc.itf.pu.IQg20RefQueyService;
+import nc.md.data.access.NCObject;
+import nc.md.persist.framework.MDPersistenceService;
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.ui.querytemplate.querytree.QueryScheme;
+import nc.vo.pu.m20.entity.PraybillHeaderVO;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pu.m20.entity.PraybillVO;
+import nc.vo.pu.m20.entity.PraybillViewVO;
+import nc.vo.pub.BusinessException;
+import nc.vo.pubapp.pattern.pub.SqlBuilder;
+import nc.vo.pubapp.query2.sql.process.QuerySchemeProcessor;
+import nc.vo.pubapp.util.CombineViewToAggUtil;
+
+import org.apache.commons.lang.ArrayUtils;
+
+public class Qg20RefQueyServiceImpl implements IQg20RefQueyService {
+
+	@Override
+	public PraybillVO[] queryM20ForTJ01(IQueryScheme queryScheme)
+			throws BusinessException {
+//		 String ordersql = this.createOrderSql(queryScheme);
+//		 PraybillVO[] bills = null;
+//		 bills = this.queryDetailVOForSource(queryScheme, ordersql);
+//		String strSqlWhere=queryScheme.getWhereSQLOnly();
+//		 return bills;
+		//拿到界面上选择的查询条件
+		String sqlStr = queryScheme.getTableJoinFromWhereSQL().getWhere();
+		//此处可以组装自己的条件
+		//todo - eg: sqlStr = sqlStr + " and status = '1' "
+		NCObject[] o = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond(PraybillHeaderVO.class, sqlStr, false);
+		PraybillVO[] b = new PraybillVO[o.length];
+		for(int i = 0; i<o.length; i++){
+			b[i] =(PraybillVO)(o[i].getContainmentObject());
+		}
+		return b;
+	}
+
+	private PraybillVO[] queryDetailVOForSource(IQueryScheme scheme, String order) {
+	    SchemeViewQuery<PraybillViewVO> query =
+	        new SchemeViewQuery<PraybillViewVO>(PraybillViewVO.class);
+	    ////////////////拼接sql,where
+	    QueryScheme tempQuery = (QueryScheme) scheme;
+//		FromWhereSQLImpl tempquery = (FromWhereSQLImpl) tempQuery.getTableJoinFromWhereSQL();
+//		String whereStr = tempquery.getWhere();
+//		if (whereStr.length()==0){
+//			whereStr = whereStr + " fstatusflag = '1'  and lm_cbdtxx.dr=0";
+//		}
+//		else{
+//			whereStr = whereStr + " and  fstatusflag = '1'  and lm_cbdtxx.dr=0";
+//		}
+//		
+//		tempquery.setWhere(whereStr);
+
+	    PraybillViewVO[] views = query.query(tempQuery, order);
+	    if (ArrayUtils.isEmpty(views)) {
+	      return null;
+	    }
+	    for (PraybillViewVO view : views) {
+	      PraybillHeaderVO headvo = (PraybillHeaderVO) view.getVO(PraybillHeaderVO.class);
+	      PraybillItemVO bodyvo = (PraybillItemVO) view.getVO(PraybillItemVO.class);
+	      headvo.setPk_group(bodyvo.getPk_group());
+	      headvo.setPk_org(bodyvo.getPk_org());
+//	      headvo.setDbilldate(bodyvo.getDbilldate());
+	    }
+	    PraybillVO[] queryVos =
+	        new CombineViewToAggUtil<PraybillVO>(PraybillVO.class, PraybillHeaderVO.class,
+	        		PraybillItemVO.class).combineViewToAgg(views, PraybillHeaderVO.PK_PRAYBILL);//无VO时，直接"上游单据pk"
+
+	    return queryVos;
+	  }
+	
+	private String createOrderSql(IQueryScheme queryScheme) {
+	    // 根据单据号、行号排序  order by it_detail.vbillcode,it_detail_b.crowno
+	    SqlBuilder order = new SqlBuilder();
+//	    QuerySchemeProcessor processor = new QuerySchemeProcessor(queryScheme);
+//	    order.append(" order by ");
+//	    String tableName = processor.getMainTableAlias();
+//	    order.append(tableName);
+//	    order.append(".");
+//	    order.append(PraybillHeaderVO.VBILLCODE);
+//	    order.append(",");
+//	    String bodytableName =
+//	        processor.getTableAliasOfAttribute("po_praybill_b.pk_praybill_b");
+//	    order.append(bodytableName);
+//	    order.append(".");
+//	    order.append(PraybillItemVO.CROWNO);
+	    return order.toString();
+
+	  }
+}

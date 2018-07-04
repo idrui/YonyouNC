@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<xsd:schema  elementFormDefault="unqualified"  attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+ jaxb:version="2.0"
+xmlns:ns0="http://entity.m21.pu.vo.nc/MsgXSAGHT0001"
+targetNamespace="http://entity.m21.pu.vo.nc/MsgXSAGHT0001" >
+	<xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="nc.vo.pu.m21.entity"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="MsgXSAGHT0001" type="ns0:MsgXSAGHT0001"/>
+
+    <xsd:complexType name="MsgXSAGHT0001"  >
+                <xsd:sequence>
+                    <xsd:element name="shortSizeLowPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="shortSizeRatePf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="settUserAddrNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderReadyDate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="drewMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="shopsignPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="erpOrderNumPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="partOrderFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="recCreateTime"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="depositAmtPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderModiNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="finUserTrade"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderUserCnamePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="rainCoatFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderWtPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="productDscr"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="modiOperPerson"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="grainCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="telNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="tradeMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderItemModiMark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="expFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="settUserAcctPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="patternSalient"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="userSpecDesc"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderItemStatusCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="shortSizeUpPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="delivyTolUpper"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="prodCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="deliveryDateChr"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="coilInsideDimPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="priceModeCname"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="taxRatePf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="deliveryPlaceName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="taxNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderWidthPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="transType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="certiNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="userCredit"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="priceBaseDate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="userChineseName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderLenUp"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="packingCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contTotWt"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="modiCause"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderModiMark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="endLineCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contInPerson"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="accountNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="transProdCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="sectionDesc"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="launchFirstId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="thickEng"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="modiDate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contTrnpTotAmt"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="mdOrderNo"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="finUserName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="cutNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="settleUserNamePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="unitWtUpPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="apn"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderPeriodPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="rmaNoPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="trnpTitleText"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="msc"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="recognCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="saleRemark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="resoPeriodPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="edgeType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="a_flag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="invoiceTypeName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="qcType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderPiece"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="widthEng"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="agreePrice"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="modiType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="delivyTolLower"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="prodClassCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="addressLocationc"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contOrderNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="unitWtLowPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderPriceMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="lengthMinEng"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="cnsgAddress1Pf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="weightPlate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="endLineName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="trnpAmtPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="consignName1Pf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="straragemMark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderTechnicDes"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="guideMeasureAq"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderUnit"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="deliveryPlaceCodePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="trnpModeCodePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="saleId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="preAlcaWtPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="straragemMarkCname"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="trnpPricePf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="consignNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="deliveryWeekMark"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="saleNetworkPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="companyCodePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="sectionCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="agreemtCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="psr"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="capabYnFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="privateRouteNamePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="settUserAcctNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="shortSize2"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="shortSize1"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="shortSize4"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="shortSize3"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="invoiceType"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="shortSize5"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="cnsgAddressNum1"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="consignNamePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contDepositNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="delivyPeriodPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="newProductFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="launchTime"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="finUserNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderCertNo"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderNumPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="deliveryPlaceName1"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="trnpTitleCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="signSitePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderThick"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="erpOrderNo"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="settUserAddrPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contDepositAmt"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="settleMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderUserAddrNamePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="saleUnitPrice"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="launchFirstTime"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="cnsgAddressNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderStatusPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="metFeetFlag"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="mdOrderNumPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderUserAddrNum"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="bankBranchName"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="prodCodeCname"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="settleUserNum"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="weightMethod"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderPriority"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="unloadPoint"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="consignNum1"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderLastSeqNo"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="versionNumPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="lengthMaxEng"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contInDate"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="priceFormulaMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="launchId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="steelStd"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderUserCodePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="privateRouteCodePf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="depositN"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderTypeCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contPrepayLackAmt"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="orderByprodDegreeCode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="contPrepayRate"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="priceMode"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderAmtPf"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="deliveryPlaceCode1Pf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderNo"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="orderLenLow"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="contTotAmt"  nillable="true"  minOccurs="0"  type="xsd:decimal"/>
+                    <xsd:element name="cnsgAddressPf"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

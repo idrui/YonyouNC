@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!--自由项配置-->
+	<import resource="classpath:nc/ui/pu/m23/billref/ref23_userdef.xml" />
+	<!-- 转单查询Action -->
+	<bean id="queryAction" class="nc.ui.pu.pub.action.PUQueryAction">
+		<property name="refContext" ref="refContext" />
+	</bean>
+
+	<!-- 转单参照单据信息 -->
+	<bean id="refInfo" class="nc.ui.pubapp.billref.src.RefInfo">
+		<property name="userdefitemListPreparator" ref="userdefitemListPreparator" />
+		<property name="singleUserdefitemListPreparator" ref="singleUserdefitemListPreparator" />
+		<!-- 是否需要伪列处理(转单时涉及根据孙表对子表进行拆行时需要设置为True)-->
+		<property name="fakePKUsed" value="true" />
+
+		<!-- 到货单VO -->
+		<property name="billVO">
+			<bean class="nc.vo.pu.m23.entity.ArriveVO">
+			</bean>
+		</property>
+		<property name="headVO">
+			<bean class="nc.vo.pu.m23.entity.ArriveHeaderVO">
+			</bean>
+		</property>
+		<property name="bodyVO">
+			<bean class="nc.vo.pu.m23.entity.ArriveItemVO">
+			</bean>
+		</property>
+		<property name="viewVO">
+			<bean class="nc.vo.pu.m23.entity.ArriveViewVO">
+			</bean>
+		</property>
+
+		<!-- 单据显示模板nodeKey -->
+		<property name="billNodeKey" value="4004080031" />
+		<property name="billViewNodeKey" value="4004080032" />
+
+		<!-- 主键、单据号 -->
+		<property name="sourcevoPkName" value="pk_arriveorder" />
+		<property name="sourcevoBillNOName" value="vbillcode" />
+
+		<!-- 单据查询服务 -->
+		<property name="queryService">
+			<bean class="nc.ui.pu.m23.billref.ic.m47.RefQueryServiceFor47" />
+		</property>
+
+		<!-- 单据参照UI初始化处理器，可以处理精度，显示或其它-->
+		<property name="refPanelInit">
+			<bean class="nc.ui.pu.m23.billref.M23RefPanelInit" />
+		</property>
+	</bean>
+</beans>

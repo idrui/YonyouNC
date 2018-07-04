@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="true">
+	<import resource="poInvoiceCheckItem_base.xml" />
+	
+	<bean id="modelService" class="nc.ui.pu.m25.service.ClosingCheckModelService" >
+		<property name="type" value = "unsettle" />
+	</bean>
+
+</beans>

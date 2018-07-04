@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<description>
+		检验到货单的总配置文件
+	</description>
+
+	<import resource="check_action.xml" />
+	
+	 <!-- 引入到货检验的编辑事件配置 -->
+  	<import resource="check_editor.xml" />
+  	
+
+	<bean id="context" class="nc.vo.uif2.LoginContext" />
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.DataViewBDObjectAdapterFactory" />
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="manageModelService" class="nc.ui.pu.m23.model.ArriveCheckModelService">
+	</bean>
+
+	<!-- 管理应用模型 -->
+	<bean id="manageAppModel" class="nc.ui.pu.m23.model.ArriveCheckManageModel">
+		<property name="service" ref="manageModelService"></property>
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+		<property name="context" ref="context"></property>
+		<property name="billType" value="23"></property>
+	</bean>
+
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.model.BaseBillModelDataManager">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="service" ref="manageModelService"></property>
+	</bean>-->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.query2.model.ModelDataManager">
+		<property name="model" ref="manageAppModel" />
+		<property name="service" ref="manageModelService" />
+	</bean>
+
+	<!-- 模板容器，负责对模板的统一装载 -->
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+	</bean>
+
+	<!-- 界面元素 ###########################################################-->
+	<!-- 列表视图 -->
+	<bean id="listView" class="nc.ui.pu.m23.view.CheckListView"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="multiSelectionEnable" value="true" />
+		<property name="multiSelectionMode" value="1" />
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="billListPanelValueSetter">
+			<bean class="nc.ui.pu.m23.view.CheckListPanelValueSetter">
+			</bean>
+		</property>
+	</bean>
+
+	<!--	源单据类型保存在单据的某个字段 -->
+	<!-- 来源 -->
+ 	<bean id="vsourcecodeMediator" class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+	 	<property name="model" ref="manageAppModel" />
+	 	<property name="srcBillIdField" value="csourceid" />
+	 	<property name="srcBillNOField" value="vsourcecode" />
+	 	<!-- 保存源单据类型的字段名 -->
+	 	<property name="srcBillTypeField" value="csourcetypecode" />
+	 	<!-- 保存源单据类型的字段所在位置，0：表头；1：表体 -->
+	 	<property name="srcBillTypeFieldPos" value="0" />
+ 	</bean>
+ 	<!-- 源头  -->
+ 	<bean id="vfirstcodeMediator" class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+	 	<property name="model" ref="manageAppModel" />
+	 	<property name="srcBillIdField" value="cfirstid" />
+	 	<property name="srcBillNOField" value="vfirstcode" />
+	 	<!-- 保存源单据类型的字段名 -->
+	 	<property name="srcBillTypeField" value="cfirsttypecode" />
+	 	<!-- 保存源单据类型的字段所在位置，0：表头；1：表体 -->
+	 	<property name="srcBillTypeFieldPos" value="0" />
+ 	</bean>
+ 	
+ 	<bean id="queryArea" class="nc.ui.pubapp.uif2app.tangramlayout.UEQueryAreaShell"
+		init-method="initUI">
+		<property name="queryAreaCreator" ref="queryUIAction" />
+	</bean>
+	
+	<!-- 界面布局总装 -->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.HSNode">
+				<property name="left">
+					<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+						<property name="component" ref="queryArea" />
+					</bean>
+				</property>
+				<property name="right">
+					<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+						<property name="component" ref="listView" />
+					</bean>
+				</property>
+				<property name="dividerLocation" value="0.22f" />
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+			  	<ref bean="queryUIAction" />
+        		<ref bean="refreshUIAction" />
+        		<ref bean="separatorAction"/> 
+				<ref bean="QCUIAction" />
+				<ref bean="separatorAction"/>
+				<ref bean="ChkCancelAction" />
+				<ref bean="separatorAction"/>  
+				<ref bean="linkBillUIAction" />
+				<ref bean="separatorAction"/> 
+				<ref bean="printMenuAction" /><!--
+				<ref bean="linkChkReportUIAction" />
+				-->
+			</list>
+		</property>
+	</bean>
+<!-- 消息中心打开的节点时处理 -->
+   <bean id="InitDataListener" class="nc.ui.pubapp.uif2app.model.DefaultFuncNodeInitDataListener">
+       <property name="context" ref="context" />
+       <property name="model" ref="manageAppModel"/>
+       <property name="queryAction" ref="queryUIAction" />
+   </bean>
+</beans>

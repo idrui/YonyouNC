@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<description>
+		检验到货单的按钮Action配置文件
+	</description>
+
+	<!-- 检验-->
+	<bean id="QCUIAction" class="nc.ui.pu.m23.check.action.QCUIAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="dataManager" ref="modelDataManager" />
+	</bean>
+	
+	<!-- 反检 -->
+	<bean id="ChkCancelAction" class="nc.ui.pu.m23.check.action.ChkCancelAction">
+		<property name="model" ref="manageAppModel"/>
+		<property name="dataManager" ref="modelDataManager"/>
+		<property name="btnName">
+			<bean class="nc.ui.uif2.I18nFB">
+				<property name="resDir" value="4004040_0" />
+				<property name="resId" value="04004040-0215" />
+				<property name="defaultValue" value="反检" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 查询 -->
+	<bean id="checkQryDLGInitializer" class="nc.ui.pu.m23.query.CheckQueryDLGInitializer"/>
+	<bean id="queryUIAction" class="nc.ui.pu.m23.query.ArrivalCheckQueryAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="list" ref="listView" />
+		<property name="qryCondDLGInitializer" ref="checkQryDLGInitializer"/>
+		<property name="model" ref="manageAppModel" />
+		<property name="hasQueryArea" value="false" />	
+	</bean> 
+	<bean id="refreshUIAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 打印处理类，精度等 -->
+	<bean id="printProcessor" class="nc.ui.pu.m23.action.processor.ArriveCheckPrintProcessor">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 打印 -->
+	<bean id="printUIAction" class="nc.ui.pu.m23.check.action.PrintUIAction">
+		<property name="preview" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+
+	<!-- 打印预览 -->
+	<bean id="previewPrintUIAction" class="nc.ui.pu.m23.check.action.PreviewPrintUIAction">
+		<property name="preview" value="true" />
+		<property name="model" ref="manageAppModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+  <!-- 打印按钮组 -->
+  <bean id="printMenuAction" class="nc.funcnode.ui.action.GroupAction">
+    <property name="code" value="printMenuAction" />
+    <property name="actions">
+      <list>
+        <ref bean="printUIAction" />
+        <ref bean="previewPrintUIAction" />
+      </list>
+    </property>
+  </bean>
+	<!-- 联查单据 -->
+	<bean id="linkBillUIAction" class="nc.ui.pu.m23.check.action.LinkBillUIAction">
+		<property name="model" ref="manageAppModel" />
+		 <property name="billType" value="23"/>
+	</bean>
+  <!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+  
+	<!-- 联查质检报告 --><!--
+	<bean id="linkChkReportUIAction" class="nc.ui.pu.m23.check.action.LinkChkReportUIAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+--></beans>

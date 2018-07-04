@@ -1,0 +1,44 @@
+package nc.impl.pu.dw66to20.query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nc.bs.trade.business.HYPubBO;
+import nc.itf.pu.dw66to20.query.IDW66QueryMaintain;
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.vo.lm.erpcgjhjk.AggErpcgjhjkHVO;
+import nc.vo.lm.erpcgjhjk.ErpcgjhjkHVO;
+import nc.vo.pub.BusinessException;
+import nc.vo.pubapp.pattern.pub.SqlBuilder;
+
+public class IDW66QueryMaintainImpl implements IDW66QueryMaintain {
+
+	@Override
+	public AggErpcgjhjkHVO[] queryUpForPrayBillDates(IQueryScheme queryScheme)
+			throws BusinessException {
+		AggErpcgjhjkHVO[] bills = null;
+		bills = this.queryAggCgagForSource(queryScheme);
+		return bills;
+	}
+
+	private AggErpcgjhjkHVO[] queryAggCgagForSource(IQueryScheme queryScheme)
+			throws BusinessException {
+
+		String sql = queryScheme.getWhereSQLOnly();
+		List<AggErpcgjhjkHVO> aggvos = new ArrayList<AggErpcgjhjkHVO>();
+		HYPubBO bo = new HYPubBO();
+		SqlBuilder sb = new SqlBuilder();
+		sb.append(sql);
+		sb.append(" and nvl(dr,0)=0 and nvl(msginfo, 0) <> 2 ");
+		ErpcgjhjkHVO[] hvos = (ErpcgjhjkHVO[]) bo.queryByCondition(
+				ErpcgjhjkHVO.class, sb.toString());
+		for (ErpcgjhjkHVO hvo : hvos) {
+			AggErpcgjhjkHVO aggvo = new AggErpcgjhjkHVO();
+			aggvo.setParent(hvo);
+			aggvos.add(aggvo);
+		}
+		return aggvos.toArray(new AggErpcgjhjkHVO[aggvos.size()]);
+
+	}
+
+}

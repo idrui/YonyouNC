@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!--自由项配置-->
+	<import resource="classpath:nc/ui/pu/m422x/billref/ref422x_userdef.xml" />
+	<!-- 转单参照单据信息 -->
+	<bean id="refInfo" class="nc.ui.pubapp.billref.src.RefInfo">
+		<property name="userdefitemListPreparator" ref="userdefitemListPreparator" />
+		<property name="singleUserdefitemListPreparator" ref="singleUserdefitemListPreparator" />
+		<property name="billVO">
+			<bean class="nc.vo.pu.m422x.entity.StoreReqAppVO">
+			</bean>
+		</property>
+		<property name="headVO">
+			<bean class="nc.vo.pu.m422x.entity.StoreReqAppHeaderVO">
+			</bean>
+		</property>
+		<property name="bodyVO">
+			<bean class="nc.vo.pu.m422x.entity.StoreReqAppItemVO">
+			</bean>
+		</property>
+		<property name="viewVO">
+			<bean class="nc.vo.pu.m422x.entity.StoreReqAppViewVO">
+			</bean>
+		</property>
+        <property name="billNodeKey" value="40040000CC"/> 
+        <property name="billViewNodeKey" value="40040000CL"/>
+		<property name="sourcevoPkName" value="pk_storereq"></property>
+		<property name="sourcevoBillNOName" value="vbillcode"></property>
+
+		<!-- 单据查询服务 -->
+		<property name="queryService">
+			<bean class="nc.ui.pu.m422x.billref.ic.m4455.QueryServiceFor4455" />
+		</property>
+
+		<!-- 单据参照UI初始化处理器，可以处理精度，显示或其它-->
+		<property name="refPanelInit">
+			<bean class="nc.ui.pu.m422x.billref.M422xRefPanelInit" />
+		</property>
+		
+	</bean>
+</beans>

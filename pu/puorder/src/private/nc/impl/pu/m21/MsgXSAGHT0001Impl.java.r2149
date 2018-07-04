@@ -1,0 +1,782 @@
+/**
+ * $文件说明$
+ * 
+ * @author zhaoyha
+ * @version 6.0
+ * @see
+ * @since 6.0
+ * @time 2010-1-13 下午03:40:25
+ */
+package nc.impl.pu.m21;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import nc.bs.dao.BaseDAO;
+import nc.bs.dao.DAOException;
+import nc.itf.pu.m21.IMsgXSAGHT0001;
+import nc.jdbc.framework.SQLParameter;
+import nc.jdbc.framework.processor.ResultSetProcessor;
+import nc.md.data.access.NCObject;
+import nc.md.persist.framework.IMDPersistenceQueryService;
+import nc.md.persist.framework.MDPersistenceService;
+import nc.vo.am.status.StatusVO;
+import nc.vo.ecpubapp.pattern.exception.ExceptionUtils;
+import nc.vo.et.m5730.entity.DetailBVO;
+import nc.vo.et.m5730.entity.DetailHVO;
+import nc.vo.et.m5730.entity.DetailVO;
+import nc.vo.pu.m21.entity.MsgXSAGHT0001Head;
+import nc.vo.pu.m21.entity.OrderHeaderVO;
+import nc.vo.pu.m21.entity.OrderItemVO;
+import nc.vo.pu.m21.entity.OrderVO;
+import nc.vo.pu.m21.entity.MsgXSAGHT0001;
+import nc.vo.pub.AggregatedValueObject;
+import nc.vo.pub.VOStatus;
+import nc.vo.pub.lang.UFDate;
+import nc.vo.pubapp.AppContext;
+import nc.vo.so.m4331.entity.DeliveryBVO;
+import nc.vo.so.m4331.entity.DeliveryHVO;
+import nc.vo.so.m4331.entity.DeliveryVO;
+import nc.itf.scmpub.reference.uap.pf.PfServiceScmUtil;
+import nc.vo.lm.intertable.AggLmpgjkHVO;
+import nc.vo.lm.intertable.LmpgjkHVO;
+import nc.vo.lm.intertable.LmpgjkaBVO;
+import nc.vo.lm.intertable.LmpgjkbBVO;
+import nc.vo.lm.intertable.LmpgjkcBVO;
+
+
+/**
+ * 2017-03-06 攀枝花生产订单接口接口实现类 
+
+ */
+public class MsgXSAGHT0001Impl implements IMsgXSAGHT0001 {
+	
+	@Override
+	public String MXSAGHT0001Head(MsgXSAGHT0001Head msgxsaght0001head) {
+		// TODO 自动生成的方法存根		
+		Map<String, Object> map = new HashMap<>();
+//		  boolean flag = this.zjbList(list);
+		  //业务处理
+		  String flag="2";
+		try {
+			flag = this.MsgXSAGHT0001(msgxsaght0001head);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}finally{
+			//构建中间表
+			AggLmpgjkHVO agglmpgjkhvo =this.TranszjbVOMainVO(msgxsaght0001head,flag);
+			  try {
+					NCObject objs = NCObject.newInstance(agglmpgjkhvo);//AGGVO对象
+					MDPersistenceService.lookupPersistenceService().saveBill(objs); 
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+		}
+		  /*map.put("flag", flag);
+		  if(flag){
+			  map.put("reason", "保存成功"); 
+		  }else{
+			  map.put("reason", "保存失败");
+		  }*/
+		  return "1";
+//		return null;
+	}
+	
+	public String MsgXSAGHT0001(MsgXSAGHT0001Head msgxsaght0001head) {
+		// TODO 自动生成的方法存根
+		//构建中间表
+		AggLmpgjkHVO agglmpgjkhvo = this.TranszjbVOMainVO(msgxsaght0001head,"1");
+		BaseDAO baseDao = new BaseDAO();
+		Map<String, Object> map = new HashMap<>();
+		for (int i = 0; i < msgxsaght0001head.getMsgBody().size(); i++) {
+			MsgXSAGHT0001 msgXSAGHT0001=msgxsaght0001head.getMsgBody().get(i);
+			String expFlag = msgXSAGHT0001.getExpFlag();//内贸、出口业务标识
+			/*
+			 * 内贸时，处理采购合同和发货单
+			 */
+			if(expFlag.equals("N")){				
+			    int lengthOrder = this.FindSaleOrderNo(msgXSAGHT0001,"reqOrder");
+				if(lengthOrder==0){
+					//当采购订单内无数据时，向采购订单主表和采购订单子表内插入数据
+					/*OrderVO aggOrderVo = new OrderVO();
+					OrderHeaderVO orderHeaderVO = TransMainVO(msgXSAGHT0001);
+					OrderItemVO[] orderItemVO = TransSubVO(msgXSAGHT0001);					
+					aggOrderVo.setParentVO(orderHeaderVO);				
+					aggOrderVo.setChildrenVO(orderItemVO);
+//					List<OrderVO> lsOrderVO= new ArrayList<>();
+//					lsOrderVO.add(aggOrderVo);					
+					try {
+						//String[] ids = baseDao.insertVOList(lsOrderVO);
+						NCObject objs = NCObject.newInstance(aggOrderVo);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs); 
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}	*/	
+					AggregatedValueObject[] srcVosAfterFilter = new AggregatedValueObject[] {
+							agglmpgjkhvo //中间表
+ 						    };
+					OrderVO[] aggOrderVo = PfServiceScmUtil.executeVOChange("30-Cxx-pgscdd", "21", srcVosAfterFilter);//30-Cxx-pgscdd是上游单据交易类型，21是下游单据类型
+					try {
+						NCObject objs = NCObject.newInstance(aggOrderVo);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs); 
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+				}else{
+					//当采购订单内无数据时，只向采购订单子表内插入数据
+					OrderVO aggOrderVo = null;
+					OrderHeaderVO orderHeaderVO = null;				
+					OrderItemVO[] orderItemVO = null;	
+					int lengthSub = this.FindSubOrderNo(msgXSAGHT0001,"reqOrder");
+					if(lengthSub==0){
+						String pasorderNumPf = msgXSAGHT0001.getOrderNumPf();
+						try{
+							NCObject[] ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond(OrderHeaderVO.class , "saleorderno = "+pasorderNumPf, false);
+							aggOrderVo = (OrderVO)ncObjects[0].getContainmentObject();
+						} catch(Exception e){
+							
+							return "查询生产采购订单内合同号为"+pasorderNumPf+"的主信息失败！";				
+						}
+						AggregatedValueObject[] srcVosAfterFilter = new AggregatedValueObject[] {
+								agglmpgjkhvo //中间表
+	 						    };
+						OrderVO[] aggordervo = PfServiceScmUtil.executeVOChange("", "21", srcVosAfterFilter);
+						aggordervo[0].setParentVO(aggOrderVo.getParentVO());
+						try {
+							NCObject objs = NCObject.newInstance(aggordervo[0]);//AGGVO对象
+							MDPersistenceService.lookupPersistenceService().saveBill(objs); 
+						} catch (Exception e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						}
+						//orderItemVO[0].setStatus(VOStatus.NEW);
+					}else{
+						//orderItemVO = null;
+					}				
+				}
+				/*
+				 * 处理发货单
+				 */
+			    int lengthSend = this.FindSaleOrderNo(msgXSAGHT0001,"sendDetails");
+				if(lengthSend==0){
+					//当采购订单内无数据时，向采购订单主表和采购订单子表内插入数据
+					DeliveryVO aggDeliveryVO = new DeliveryVO();
+					DeliveryHVO deliveryHVO = TransSendMainVO(msgXSAGHT0001);
+					DeliveryBVO[] deliveryBVO = TransSendSubVO(msgXSAGHT0001);					
+					aggDeliveryVO.setParentVO(deliveryHVO);
+					aggDeliveryVO.setChildrenVO(deliveryBVO);				
+					try {
+						NCObject objs = NCObject.newInstance(aggDeliveryVO);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}					
+				}else{
+					//当采购订单内无数据时，只向采购订单子表内插入数据
+					DeliveryVO aggDeliveryVO = new DeliveryVO();
+					DeliveryHVO deliveryHVO = null;
+					DeliveryBVO[] deliveryBVO = null;
+					int lengthSub = this.FindSubOrderNo(msgXSAGHT0001,"sendDetails");
+					if(lengthSub==0){
+						deliveryBVO = TransSendSubVO(msgXSAGHT0001);
+					}else{
+						deliveryBVO = null;
+					}
+					String pasorderNumPf = msgXSAGHT0001.getOrderNumPf();
+					try{
+						NCObject[] ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond(DeliveryHVO.class , "saleorderno = "+pasorderNumPf, false);
+						aggDeliveryVO = (DeliveryVO)ncObjects[0].getContainmentObject();
+						deliveryHVO = (DeliveryHVO)aggDeliveryVO.getParentVO();
+					} catch(Exception e){
+						
+						return "查询发货单内攀钢销售订单号为"+pasorderNumPf+"的主信息失败！";				
+					}
+					aggDeliveryVO.setParentVO(deliveryHVO);
+					aggDeliveryVO.setChildrenVO(deliveryBVO);					
+					try {
+						NCObject objs = NCObject.newInstance(aggDeliveryVO);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}					
+				}			
+			}
+			/*
+			 * 
+			 */
+			if(expFlag.equals("C")){				
+			    int length = this.FindSaleOrderNo(msgXSAGHT0001,"reqOrder");
+				if(length==0){
+				OrderVO aggOrderVo = new OrderVO();
+				OrderHeaderVO orderHeaderVO = TransMainVO(msgXSAGHT0001);
+				OrderItemVO[] orderItemVO = TransSubVO(msgXSAGHT0001);					
+				aggOrderVo.setParentVO(orderHeaderVO);	
+				aggOrderVo.setChildrenVO(orderItemVO);				
+				try {
+					NCObject objs = NCObject.newInstance(aggOrderVo);//AGGVO对象
+					MDPersistenceService.lookupPersistenceService().saveBill(objs);
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}				
+				}else{
+					OrderVO aggOrderVo = new OrderVO();
+					OrderHeaderVO orderHeaderVO = null;			
+					OrderItemVO[] orderItemVO = null;	
+					int lengthSub = this.FindSubOrderNo(msgXSAGHT0001,"reqOrder");
+					if(lengthSub==0){
+						orderItemVO = TransSubVO(msgXSAGHT0001);
+						orderItemVO[0].setStatus(VOStatus.NEW);
+					}else{
+						orderItemVO = null;
+					}				
+					String pasorderNumPf = msgXSAGHT0001.getOrderNumPf();
+					try{
+						NCObject[] ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond(OrderHeaderVO.class , "saleorderno = "+pasorderNumPf, false);
+						aggOrderVo = (OrderVO)ncObjects[0].getContainmentObject();
+						orderHeaderVO = (OrderHeaderVO)aggOrderVo.getParentVO();
+					} catch(Exception e){						
+						return "查询生产采购订单内合同号为"+pasorderNumPf+"的主信息失败！";				
+					}
+					aggOrderVo.setParentVO(orderHeaderVO);			
+					aggOrderVo.setChildrenVO(orderItemVO);
+					try {
+						NCObject objs = NCObject.newInstance(aggOrderVo);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+				}
+				/*
+				 * 处理出口明细
+				 */
+			    int lengthDetail = this.FindSaleOrderNo(msgXSAGHT0001,"details");
+				if(lengthDetail==0){
+					//当采购订单内无数据时，向采购订单主表和采购订单子表内插入数据
+					DetailVO aggDetailVO = new DetailVO();
+					DetailHVO detailHVO = TransDetailHVOMainVO(msgXSAGHT0001);
+					DetailBVO[] detailBVO = TransDetailBVOSubVO(msgXSAGHT0001);					
+					aggDetailVO.setParentVO(detailHVO);
+					aggDetailVO.setChildrenVO(detailBVO);					
+					try {
+						NCObject objs = NCObject.newInstance(aggDetailVO);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}					
+				}else{
+					//当采购订单内无数据时，只向采购订单子表内插入数据
+					DetailVO aggDetailVO = new DetailVO();
+					DetailHVO detailHVO = null;	
+					DetailBVO[] detailBVO = null;
+					int lengthSubDetail = this.FindSubOrderNo(msgXSAGHT0001,"details");
+					if(lengthSubDetail==0){
+						detailBVO = TransDetailBVOSubVO(msgXSAGHT0001);
+					}else{
+						detailBVO = null;
+					}
+					String pasorderNumPf = msgXSAGHT0001.getOrderNumPf();
+					try{
+						NCObject[] ncObjects = MDPersistenceService.lookupPersistenceQueryService().queryBillOfNCObjectByCond(DetailHVO.class , "saleorderno = "+pasorderNumPf, false);
+						aggDetailVO = (DetailVO)ncObjects[0].getContainmentObject();
+						detailHVO = (DetailHVO)aggDetailVO.getParentVO();
+					} catch(Exception e){
+						
+						return "查询出口明细中订单号为"+pasorderNumPf+"的主信息失败！";				
+					}
+					aggDetailVO.setParentVO(detailHVO);
+					aggDetailVO.setChildrenVO(detailBVO);
+//					List<DetailVO> lsDetailVO= new ArrayList<>();
+//					lsDetailVO.add(aggDetailVO);					
+					try {
+//						String[] ids = baseDao.insertVOList(lsDetailVO);
+						NCObject objs = NCObject.newInstance(aggDetailVO);//AGGVO对象
+						MDPersistenceService.lookupPersistenceService().saveBill(objs);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}						
+				}		
+			}
+			/**
+			 * 生成对照表
+			 */
+			int length = this.FindSaleOrderNo(msgXSAGHT0001, "pgpdtorderrelation");
+			if(length==0){
+				
+			}else{
+				return "接口数据处理失败！";
+			}
+			
+		}
+		return "OK";
+}
+	/**
+	 * 根据订单号查询相应的主表内是否有该订单的数据
+	 * Parma msgXSAGHT0001接口传递的采购订单数据
+	 * type查询表的类型：reqOrder-采购订单，sendDetails-发货单，details-出口明细
+	 */
+	public int FindSaleOrderNo(MsgXSAGHT0001 msgXSAGHT0001,String type) {
+		String expFlag = msgXSAGHT0001.getExpFlag();//内贸、出口业务标识
+		BaseDAO baseDao = new BaseDAO();
+		String sqlStr = "";
+		SQLParameter sp = new SQLParameter();
+		if(type.equals("reqOrder")){
+			sqlStr = "select count(*) from po_order where saleorderno=?";	
+			sp.addParam(msgXSAGHT0001.getOrderNumPf());
+		}else if(type.equals("sendDetails")){
+			sqlStr = "select count(*) from so_delivery where saleorderno=?";
+			sp.addParam(msgXSAGHT0001.getOrderNumPf());
+		}else if(type.equals("details")){
+			sqlStr = "select count(*) from et_detail where saleorderno=?";
+			sp.addParam(msgXSAGHT0001.getOrderNumPf());
+		}else if(type.equals("pgpdtorderrelation")){
+			sqlStr = "select count(*) from lm_pgpdtorderrelation where saleorderno=? and productorderrowno=?";
+			sp.addParam(msgXSAGHT0001.getOrderNumPf());
+			sp.addParam(msgXSAGHT0001.getMdOrderNo());
+		}
+		String li = "0";
+		try {
+			li = (String) baseDao.executeQuery(sqlStr, sp,
+					new ResultSetProcessor() {
+						@Override
+						public String handleResultSet(ResultSet rs)
+								throws SQLException {
+							rs.next();
+							return rs.getString(1);
+						}
+					});
+		} catch (Exception e) {
+			ExceptionUtils.wrappBusinessException("执行失败!");
+		}
+		return Integer.parseInt(li);
+	}	
+	/**
+	 * 根据订单号查询相应的子表内是否有该订单的数据
+	 * Parma msgXSAGHT0001接口传递的采购订单数据
+	 * type查询表的类型：reqOrder-采购订单，sendDetails-发货单，details-出口 明细
+	 */
+	public int FindSubOrderNo(MsgXSAGHT0001 msgXSAGHT0001,String type) {
+		String expFlag = msgXSAGHT0001.getExpFlag();//内贸、出口业务标识
+		BaseDAO baseDao = new BaseDAO();
+		String sqlStr = "";
+		SQLParameter sp = new SQLParameter();
+		if(type.equals("reqOrder")){
+			sqlStr = "select count(*) from po_order_b where productorderrowno=?";	
+			sp.addParam(msgXSAGHT0001.getMdOrderNo());
+		}else if(type.equals("sendDetails")){
+			sqlStr = "select count(*) from so_delivery_b where productorderrowno=?";
+			sp.addParam(msgXSAGHT0001.getMdOrderNo());
+		}else if(type.equals("details")){
+			sqlStr = "select count(*) from et_detail_b where productorderrowno=?";
+			sp.addParam(msgXSAGHT0001.getMdOrderNo());
+		}
+		String li = "0";
+		try {
+			li = (String) baseDao.executeQuery(sqlStr, sp,
+					new ResultSetProcessor() {
+						@Override
+						public String handleResultSet(ResultSet rs)
+								throws SQLException {
+							rs.next();
+							return rs.getString(1);
+						}
+					});
+		} catch (Exception e) {
+			ExceptionUtils.wrappBusinessException("执行失败!");
+		}
+		return Integer.parseInt(li);
+	}
+	/*
+	 * 根据接口中间层传递的参数，转换采购订单主Vo
+	 */
+	public OrderHeaderVO TransMainVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		OrderHeaderVO orderHeaderVO = new OrderHeaderVO();
+		//orderHeaderVO.setAttributeValue("vbillcode", );//订单编号
+		orderHeaderVO.setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		orderHeaderVO.setAttributeValue("productorderno", msgXSAGHT0001.getMdOrderNumPf());//攀钢生产订单号
+		orderHeaderVO.setAttributeValue("contractno", msgXSAGHT0001.getErpOrderNumPf());//NC合同号
+		orderHeaderVO.setAttributeValue("dbilldate", AppContext.getInstance().getServerTime());//订单日期
+//		orderHeaderVO.setAttributeValue("pk_supplier", AppContext.getInstance().getServerTime());//供应商
+//		orderHeaderVO.setAttributeValue("pk_invcsupllier", AppContext.getInstance().getServerTime());//开票供应商
+		orderHeaderVO.setAttributeValue("billstatus ", "1");//审批状态
+//		orderHeaderVO.setAttributeValue("pk_group ", "1");//所属集团
+//		orderHeaderVO.setAttributeValue("pk_org ", "1");//采购组织版本信息
+//		orderHeaderVO.setAttributeValue("pk_org_v ", "1");//采购组织
+		return orderHeaderVO;
+	}
+	/*
+	 * 根据接口中间层传递的参数，转换采购订单明细Vo
+	 */
+	public OrderItemVO[] TransSubVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		OrderItemVO[] orderItemVO = new OrderItemVO[1];
+		orderItemVO[0].setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		orderItemVO[0].setAttributeValue("saleorderrowno", msgXSAGHT0001.getOrderNo());//攀钢销售订单子项号
+		orderItemVO[0].setAttributeValue("productorderrowno", msgXSAGHT0001.getMdOrderNo());//攀钢生产订单子项号
+//		orderItemVO[0].setAttributeValue("pk_material", msgXSAGHT0001.getMdOrderNo());//物料版本信息
+		String expFlag = msgXSAGHT0001.getExpFlag();//内贸、出口业务标识
+		if(expFlag.equals("N")){
+			orderItemVO[0].setAttributeValue("cfirsttypecode ", "30");//源头单据类型		
+		}else{
+			orderItemVO[0].setAttributeValue("cfirsttypecode ", "5720");//源头单据类型	
+		}
+//		orderItemVO[0].setAttributeValue("cfirstid ", msgXSAGHT0001.getErpOrderNo());//源头单据
+		orderItemVO[0].setAttributeValue("cfirstbid  ", msgXSAGHT0001.getErpOrderNo());//源头单据明细
+		orderItemVO[0].setAttributeValue("vfirstcode", msgXSAGHT0001.getErpOrderNumPf());//源头单据号
+		orderItemVO[0].setAttributeValue("vsourcecode", msgXSAGHT0001.getErpOrderNumPf());//来源单据号
+		if(expFlag.equals("N")){
+			orderItemVO[0].setAttributeValue("csourcetypecode", "30");//源头单据类型		
+		}else{
+			orderItemVO[0].setAttributeValue("csourcetypecode", "5720");//源头单据类型	
+		}
+//		orderItemVO[0].setAttributeValue("csourcebid ", msgXSAGHT0001.getErpOrderNo());//来源单据
+		orderItemVO[0].setAttributeValue("csourcebid ", msgXSAGHT0001.getErpOrderNo());//来源单据明细
+		orderItemVO[0].setAttributeValue("nastnum", msgXSAGHT0001.getContOrderNum());//数量
+		orderItemVO[0].setAttributeValue("mainamount", msgXSAGHT0001.getContOrderNum());//主数量
+		return orderItemVO;
+	}	
+	/*
+	 * 根据接口中间层传递的参数，转换发货单主Vo
+	 */
+	public DeliveryHVO TransSendMainVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		DeliveryHVO deliveryHVO = new DeliveryHVO();		
+//		deliveryHVO.setAttributeValue("vbillcode", msgXSAGHT0001.getOrderNumPf());//单据号		
+		deliveryHVO.setAttributeValue("dbilldate", AppContext.getInstance().getServerTime());//单据日期
+		deliveryHVO.setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		deliveryHVO.setAttributeValue("productorderno", msgXSAGHT0001.getMdOrderNumPf());//攀钢生产订单号
+		deliveryHVO.setAttributeValue("contractno", msgXSAGHT0001.getErpOrderNumPf());//NC合同号
+		deliveryHVO.setAttributeValue("fstatusflag", "2");//单据状态
+//		deliveryHVO.setAttributeValue("pk_group", "2");//单据状态
+//		deliveryHVO.setAttributeValue("pk_org", "2");//单据状态
+//		deliveryHVO.setAttributeValue("pk_org_v", "2");//单据状态
+		return deliveryHVO;
+	}
+	/*
+	 * 根据接口中间层传递的参数，转换发货单明细Vo
+	 */
+	public DeliveryBVO[] TransSendSubVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		DeliveryBVO[] deliveryBVO = new DeliveryBVO[1];
+		deliveryBVO[0].setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		deliveryBVO[0].setAttributeValue("saleorderrowno", msgXSAGHT0001.getOrderNo());//攀钢销售订单子项号
+		deliveryBVO[0].setAttributeValue("productorderrowno", msgXSAGHT0001.getMdOrderNo());//攀钢生产订单子项号
+		deliveryBVO[0].setAttributeValue("vsrctype", "30");//源单据类型
+		deliveryBVO[0].setAttributeValue("vsourcecode", msgXSAGHT0001.getErpOrderNumPf());//来源单据号
+		//deliveryBVO[0].setAttributeValue("csrcid", msgXSAGHT0001.getErpOrderNumPf());//来源单据表头ID
+		deliveryBVO[0].setAttributeValue("csrcbid", msgXSAGHT0001.getErpOrderNo());//来源单据表体ID
+		deliveryBVO[0].setAttributeValue("vfirstcode", msgXSAGHT0001.getErpOrderNumPf());//源头单据号
+		deliveryBVO[0].setAttributeValue("vfirsttype", "30");//源头单据类型
+		deliveryBVO[0].setAttributeValue("cfirstbid", msgXSAGHT0001.getErpOrderNo());//源头单据表体ID
+//		deliveryBVO[0].setAttributeValue("cfirstid", msgXSAGHT0001.getErpOrderNo());//源头单据表头ID
+		deliveryBVO[0].setAttributeValue("cmaterialid", msgXSAGHT0001.getErpOrderNo());//物料档案
+		deliveryBVO[0].setAttributeValue("cmaterialvid", msgXSAGHT0001.getErpOrderNo());//物料编码
+//		deliveryBVO[0].setAttributeValue("cordercustid", msgXSAGHT0001.getErpOrderNo());//客户编码
+//		deliveryBVO[0].setAttributeValue("cinvoicecustid", msgXSAGHT0001.getErpOrderNo());//开票客户
+		deliveryBVO[0].setAttributeValue("csaleorgvid", msgXSAGHT0001.getErpOrderNo());//销售组织
+		deliveryBVO[0].setAttributeValue("csettleorgid", msgXSAGHT0001.getErpOrderNo());//结算财务组织最新版本
+		deliveryBVO[0].setAttributeValue("csettleorgvid", msgXSAGHT0001.getErpOrderNo());//结算财务组织
+		deliveryBVO[0].setAttributeValue("nastnum", msgXSAGHT0001.getContOrderNum());//数量
+		deliveryBVO[0].setAttributeValue("nnum", msgXSAGHT0001.getContOrderNum());//主数量
+		return deliveryBVO;
+	}
+	/*
+	 * 根据接口中间层传递的参数，转换出口明细主Vo
+	 */
+	public DetailHVO TransDetailHVOMainVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		DetailHVO detailHVO = new DetailHVO();
+		detailHVO.setAttributeValue("dbilldate", AppContext.getInstance().getServerTime());//单据日期
+		detailHVO.setAttributeValue("dmakedate", AppContext.getInstance().getServerTime());//制单日期
+//		detailHVO.setAttributeValue("vbillcode", msgXSAGHT0001.getOrderNumPf());//出口明细单号
+		detailHVO.setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		detailHVO.setAttributeValue("productorderno", msgXSAGHT0001.getMdOrderNumPf());//攀钢生产订单号
+//		detailHVO.setAttributeValue("carorgid", msgXSAGHT0001.getMdOrderNumPf());//应收组织最新版本
+//		detailHVO.setAttributeValue("carorgvid", msgXSAGHT0001.getMdOrderNumPf());//应收组织
+//		detailHVO.setAttributeValue("csettleorgid", msgXSAGHT0001.getMdOrderNumPf());//结算财务组织最新版本
+//		detailHVO.setAttributeValue("csettleorgvid", msgXSAGHT0001.getMdOrderNumPf());//结算财务组织
+//		detailHVO.setAttributeValue("ctradewordid", msgXSAGHT0001.getMdOrderNumPf());//贸易术语
+//		detailHVO.setAttributeValue("ctransporttypeid", msgXSAGHT0001.getMdOrderNumPf());//运输方式
+//		detailHVO.setAttributeValue("ccustomerid", msgXSAGHT0001.getMdOrderNumPf());//客户
+//		detailHVO.setAttributeValue("cinvoicecustid", msgXSAGHT0001.getMdOrderNumPf());//收票客户
+//		detailHVO.setAttributeValue("cdeptid", msgXSAGHT0001.getMdOrderNumPf());//部门最新版本
+//		detailHVO.setAttributeValue("cdeptvid", msgXSAGHT0001.getMdOrderNumPf());//部门
+//		detailHVO.setAttributeValue("cloadportid", msgXSAGHT0001.getMdOrderNumPf());//起运港
+//		detailHVO.setAttributeValue("cdestportid", msgXSAGHT0001.getMdOrderNumPf());//目的港
+//		detailHVO.setAttributeValue("corigcurrencyid", msgXSAGHT0001.getMdOrderNumPf());//币种
+//		detailHVO.setAttributeValue("pk_group", msgXSAGHT0001.getMdOrderNumPf());//集团
+//		detailHVO.setAttributeValue("pk_org", msgXSAGHT0001.getMdOrderNumPf());//销售组织
+//		detailHVO.setAttributeValue("pk_org_v", msgXSAGHT0001.getMdOrderNumPf());//销售组织版本
+		detailHVO.setAttributeValue("fpfstatusflag", "1");//审批流状态
+		detailHVO.setAttributeValue("fstatusflag", "3");//单据状态
+		return detailHVO;
+	}
+	/*
+	 * 根据接口中间层传递的参数，转换出口明细子Vo
+	 */
+	public DetailBVO[] TransDetailBVOSubVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		DetailBVO[] detailBVO = new DetailBVO[1];	
+		detailBVO[0].setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		detailBVO[0].setAttributeValue("saleorderrowno", msgXSAGHT0001.getOrderNo());//攀钢销售订单子项号
+		detailBVO[0].setAttributeValue("productorderrowno", msgXSAGHT0001.getMdOrderNo());//攀钢生产订单子项号		
+//		detailBVO[0].setAttributeValue("csrcid", msgXSAGHT0001.getErpOrderNo());//来源单据主表
+		detailBVO[0].setAttributeValue("csrcbid", msgXSAGHT0001.getErpOrderNo());//来源单据附表
+		detailBVO[0].setAttributeValue("vsourcecode", msgXSAGHT0001.getErpOrderNumPf());//来源单据号
+		detailBVO[0].setAttributeValue("vsrctype", "5720");//来源单据类型
+//		detailBVO[0].setAttributeValue("cfirstbid", );//源头单据子表
+//		detailBVO[0].setAttributeValue("cfirstid", );//源头单据主表
+		detailBVO[0].setAttributeValue("vfirstcode", msgXSAGHT0001.getErpOrderNumPf());//源头单据号
+		detailBVO[0].setAttributeValue("vfirsttype", "5720");//来源单据类型
+//		detailBVO[0].setAttributeValue("cmaterialid", "5720");//物料最新版本
+//		detailBVO[0].setAttributeValue("cmaterialvid", "5720");//物料编码
+		detailBVO[0].setAttributeValue("nastnum", msgXSAGHT0001.getContOrderNum());//数量
+		detailBVO[0].setAttributeValue("nnum", msgXSAGHT0001.getContOrderNum());//主数量	
+//		detailBVO[0].setAttributeValue("nqtorigprice", msgXSAGHT0001.getContOrderNum());//单价
+//		detailBVO[0].setAttributeValue("norigprice", msgXSAGHT0001.getContOrderNum());//主单价	
+		return detailBVO;
+	}
+	
+	/*
+	 * 根据接口中间层传递的参数，转换对照表VO
+	 */
+	public DetailBVO[] TransdzbVOSubVO(MsgXSAGHT0001 msgXSAGHT0001){		
+		DetailBVO[] detailBVO = new DetailBVO[1];	
+		detailBVO[0].setAttributeValue("saleorderno", msgXSAGHT0001.getOrderNumPf());//攀钢销售订单号
+		detailBVO[0].setAttributeValue("saleorderrowno", msgXSAGHT0001.getOrderNo());//攀钢销售订单子项号
+		detailBVO[0].setAttributeValue("productorderrowno", msgXSAGHT0001.getMdOrderNo());//攀钢生产订单子项号		
+//		detailBVO[0].setAttributeValue("csrcid", msgXSAGHT0001.getErpOrderNo());//来源单据主表
+		detailBVO[0].setAttributeValue("csrcbid", msgXSAGHT0001.getErpOrderNo());//来源单据附表
+		detailBVO[0].setAttributeValue("vsourcecode", msgXSAGHT0001.getErpOrderNumPf());//来源单据号
+		detailBVO[0].setAttributeValue("vsrctype", "5720");//来源单据类型
+//		detailBVO[0].setAttributeValue("cfirstbid", );//源头单据子表
+//		detailBVO[0].setAttributeValue("cfirstid", );//源头单据主表
+		detailBVO[0].setAttributeValue("vfirstcode", msgXSAGHT0001.getErpOrderNumPf());//源头单据号
+		detailBVO[0].setAttributeValue("vfirsttype", "5720");//来源单据类型
+//		detailBVO[0].setAttributeValue("cmaterialid", "5720");//物料最新版本
+//		detailBVO[0].setAttributeValue("cmaterialvid", "5720");//物料编码
+		detailBVO[0].setAttributeValue("nastnum", msgXSAGHT0001.getContOrderNum());//数量
+		detailBVO[0].setAttributeValue("nnum", msgXSAGHT0001.getContOrderNum());//主数量	
+//		detailBVO[0].setAttributeValue("nqtorigprice", msgXSAGHT0001.getContOrderNum());//单价
+//		detailBVO[0].setAttributeValue("norigprice", msgXSAGHT0001.getContOrderNum());//主单价	
+		return detailBVO;
+	}
+	
+	/*
+	 * 根据接口中间层传递的参数，转换中间表VO
+	 */
+	public AggLmpgjkHVO TranszjbVOMainVO(MsgXSAGHT0001Head msgxsaght0001head,String flag){
+		
+		AggLmpgjkHVO agglmpgjkhvo = new AggLmpgjkHVO();
+		
+		LmpgjkHVO lmpgjkHVO = new LmpgjkHVO();	
+		lmpgjkHVO.setAttributeValue("dwid", msgxsaght0001head.getMsgId());//电文ID
+		lmpgjkHVO.setAttributeValue("sendtype", "1");//方向类型 1.接收
+		lmpgjkHVO.setAttributeValue("interfacetype", "2");//接口类型 2.攀钢基地销售订单
+		lmpgjkHVO.setAttributeValue("flag", flag);//操作标识 1.成功 2.失败
+		lmpgjkHVO.setAttributeValue("receivetime", AppContext.getInstance().getServerTime());//接收时间 
+		lmpgjkHVO.setAttributeValue("attrname0", msgxsaght0001head.getMsgBody().get(0).getOrderNumPf());//攀钢销售订单号
+		lmpgjkHVO.setAttributeValue("attrname1", msgxsaght0001head.getMsgBody().get(0).getMdOrderNumPf());//买断订单号
+		lmpgjkHVO.setAttributeValue("attrname2", msgxsaght0001head.getMsgBody().get(0).getErpOrderNumPf());//ERP合同号
+		lmpgjkHVO.setAttributeValue("attrname3", msgxsaght0001head.getMsgBody().get(0).getOrderStatusPf());//订单状态_PF
+		lmpgjkHVO.setAttributeValue("attrname4", msgxsaght0001head.getMsgBody().get(0).getOrderCertNo());//订货凭据
+		lmpgjkHVO.setAttributeValue("attrname5", msgxsaght0001head.getMsgBody().get(0).getOrderTypeCode());//订单性质代码
+		lmpgjkHVO.setAttributeValue("attrname6", msgxsaght0001head.getMsgBody().get(0).getExpFlag());//内外销标志 
+		lmpgjkHVO.setAttributeValue("attrname7", msgxsaght0001head.getMsgBody().get(0).getOrderPeriodPf());//订货期别_PF
+		lmpgjkHVO.setAttributeValue("attrname8", msgxsaght0001head.getMsgBody().get(0).getResoPeriodPf());//资源期别_PF
+		lmpgjkHVO.setAttributeValue("attrname9", msgxsaght0001head.getMsgBody().get(0).getSaleNetworkPf());//销售网络
+		lmpgjkHVO.setAttributeValue("attrname10", msgxsaght0001head.getMsgBody().get(0).getProdClassCode());//产品大类代码
+		lmpgjkHVO.setAttributeValue("attrname11", msgxsaght0001head.getMsgBody().get(0).getCompanyCodePf());//公司别_PF
+		lmpgjkHVO.setAttributeValue("attrname12", msgxsaght0001head.getMsgBody().get(0).getTradeMode());//贸易方式
+		lmpgjkHVO.setAttributeValue("attrname13", msgxsaght0001head.getMsgBody().get(0).getSettleMode());//结算方式代码
+		lmpgjkHVO.setAttributeValue("attrname14", msgxsaght0001head.getMsgBody().get(0).getSignSitePf());//履约地点代码_PF
+		lmpgjkHVO.setAttributeValue("attrname15", msgxsaght0001head.getMsgBody().get(0).getPriceFormulaMode());//计价方式
+		lmpgjkHVO.setAttributeValue("attrname16", msgxsaght0001head.getMsgBody().get(0).getRmaNoPf());//异议号_PF
+		lmpgjkHVO.setAttributeValue("attrname17", msgxsaght0001head.getMsgBody().get(0).getContInDate());//合约录入日期
+		lmpgjkHVO.setAttributeValue("attrname18", msgxsaght0001head.getMsgBody().get(0).getContInPerson());//合约录入人
+		lmpgjkHVO.setAttributeValue("attrname19", msgxsaght0001head.getMsgBody().get(0).getOrderModiMark());//订单变更中标志
+		lmpgjkHVO.setAttributeValue("attrname20", msgxsaght0001head.getMsgBody().get(0).getOrderUserCodePf());//订货用户代码_PF
+		lmpgjkHVO.setAttributeValue("attrname21", msgxsaght0001head.getMsgBody().get(0).getOrderUserCnamePf());//订货用户中文名称_PF
+		lmpgjkHVO.setAttributeValue("attrname22", msgxsaght0001head.getMsgBody().get(0).getOrderUserAddrNum().toString());//订货用户地址码 
+		lmpgjkHVO.setAttributeValue("attrname23", msgxsaght0001head.getMsgBody().get(0).getOrderUserAddrNamePf());//订货用户地址_PF
+		lmpgjkHVO.setAttributeValue("attrname24", msgxsaght0001head.getMsgBody().get(0).getSettleUserNum());//需方用户代码
+		lmpgjkHVO.setAttributeValue("attrname25", msgxsaght0001head.getMsgBody().get(0).getSettleUserNamePf());//需方用户名称_PF
+		lmpgjkHVO.setAttributeValue("attrname26", msgxsaght0001head.getMsgBody().get(0).getSettUserAddrNum().toString());//需方用户地址码
+		lmpgjkHVO.setAttributeValue("attrname27", msgxsaght0001head.getMsgBody().get(0).getSettUserAddrPf());//需方用户地址_PF
+		lmpgjkHVO.setAttributeValue("attrname28", msgxsaght0001head.getMsgBody().get(0).getSettUserAcctNum().toString());//需方用户帐户序号
+		lmpgjkHVO.setAttributeValue("attrname29", msgxsaght0001head.getMsgBody().get(0).getSettUserAcctPf());//需方用户帐户_PF
+		lmpgjkHVO.setAttributeValue("attrname30", msgxsaght0001head.getMsgBody().get(0).getContOrderNum().toString());//合约子项数量 
+		lmpgjkHVO.setAttributeValue("attrname31", msgxsaght0001head.getMsgBody().get(0).getContTotWt().toString());//合约总重量
+		lmpgjkHVO.setAttributeValue("attrname32", msgxsaght0001head.getMsgBody().get(0).getContTotAmt().toString());//合约总金额 
+		lmpgjkHVO.setAttributeValue("attrname33", msgxsaght0001head.getMsgBody().get(0).getContTrnpTotAmt().toString());//合约运费总金额 
+		lmpgjkHVO.setAttributeValue("attrname34", msgxsaght0001head.getMsgBody().get(0).getContDepositNum().toString());//合约押金量
+		lmpgjkHVO.setAttributeValue("attrname35", msgxsaght0001head.getMsgBody().get(0).getContDepositAmt().toString());//合约押金金额 
+		lmpgjkHVO.setAttributeValue("attrname36", msgxsaght0001head.getMsgBody().get(0).getContPrepayRate().toString());//合约定金比例 
+		lmpgjkHVO.setAttributeValue("attrname37", msgxsaght0001head.getMsgBody().get(0).getContPrepayLackAmt().toString());//合约应收定金额
+		lmpgjkHVO.setAttributeValue("attrname38", msgxsaght0001head.getMsgBody().get(0).getTaxRatePf().toString());//税率_PF 
+		lmpgjkHVO.setAttributeValue("attrname39", msgxsaght0001head.getMsgBody().get(0).getOrderNo());//合同号
+		lmpgjkHVO.setAttributeValue("attrname40", msgxsaght0001head.getMsgBody().get(0).getMdOrderNo());//买断订单子项号 
+		lmpgjkHVO.setAttributeValue("attrname41", msgxsaght0001head.getMsgBody().get(0).getErpOrderNo());//ERP合同子项号
+		lmpgjkHVO.setAttributeValue("attrname42", msgxsaght0001head.getMsgBody().get(0).getOrderModiNum().toString());//合同变更次数
+		lmpgjkHVO.setAttributeValue("attrname43", msgxsaght0001head.getMsgBody().get(0).getOrderLastSeqNo());//合同子项序号
+		lmpgjkHVO.setAttributeValue("attrname44", msgxsaght0001head.getMsgBody().get(0).getSaleId());//销售业务员工号
+		lmpgjkHVO.setAttributeValue("attrname45", msgxsaght0001head.getMsgBody().get(0).getRecCreateTime());//记录创建时间  
+		lmpgjkHVO.setAttributeValue("attrname46", msgxsaght0001head.getMsgBody().get(0).getPartOrderFlag());//套裁订单标志
+		lmpgjkHVO.setAttributeValue("attrname47", msgxsaght0001head.getMsgBody().get(0).getCutNum().toString());//纵切条数 
+		lmpgjkHVO.setAttributeValue("attrname48", msgxsaght0001head.getMsgBody().get(0).getOrderItemStatusCode());//销售订单子项状态
+		lmpgjkHVO.setAttributeValue("attrname49", msgxsaght0001head.getMsgBody().get(0).getOrderItemModiMark());//订单子项变更中标记
+		lmpgjkHVO.setAttributeValue("attrname50", msgxsaght0001head.getMsgBody().get(0).getModiCause());//变更原因 
+		lmpgjkHVO.setStatus(VOStatus.NEW);
+		
+		LmpgjkaBVO[] lmpgjkabvos = new LmpgjkaBVO[1];
+		LmpgjkaBVO lmpgjkabvo = new LmpgjkaBVO();
+		lmpgjkabvo.setAttributeValue("attrname0", msgxsaght0001head.getMsgBody().get(0).getModiDate());//变更日期
+		lmpgjkabvo.setAttributeValue("attrname1", msgxsaght0001head.getMsgBody().get(0).getModiOperPerson());//合同变更操作人
+		lmpgjkabvo.setAttributeValue("attrname2", msgxsaght0001head.getMsgBody().get(0).getModiType());//变更性质 
+		lmpgjkabvo.setAttributeValue("attrname3", msgxsaght0001head.getMsgBody().get(0).getFinUserNum());//最终用户代码
+		lmpgjkabvo.setAttributeValue("attrname4", msgxsaght0001head.getMsgBody().get(0).getFinUserName());//最终用户名称
+		lmpgjkabvo.setAttributeValue("attrname5", msgxsaght0001head.getMsgBody().get(0).getFinUserTrade());//最终用户的行业代码
+		lmpgjkabvo.setAttributeValue("attrname6", msgxsaght0001head.getMsgBody().get(0).getUserCredit());//用户信誉度
+		lmpgjkabvo.setAttributeValue("attrname7", msgxsaght0001head.getMsgBody().get(0).getConsignNum());//收货用户代码
+		lmpgjkabvo.setAttributeValue("attrname8", msgxsaght0001head.getMsgBody().get(0).getConsignNamePf());//收货用户名称_PF
+		lmpgjkabvo.setAttributeValue("attrname9", msgxsaght0001head.getMsgBody().get(0).getCnsgAddressNum().toString());//收货用户地址码
+		lmpgjkabvo.setAttributeValue("attrname10", msgxsaght0001head.getMsgBody().get(0).getCnsgAddressPf());//收货用户地址_PF
+		lmpgjkabvo.setAttributeValue("attrname11", msgxsaght0001head.getMsgBody().get(0).getConsignNum1());//收货用户代码1
+		lmpgjkabvo.setAttributeValue("attrname12", msgxsaght0001head.getMsgBody().get(0).getConsignName1Pf());//收货用户名称1_PF
+		lmpgjkabvo.setAttributeValue("attrname13", msgxsaght0001head.getMsgBody().get(0).getCnsgAddressNum1().toString());//收货用户地址码1
+		lmpgjkabvo.setAttributeValue("attrname14", msgxsaght0001head.getMsgBody().get(0).getCnsgAddress1Pf());//收货用户地址1_PF
+		lmpgjkabvo.setAttributeValue("attrname15", msgxsaght0001head.getMsgBody().get(0).getTrnpTitleCode());//运费发票抬头代码
+		lmpgjkabvo.setAttributeValue("attrname16", msgxsaght0001head.getMsgBody().get(0).getTrnpTitleText());//运费发票抬头
+		lmpgjkabvo.setAttributeValue("attrname17", msgxsaght0001head.getMsgBody().get(0).getPsr());//产品规范码 
+		lmpgjkabvo.setAttributeValue("attrname18", msgxsaght0001head.getMsgBody().get(0).getApn());//最终用途 
+		lmpgjkabvo.setAttributeValue("attrname19", msgxsaght0001head.getMsgBody().get(0).getMsc());//冶金规范码 
+		lmpgjkabvo.setAttributeValue("attrname20", msgxsaght0001head.getMsgBody().get(0).getNewProductFlag());//新试产品标志
+		lmpgjkabvo.setAttributeValue("attrname21", msgxsaght0001head.getMsgBody().get(0).getProductDscr());//产品名称
+		lmpgjkabvo.setAttributeValue("attrname22", msgxsaght0001head.getMsgBody().get(0).getShopsignPf());//牌号_PF
+		lmpgjkabvo.setAttributeValue("attrname23", msgxsaght0001head.getMsgBody().get(0).getSteelStd());//产品标准
+		lmpgjkabvo.setAttributeValue("attrname24", msgxsaght0001head.getMsgBody().get(0).getCapabYnFlag());//性能是否要求标志 
+		lmpgjkabvo.setAttributeValue("attrname25", msgxsaght0001head.getMsgBody().get(0).getRainCoatFlag());//加盖雨布标志
+		lmpgjkabvo.setAttributeValue("attrname26", msgxsaght0001head.getMsgBody().get(0).getQcType());//质保书类型_PF
+		lmpgjkabvo.setAttributeValue("attrname27", msgxsaght0001head.getMsgBody().get(0).getCertiNum().toString());//质保书份数
+		lmpgjkabvo.setAttributeValue("attrname28", msgxsaght0001head.getMsgBody().get(0).getPackingCode());//包装代码_PF
+		lmpgjkabvo.setAttributeValue("attrname29", msgxsaght0001head.getMsgBody().get(0).getOrderPriority());//订单优先级 
+		lmpgjkabvo.setAttributeValue("attrname30", msgxsaght0001head.getMsgBody().get(0).getMetFeetFlag());//公英制标志
+		lmpgjkabvo.setAttributeValue("attrname31", msgxsaght0001head.getMsgBody().get(0).getOrderThick().toString());//订货厚 
+		lmpgjkabvo.setAttributeValue("attrname32", msgxsaght0001head.getMsgBody().get(0).getOrderWidthPf().toString());//订货宽
+		lmpgjkabvo.setAttributeValue("attrname33", msgxsaght0001head.getMsgBody().get(0).getOrderLenLow().toString());//订货长度下限 
+		lmpgjkabvo.setAttributeValue("attrname34", msgxsaght0001head.getMsgBody().get(0).getOrderLenUp().toString());//订货长度上限
+		lmpgjkabvo.setAttributeValue("attrname35", msgxsaght0001head.getMsgBody().get(0).getThickEng());//英制厚度
+		lmpgjkabvo.setAttributeValue("attrname36", msgxsaght0001head.getMsgBody().get(0).getWidthEng());//英制宽度
+		lmpgjkabvo.setAttributeValue("attrname37", msgxsaght0001head.getMsgBody().get(0).getLengthMinEng());//英制长度下限
+		lmpgjkabvo.setAttributeValue("attrname38", msgxsaght0001head.getMsgBody().get(0).getLengthMaxEng());//英制长度上限
+		lmpgjkabvo.setAttributeValue("attrname39", msgxsaght0001head.getMsgBody().get(0).getWeightMethod());//计重方式
+		lmpgjkabvo.setAttributeValue("attrname40", msgxsaght0001head.getMsgBody().get(0).getOrderUnit());//订货计量单位
+		lmpgjkabvo.setAttributeValue("attrname41", msgxsaght0001head.getMsgBody().get(0).getOrderWtPf().toString());//订货重量_PF
+		lmpgjkabvo.setAttributeValue("attrname42", msgxsaght0001head.getMsgBody().get(0).getPreAlcaWtPf().toString());//预合同分配量_PF
+		lmpgjkabvo.setAttributeValue("attrname43", msgxsaght0001head.getMsgBody().get(0).getOrderPiece().toString());//订货件数 
+		lmpgjkabvo.setAttributeValue("attrname44", msgxsaght0001head.getMsgBody().get(0).getUnitWtUpPf().toString());//单件最大重量_PF
+		lmpgjkabvo.setAttributeValue("attrname45", msgxsaght0001head.getMsgBody().get(0).getUnitWtLowPf().toString());//单件最小重量_PF
+		lmpgjkabvo.setAttributeValue("attrname46", msgxsaght0001head.getMsgBody().get(0).getDelivyTolUpper().toString());//公差上限
+		lmpgjkabvo.setAttributeValue("attrname47", msgxsaght0001head.getMsgBody().get(0).getDelivyTolLower().toString());//公差下限 
+		lmpgjkabvo.setAttributeValue("attrname48", msgxsaght0001head.getMsgBody().get(0).getCoilInsideDimPf().toString());//内径_PF
+		lmpgjkabvo.setAttributeValue("attrname49", msgxsaght0001head.getMsgBody().get(0).getShortSizeRatePf().toString());//订货短尺率_PF
+		lmpgjkabvo.setAttributeValue("attrname50", msgxsaght0001head.getMsgBody().get(0).getShortSizeLowPf().toString());//订货短尺下限_PF
+		lmpgjkabvo.setAttributeValue("attrname51", msgxsaght0001head.getMsgBody().get(0).getShortSizeUpPf().toString());//订货短尺上限_PF
+		lmpgjkabvo.setAttributeValue("attrname52", msgxsaght0001head.getMsgBody().get(0).getShortSize1().toString());//短尺长度1 
+		lmpgjkabvo.setAttributeValue("attrname53", msgxsaght0001head.getMsgBody().get(0).getShortSize2().toString());//短尺长度2 
+		lmpgjkabvo.setAttributeValue("attrname54", msgxsaght0001head.getMsgBody().get(0).getShortSize3().toString());//短尺长度3 
+		lmpgjkabvo.setAttributeValue("attrname55", msgxsaght0001head.getMsgBody().get(0).getShortSize4().toString());//短尺长度4 
+		lmpgjkabvo.setStatus(VOStatus.NEW);
+		
+		lmpgjkabvos[0]=lmpgjkabvo;
+		
+		LmpgjkbBVO[] lmpgjkbbvos = new LmpgjkbBVO[1];
+		LmpgjkbBVO lmpgjkbbvo = new LmpgjkbBVO();
+		lmpgjkbbvo.setAttributeValue("attrname0", msgxsaght0001head.getMsgBody().get(0).getShortSize5().toString());//短尺长度5
+		lmpgjkbbvo.setAttributeValue("attrname1", msgxsaght0001head.getMsgBody().get(0).getDeliveryDateChr());//约定交货日期
+		lmpgjkbbvo.setAttributeValue("attrname2", msgxsaght0001head.getMsgBody().get(0).getDelivyPeriodPf());//交货期别_PF
+		lmpgjkbbvo.setAttributeValue("attrname3", msgxsaght0001head.getMsgBody().get(0).getDeliveryWeekMark());//按周交货标志
+		lmpgjkbbvo.setAttributeValue("attrname4", msgxsaght0001head.getMsgBody().get(0).getOrderReadyDate());//订单备妥日期 
+		lmpgjkbbvo.setAttributeValue("attrname5", msgxsaght0001head.getMsgBody().get(0).getLaunchTime());//下发时间 
+		lmpgjkbbvo.setAttributeValue("attrname6", msgxsaght0001head.getMsgBody().get(0).getLaunchId());//下发人工号
+		lmpgjkbbvo.setAttributeValue("attrname7", msgxsaght0001head.getMsgBody().get(0).getLaunchFirstTime());//初次下发时间 
+		lmpgjkbbvo.setAttributeValue("attrname8", msgxsaght0001head.getMsgBody().get(0).getLaunchFirstId());//初次下发人工号
+		lmpgjkbbvo.setAttributeValue("attrname9", msgxsaght0001head.getMsgBody().get(0).getVersionNumPf().toString());//版本号_PF
+		lmpgjkbbvo.setAttributeValue("attrname10", msgxsaght0001head.getMsgBody().get(0).getOrderPriceMode());//合同计价方式 
+		lmpgjkbbvo.setAttributeValue("attrname11", msgxsaght0001head.getMsgBody().get(0).getPriceBaseDate());//价格执行基准日
+		lmpgjkbbvo.setAttributeValue("attrname12", msgxsaght0001head.getMsgBody().get(0).getSaleUnitPrice().toString());//销售 单价 
+		lmpgjkbbvo.setAttributeValue("attrname13", msgxsaght0001head.getMsgBody().get(0).getAgreemtCode());//协议价格单号
+		lmpgjkbbvo.setAttributeValue("attrname14", msgxsaght0001head.getMsgBody().get(0).getAgreePrice().toString());//协议价格 
+		lmpgjkbbvo.setAttributeValue("attrname15", msgxsaght0001head.getMsgBody().get(0).getOrderAmtPf().toString());//订单金额_PF
+		lmpgjkbbvo.setAttributeValue("attrname16", msgxsaght0001head.getMsgBody().get(0).getSaleRemark());//销售备注
+		lmpgjkbbvo.setAttributeValue("attrname17", msgxsaght0001head.getMsgBody().get(0).getA_flag());//A项标志  
+		lmpgjkbbvo.setAttributeValue("attrname18", msgxsaght0001head.getMsgBody().get(0).getUserSpecDesc());//用户质量特殊要求
+		lmpgjkbbvo.setAttributeValue("attrname19", msgxsaght0001head.getMsgBody().get(0).getDrewMode());//开票方式
+		lmpgjkbbvo.setAttributeValue("attrname20", msgxsaght0001head.getMsgBody().get(0).getDepositN().toString());//押金数
+		lmpgjkbbvo.setAttributeValue("attrname21", msgxsaght0001head.getMsgBody().get(0).getDepositAmtPf().toString());//押金金额_PF
+		lmpgjkbbvo.setAttributeValue("attrname22", msgxsaght0001head.getMsgBody().get(0).getTransType());//运输类型 
+		lmpgjkbbvo.setAttributeValue("attrname23", msgxsaght0001head.getMsgBody().get(0).getTrnpModeCodePf());//运输方式代码_PF
+		lmpgjkbbvo.setAttributeValue("attrname24", msgxsaght0001head.getMsgBody().get(0).getDeliveryPlaceCodePf());//终到站港代码_PF
+		lmpgjkbbvo.setAttributeValue("attrname25", msgxsaght0001head.getMsgBody().get(0).getDeliveryPlaceName());//终到站港描述
+		lmpgjkbbvo.setAttributeValue("attrname26", msgxsaght0001head.getMsgBody().get(0).getDeliveryPlaceCode1Pf());//终到站港代码1_PF
+		lmpgjkbbvo.setAttributeValue("attrname27", msgxsaght0001head.getMsgBody().get(0).getDeliveryPlaceName1());//终到站港描述1
+		lmpgjkbbvo.setAttributeValue("attrname28", msgxsaght0001head.getMsgBody().get(0).getPrivateRouteCodePf());//专用线代码_PF
+		lmpgjkbbvo.setAttributeValue("attrname29", msgxsaght0001head.getMsgBody().get(0).getPrivateRouteNamePf());//专用线描述_PF
+		lmpgjkbbvo.setAttributeValue("attrname30", msgxsaght0001head.getMsgBody().get(0).getTrnpPricePf().toString());//运费单价_PF
+		lmpgjkbbvo.setAttributeValue("attrname31", msgxsaght0001head.getMsgBody().get(0).getTrnpAmtPf().toString());//运费金额_PF
+		lmpgjkbbvo.setAttributeValue("attrname32", msgxsaght0001head.getMsgBody().get(0).getGuideMeasureAq());//镀层厚度计量方式
+		lmpgjkbbvo.setAttributeValue("attrname33", msgxsaght0001head.getMsgBody().get(0).getEdgeType());//切边形态
+		lmpgjkbbvo.setAttributeValue("attrname34", msgxsaght0001head.getMsgBody().get(0).getOrderTechnicDes());//合同单技术参数描述
+		lmpgjkbbvo.setAttributeValue("attrname35", msgxsaght0001head.getMsgBody().get(0).getOrderByprodDegreeCode());//合同副产品等级代码
+		lmpgjkbbvo.setAttributeValue("attrname36", msgxsaght0001head.getMsgBody().get(0).getWeightPlate());//锌层重量
+		lmpgjkbbvo.setAttributeValue("attrname37", msgxsaght0001head.getMsgBody().get(0).getGrainCode());//粒度代码
+		lmpgjkbbvo.setAttributeValue("attrname38", msgxsaght0001head.getMsgBody().get(0).getPatternSalient().toString());//纹高
+		lmpgjkbbvo.setAttributeValue("attrname39", msgxsaght0001head.getMsgBody().get(0).getSectionCode());//截面代码
+		lmpgjkbbvo.setAttributeValue("attrname40", msgxsaght0001head.getMsgBody().get(0).getSectionDesc());//截面描述
+		lmpgjkbbvo.setAttributeValue("attrname41", msgxsaght0001head.getMsgBody().get(0).getRecognCode());//产品标识代码
+		lmpgjkbbvo.setAttributeValue("attrname42", msgxsaght0001head.getMsgBody().get(0).getEndLineCode());//终到站省份 
+		lmpgjkbbvo.setAttributeValue("attrname43", msgxsaght0001head.getMsgBody().get(0).getEndLineName());//终到站地区别
+		lmpgjkbbvo.setAttributeValue("attrname44", msgxsaght0001head.getMsgBody().get(0).getTransProdCode());//运输产品大类
+		lmpgjkbbvo.setAttributeValue("attrname45", msgxsaght0001head.getMsgBody().get(0).getUnloadPoint());//卸车地点
+		lmpgjkbbvo.setAttributeValue("attrname46", msgxsaght0001head.getMsgBody().get(0).getPriceMode());//定价模式
+		lmpgjkbbvo.setAttributeValue("attrname47", msgxsaght0001head.getMsgBody().get(0).getProdCode());//销售品种
+		lmpgjkbbvo.setAttributeValue("attrname48", msgxsaght0001head.getMsgBody().get(0).getStraragemMark());//客商合作关系等级
+		lmpgjkbbvo.setAttributeValue("attrname49", msgxsaght0001head.getMsgBody().get(0).getPriceModeCname());//定价模式名称 长度:10
+		lmpgjkbbvo.setAttributeValue("attrname50", msgxsaght0001head.getMsgBody().get(0).getProdCodeCname());//定价模式名称  长度:30 
+		lmpgjkbbvo.setAttributeValue("attrname51", msgxsaght0001head.getMsgBody().get(0).getStraragemMarkCname());//客商合作关系等级名称
+		lmpgjkbbvo.setAttributeValue("attrname52", msgxsaght0001head.getMsgBody().get(0).getInvoiceType());//营改增发票类型
+		lmpgjkbbvo.setAttributeValue("attrname53", msgxsaght0001head.getMsgBody().get(0).getInvoiceTypeName());//发票类型说明 
+		lmpgjkbbvo.setAttributeValue("attrname54", msgxsaght0001head.getMsgBody().get(0).getUserChineseName());//受票方名称 
+		lmpgjkbbvo.setAttributeValue("attrname55", msgxsaght0001head.getMsgBody().get(0).getTaxNum());//纳税人识别号
+		lmpgjkbbvo.setStatus(VOStatus.NEW);
+		
+		lmpgjkbbvos[0] = lmpgjkbbvo;
+		
+		LmpgjkcBVO[] lmpgjkcbvos = new LmpgjkcBVO[1];
+		LmpgjkcBVO lmpgjkcbvo = new LmpgjkcBVO();
+		lmpgjkcbvo.setAttributeValue("attrname0", msgxsaght0001head.getMsgBody().get(0).getAddressLocationc());//地址
+		lmpgjkcbvo.setAttributeValue("attrname1", msgxsaght0001head.getMsgBody().get(0).getBankBranchName());//开户银行 
+		lmpgjkcbvo.setAttributeValue("attrname2", msgxsaght0001head.getMsgBody().get(0).getAccountNum());//账号
+		lmpgjkcbvo.setAttributeValue("attrname3", msgxsaght0001head.getMsgBody().get(0).getTelNum());//电话
+		lmpgjkcbvo.setStatus(VOStatus.NEW);
+		
+		lmpgjkcbvos[0] = lmpgjkcbvo;
+		
+		agglmpgjkhvo.setParentVO(lmpgjkHVO);
+		agglmpgjkhvo.setChildren(LmpgjkaBVO.class, lmpgjkabvos);	
+		agglmpgjkhvo.setChildren(LmpgjkbBVO.class, lmpgjkbbvos);	
+		agglmpgjkhvo.setChildren(LmpgjkcBVO.class, lmpgjkcbvos);	
+		return agglmpgjkhvo;
+	}
+
+	
+}
+

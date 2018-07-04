@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding='gb2312'?>
+<module>
+	<rest>
+		<resource classname="nc.pubitf.pu.m23.api.rest.ArriveBillResource"  exinfo=""/>
+		<resource classname="nc.pubitf.pu.m21.api.rest.PurchaseOrderResource"  exinfo=""/>
+	</rest>
+</module>

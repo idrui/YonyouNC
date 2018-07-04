@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2009-06-15 11:49:07" creator="" description="" displayName="扣税类别" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="393b339f-0af1-4c72-93d3-a4402b62b14a" isbizmodel="false" mainEntity="" modifier="" modifyTime="2011-10-24 14:51:16" name="puidiscounttaxtype" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004000_2" resid="2UC000-000369" version="21" versionType="0">
+    <celllist>
+        <Enumerate componentID="393b339f-0af1-4c72-93d3-a4402b62b14a" createTime="2009-06-15 11:49:18" creator="" dataType="BS000010000100001004" dbtype="int" description="" displayName="扣税类别" fullClassName="nc.vo.pu.pub.enumeration.EnumDiscounttaxtype" height="109" help="" id="51d6030d-bfbe-4be9-8e61-1b3acaa08725" modInfoClassName="" modifier="" modifyTime="2011-10-24 14:51:16" name="discounttaxtype" resid="2UC000-000369" typeDisplayName="Integer" typeName="Integer" versionType="0" visibility="public" width="150" x="296" y="104">
+            <enumitemlist>
+                <enumitem description="" enumDisplay="应税内含" enumID="51d6030d-bfbe-4be9-8e61-1b3acaa08725" enumValue="0" hidden="false" id="4fb9121d-25ea-4040-b6ac-b35a73b4f3ee" resid="2400400001-0002" sequence="0" versionType="0"/>
+                <enumitem description="" enumDisplay="应税外加" enumID="51d6030d-bfbe-4be9-8e61-1b3acaa08725" enumValue="1" hidden="false" id="a31c00c0-7f2d-41d5-ba2d-b672127c6d3f" resid="2400400001-0000" sequence="1" versionType="0"/>
+                <enumitem description="" enumDisplay="不计税" enumID="51d6030d-bfbe-4be9-8e61-1b3acaa08725" enumValue="2" hidden="false" id="df3b728f-edd1-4430-9892-280d18797fe8" resid="2400400001-0001" sequence="2" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

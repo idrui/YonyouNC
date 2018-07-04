@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package nc.ui.pu.cgfa.ace.event;
+
+import java.util.Map;
+
+import nc.itf.scmpub.reference.uap.bd.material.MaterialPubService;
+import nc.ui.pubapp.uif2app.event.IAppEventHandler;
+import nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent;
+
+/**
+ * @author  wangzym
+ * @version 2017年4月24日 上午11:11:57
+ */
+public class CardBodyAfterEditEventHandler implements
+IAppEventHandler<CardBodyAfterEditEvent> {
+	private nc.ui.pubapp.uif2app.view.ShowUpableBillForm billForm;
+	public nc.ui.pubapp.uif2app.view.ShowUpableBillForm getBillForm() {
+	return billForm;
+}
+
+public void setBillForm(nc.ui.pubapp.uif2app.view.ShowUpableBillForm billForm) {
+	this.billForm = billForm;
+}
+
+	public CardBodyAfterEditEventHandler() {
+		// TODO 自动生成的构造函数存根
+	}
+
+	@Override
+	public void handleAppEvent(CardBodyAfterEditEvent e) {
+		String key = e.getKey();
+		if("materialcode".equals(key)){
+			String value = (String)e.getValue();
+			
+			Map<String,String> assistunitMap = MaterialPubService.queryPuMeasdocIDByPks(new String[]{value});
+			String assistunit = assistunitMap.get(value);
+			if(assistunit != null){
+				int row = e.getRow();
+				e.getBillCardPanel().setBodyValueAt(assistunit, row, "unit");
+			}
+		}
+		
+	}
+
+}

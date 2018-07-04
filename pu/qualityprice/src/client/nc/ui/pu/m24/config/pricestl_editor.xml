@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<description>
+		价格结算单的编辑事件配置文件
+	</description>
+
+  <!-- 更改组织后同步设置界面上所有参照的组织值 -->
+  <bean class="nc.ui.pubapp.uif2app.view.CardPanelOrgSetterForAllRefMediator">
+    <constructor-arg ref="billFormEditor" />
+    <property name="model" ref="manageAppModel" />
+  </bean>
+
+  <!-- 编辑事件 -->
+  <bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="handlerMap">
+      <map>
+        <!-- 主组织 -->
+        <entry key="nc.ui.pubapp.uif2app.event.OrgChangedEvent">
+          <list>
+            <bean class="nc.ui.pu.m24.editor.OrgChgEventHandler">
+              <property name="cardForm" ref="billFormEditor" />
+            </bean>
+          </list>
+        </entry>
+
+        <!-- 列表表头行改变事件 -->
+        <entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+          <list>
+            <bean class="nc.ui.pu.m24.editor.HeadRowChangeHandler" />
+          </list>
+        </entry>
+        
+        <!-- 卡片表体编辑后事件 -->
+        <entry key="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent">
+		  <list>
+		    <bean class="nc.ui.pu.m24.editor.card.afteredit.CardBodyAfterEditEventHandler"></bean>
+		  </list>
+		</entry>
+      </map>
+    </property>
+  </bean>
+</beans>

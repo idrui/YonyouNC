@@ -1,0 +1,11 @@
+product=scm
+module=pu
+debug.flag=on
+output.dir=bin
+jdk.dir=D:\\JDK\\JDK_1.6.0_12
+compiler.level=1.6
+nc.home=D:\\newcentury\\nc_home_v60
+export.jar.destination=D:\\Temp
+
+eclipse.output.dir=out
+components=pub,puorder,puinvoice,puarrival,pusettlement,buyingreq,storereq,pupricedeter,qualityprice,positionresp

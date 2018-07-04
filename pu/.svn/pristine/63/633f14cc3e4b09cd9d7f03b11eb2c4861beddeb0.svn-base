@@ -1,0 +1,51 @@
+
+/**
+ * $$文件说明$$
+ *
+ * @author #if($vmObject.author=="") $userName #else $vmObject.author #end
+     
+ * @version 6.0
+ * @see
+ * @since 6.0
+ * @time $currentDate
+ */ 	
+#if($vmObject.packageName.length()!=0)
+package ${vmObject.packageName};
+#end    	
+
+import nc.md.model.impl.MDEnum;
+import nc.md.model.IEnumValue;
+import nc.vo.scmpub.enumeration.SCMMDEnum;
+	
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * 
+ * <ul>
+ *  <li>
+ * </ul> 
+ *
+ * <p>
+ * ${tags}
+ * <p>
+ * @version 6.0
+ * @since 6.0
+ * @author  #if($vmObject.author=="") $userName #else $vmObject.author #end
+ 
+ * @time $currentDate
+ */
+public class ${vmObject.className} extends IntMDEnum{
+	public ${vmObject.className}(IEnumValue enumvalue){
+		super(enumvalue);
+	}
+	
+#foreach($item in $vmObject.getEnumValues())
+#if($item.getDescription() != "" )
+	
+	/** $item.getName() **/
+	public static final ${vmObject.className} $item.getDescription().toUpperCase()= 
+		MDEnum.valueOf(${vmObject.className}.class,Integer.valueOf($item.getValue()));
+#end
+#end	
+
+} 

@@ -1,0 +1,33 @@
+package nc.impl.pu;
+
+import nc.impl.pub.ace.AceNewoaspwhPubServiceImpl;
+import nc.vo.pu.qst.newoaspwh.AggNewoaspwhaHeadVO;
+import nc.itf.pu.INewoaspwhMaintain;
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.vo.pub.BusinessException;
+
+public class NewoaspwhMaintainImpl extends AceNewoaspwhPubServiceImpl implements
+		INewoaspwhMaintain {
+
+	@Override
+	public void delete(AggNewoaspwhaHeadVO[] vos) throws BusinessException {
+		super.pubdeleteBills(vos);
+	}
+
+	@Override
+	public AggNewoaspwhaHeadVO[] insert(AggNewoaspwhaHeadVO[] vos) throws BusinessException {
+		return super.pubinsertBills(vos);
+	}
+
+	@Override
+	public AggNewoaspwhaHeadVO[] update(AggNewoaspwhaHeadVO[] vos) throws BusinessException {
+		return super.pubupdateBills(vos);
+	}
+
+	@Override
+	public AggNewoaspwhaHeadVO[] query(IQueryScheme queryScheme)
+			throws BusinessException {
+		return super.pubquerybills(queryScheme);
+	}
+
+}

@@ -1,0 +1,97 @@
+package nc.vo.pu.m25.entity;
+
+import nc.vo.pub.*;
+import nc.vo.pubapp.pattern.model.meta.entity.vo.VOMetaFactory;
+
+/**
+ * <b> 此处简要描述此类功能 </b>
+ * <p>
+ *   此处添加类的描述信息
+ * </p>
+ *  创建日期:2018-3-20
+ * @author 
+ * @version NCPrj ??
+ */
+public class InvoiceItemVO extends nc.vo.pub.SuperVO{
+	
+    private java.lang.String pk_invoice;    
+	
+	
+    public static final String PK_INVOICE = "pk_invoice";
+
+	/**
+	 * 属性 pk_invoice的Getter方法.属性名：parentPK
+	 *  创建日期:2018-3-20
+	 * @return java.lang.String
+	 */
+	public java.lang.String getPk_invoice () {
+		return pk_invoice;
+	}   
+	/**
+	 * 属性pk_invoice的Setter方法.属性名：parentPK
+	 * 创建日期:2018-3-20
+	 * @param newPk_invoice java.lang.String
+	 */
+	public void setPk_invoice (java.lang.String newPk_invoice ) {
+	 	this.pk_invoice = newPk_invoice;
+	} 	 
+	
+	
+	/**
+	  * <p>取得父VO主键字段.
+	  * <p>
+	  * 创建日期:2018-3-20
+	  * @return java.lang.String
+	  */
+	public java.lang.String getParentPKFieldName() {		
+		return "pk_invoice";
+	}   
+    
+	/**
+	  * <p>取得表主键.
+	  * <p>
+	  * 创建日期:2018-3-20
+	  * @return java.lang.String
+	  */
+	public java.lang.String getPKFieldName() {
+			
+		return "pk_invoice_b";
+	}
+    
+	/**
+	 * <p>返回表名称
+	 * <p>
+	 * 创建日期:2018-3-20
+	 * @return java.lang.String
+	 */
+	public java.lang.String getTableName() {
+		return "po_invoice_b";
+	}    
+	
+	/**
+	 * <p>返回表名称.
+	 * <p>
+	 * 创建日期:2018-3-20
+	 * @return java.lang.String
+	 */
+	public static java.lang.String getDefaultTableName() {
+		return "po_invoice_b";
+	}    
+    
+    /**
+	  * 按照默认方式创建构造子.
+	  *
+	  * 创建日期:2018-3-20
+	  */
+     public InvoiceItemVO() {
+		super();	
+	}    
+	
+	
+	@nc.vo.annotation.MDEntityInfo(beanFullclassName = "nc.vo.pu.m25.entity.InvoiceItemVO" )
+	public IVOMeta getMetaData() {
+		return VOMetaFactory.getInstance().getVOMeta("pu.po_invoice_b");
+		
+   	}
+     
+}

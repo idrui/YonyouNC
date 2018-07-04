@@ -1,0 +1,12 @@
+insert into pub_print_template(ctemplateid,bdirector,bdispagenum,bdistotalpagenum,billspace,bnormalcolor,devorg,dr,extendattr,ffontstyle,fpagination,ibotmargin,ibreakposition,ifontsize,igridcolor,ileftmargin,ipageheight,ipagelocate,ipagewidth,irightmargin,iscale,itopmargin,itype,layer,mdclass,model_type,modelheight,modelwidth,pk_corp,pk_org,prepare1,prepare2,ptemplateid,ts,vdefaultprinter,vfontname,vleftnote,vmidnote,vnodecode,vrightnote,vtemplatecode,vtemplatename) values('1001Z81000000000AFFL','N','Y','Y',null,'N','~',0,'<nc.vo.pub.print.PrintTemplateExtVO>
+  <isBindUp>false</isBindUp>
+  <zdline__position>0.0</zdline__position>
+  <pagehead__position>0.0</pagehead__position>
+  <pagetail__position>0.0</pagetail__position>
+  <pagenumber__position>0.0</pagenumber__position>
+  <m__withFullPageNumber>false</m__withFullPageNumber>
+  <baseLineWeight>0.65</baseLineWeight>
+  <initPageNo>1</initPageNo>
+</nc.vo.pub.print.PrintTemplateExtVO>',0,0,20,0,9,-4144960,20,595,'21',842,20,100,20,1,0,'f8025fb7-1aa5-4de8-9c64-95e1cad22f6a',null,null,null,'@@@@','~','000000001000','false','~','2015-05-05 16:14:38',null,'SimSun','第','页 共','40040000','页','4004000001','物资需求申请合并打印')
+go
+

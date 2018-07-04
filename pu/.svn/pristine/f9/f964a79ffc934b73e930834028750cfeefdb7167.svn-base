@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- Action配置 -->
+	<import resource="settlebill_action.xml" />
+	<import resource="settlebill_editor.xml" />
+	<import resource="settlebill_msgcenter.xml" />
+
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.vo.uif2.LoginContext" />
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="ManageModelService" class="nc.ui.pu.m27.settlebill.model.SettleBillModelService">
+	</bean>
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+
+	<!-- 管理应用模型 -->
+	<bean id="manageAppModel" class="nc.ui.pubapp.uif2app.model.BillPFManageModel">
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+		<property name="context" ref="context"></property>
+	</bean>
+	
+	<!-- 分页相关注册 -->
+	<bean id="pageBar" class="nc.ui.uif2.components.pagination.PaginationBar"/>
+	<bean id="pageDelegator"
+			class="nc.ui.pubapp.uif2app.actions.pagination.BillModelPaginationDelegator">
+		<constructor-arg ref="manageAppModel" />
+		<property name="paginationQuery" ref="pageQuery" />
+	</bean>
+	<bean id="pageQuery" class="nc.ui.pu.m27.settlebill.model.SettleBillPageModelService">
+	</bean>
+	<bean id="pageMediator"  class="nc.ui.scmpub.page.model.SCMBillPageMediator" init-method="init">
+		<property name="listView" ref="listView" />
+		<property name="recordInPage" value="10" />
+		<property name="cachePages" value="10" />
+		<property name="pageDelegator" ref="pageDelegator" />
+	</bean>
+
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.scmpub.page.model.SCMBillPageModelDataManager">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="pageQuery" ref="pageQuery"></property>
+		<property name="pageDelegator"   ref="pageDelegator"></property>
+		<property name="pagePanel" ref="queryInfo" />
+	</bean>
+
+	<!-- 模板容器，负责对模板的统一装载 -->
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+	</bean>
+
+	<!-- 界面元素 ########################################################### -->
+	<!-- 列表视图 -->
+	<bean id="listView" class="nc.ui.pubapp.uif2app.view.ShowUpableBillListView"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="multiSelectionMode" value="0" />
+		<property name="paginationBar" ref="pageBar"/>	
+		<property name="templateContainer" ref="templateContainer"></property>
+	</bean>
+	<!--卡控件 -->
+	<bean id="billFormEditor" class="nc.ui.pubapp.uif2app.view.ShowUpableBillForm"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="templateContainer" ref="templateContainer" />
+		<!-- 是否进行模板非空校验 -->
+		<property name="templateNotNullValidate" value="false" />
+		<!-- 是否自动增行 -->
+		<property name="autoAddLine" value="false" />
+		<!-- 空子表判定器，卡片界面根据此判定器判断表体空行 -->
+		<property name="blankChildrenFilter">
+			<!-- 简单的根据一个字段是否为空的空行判定器，因为多数情况下都是判断存货是否为空来过滤空行 -->
+			<bean
+				class="nc.ui.pubapp.uif2app.view.value.SingleFieldBlankChildrenFilter">
+				<!-- 指定用来判断空行的字段名称，可能多数情况下是存货字段 -->
+				<property name="fieldName" value="pk_material" />
+			</bean>
+		</property>
+	</bean>
+	<!-- 排序处理 -->
+	<bean id="billBodySortMediator" class="nc.ui.pubapp.uif2app.model.BillBodySortMediator">
+		<constructor-arg ref="manageAppModel" />
+		<constructor-arg ref="billFormEditor" />
+		<constructor-arg ref="listView" />
+	</bean>
+	<!-- 双击列表行后显示卡片 -->
+	<bean id="mouseClickShowPanelMediator" class="nc.ui.pubapp.uif2app.view.MouseClickShowPanelMediator">
+		<property name="listView" ref="listView" />
+		<property name="showUpComponent" ref="billFormEditor" />
+		<property name="hyperLinkColumn" value="vbillcode" />
+	</bean>
+	<bean id="invoiceLinkQueryHyperlinkMediator"
+		class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="srcBillIdField" value="pk_invoice" />
+		<!-- 超链字段名 -->
+		<property name="srcBillNOField" value="vinvoicecode" />
+		<property name="srcBillType" value="25" />
+		<property name="srcBillTypeFieldPos" value="1"></property>
+	</bean>
+
+	<bean id="icLinkQueryHyperlinkMediator"
+		class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="srcBillIdField" value="pk_stock" />
+		<!-- 超链字段名 -->
+		<property name="srcBillNOField" value="vstockcode" />
+		<!-- <property name="srcBillType" value="45" /> comment by wangljc at 2011-5-24 
+			10:59:51 -->
+		<property name="srcBillTypeField" value="vstockbilltype" />
+		<property name="srcBillTypeFieldPos" value="1"></property>
+	</bean>
+
+	<bean id="cardInfoPnl" class="nc.ui.uif2.tangramlayout.CardLayoutToolbarPanel">
+		<property name="actions">
+			<list>
+				<!-- 浏览按钮 卡片界面共享信息按钮 -->
+				<bean id="firstLineAction" class="nc.ui.uif2.actions.FirstLineAction">
+					<property name="model" ref="manageAppModel" />
+				</bean>
+				<bean id="preLineAction" class="nc.ui.uif2.actions.PreLineAction">
+					<property name="model" ref="manageAppModel" />
+				</bean>
+				<bean id="nextLineAction" class="nc.ui.uif2.actions.NextLineAction">
+					<property name="model" ref="manageAppModel" />
+				</bean>
+				<bean id="lastLineAction" class="nc.ui.uif2.actions.LastLineAction">
+					<property name="model" ref="manageAppModel" />
+				</bean>
+			</list>
+		</property>
+		<property name="titleAction">
+			<bean id="returnaction" class="nc.ui.uif2.actions.ShowMeUpAction">
+				<property name="goComponent" ref="listView"></property>
+			</bean>
+		</property>
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<!-- 界面布局总装########################################################### -->
+	<bean id="queryArea" class="nc.ui.pubapp.uif2app.tangramlayout.UEQueryAreaShell"
+		init-method="initUI">
+		<property name="queryAreaCreator" ref="queryAction" />
+	</bean>
+
+	<bean id="queryInfo" class="nc.ui.uif2.tangramlayout.CardLayoutToolbarPanel">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.TBNode">
+				<property name="showMode" value="CardLayout"></property>
+				<property name="tabs">
+					<list>
+						<bean class="nc.ui.uif2.tangramlayout.node.HSNode">
+							<property name="left">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="component" ref="queryArea" />
+								</bean>
+							</property>
+							<property name="right">
+								<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+									<property name="up">
+										<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+											<property name="component" ref="queryInfo" />
+										</bean>
+									</property>
+									<property name="down">
+										<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+											<property name="name">
+												<bean class="nc.ui.uif2.I18nFB">
+													<property name="resDir" value="common" />
+													<property name="resId" value="UC001-0000107" />
+													<property name="defaultValue" value="列表" />
+												</bean>
+											</property>
+											<property name="component" ref="listView" />
+										</bean>
+									</property>
+									<property name="dividerLocation" value="30f" />
+								</bean>
+							</property>
+							<property name="dividerLocation" value="0.22f" />
+						</bean>
+
+						<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+							<property name="up">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="component" ref="cardInfoPnl" />
+								</bean>
+							</property>
+							<property name="down">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="name">
+										<bean class="nc.ui.uif2.I18nFB">
+											<property name="resDir" value="common" />
+											<property name="resId" value="UC001-0000106" />
+											<property name="defaultValue" value="卡片" />
+										</bean>
+									</property>
+									<property name="component" ref="billFormEditor" />
+								</bean>
+							</property>
+							<property name="dividerLocation" value="30f" />
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 懒加载 -->
+	<bean id="billLazilyLoader" class="nc.ui.pubapp.uif2app.lazilyload.DefaultBillLazilyLoader" />
+	<bean id="lazyActions" class="nc.ui.pubapp.uif2app.lazilyload.ActionLazilyLoad">
+		<property name="model" ref="manageAppModel" />
+		<property name="actionList">
+			<list>
+				<ref bean="printAction" />
+				<ref bean="previewAction" />
+				<ref bean="outputAction" />
+			</list>
+		</property>
+	</bean>
+	<bean id="LasilyLodadMediator" class="nc.ui.pubapp.uif2app.lazilyload.LazilyLoadManager">
+		<property name="model" ref="manageAppModel" />
+		<property name="loader" ref="billLazilyLoader" />
+		<property name="lazilyLoadSupporter">
+			<list>
+				<ref bean="lazyActions" />
+				<bean class="nc.ui.pubapp.uif2app.lazilyload.CardPanelLazilyLoad">
+					<property name="billform" ref="billFormEditor" />
+				</bean>
+				<bean class="nc.ui.pubapp.uif2app.lazilyload.ListPanelLazilyLoad">
+					<property name="listView" ref="listView" />
+				</bean>
+
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--nc.ui.pu.m21.action.status.output.OrderUnSelectAllAction
+		按钮事件元素##########################################################
+	-->
+	
+
+	<!-- 输出-->
+	<bean id="outputAction" class="nc.ui.pu.m21.action.status.output.OutputAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<property name="service" ref="manageModelService" />
+<!--		<property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 反输出 -->
+	<bean id="unOutputAction" class="nc.ui.pu.m21.action.status.output.UnOutputAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<property name="service" ref="manageModelService" />
+<!--		<property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 查询-->
+	<bean id="qryDLGInitializer" class="nc.ui.pu.m21.view.OutputDLGInitializer"/>
+	<bean id="queryAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultQueryAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+		<property name="qryCondDLGInitializer" ref="qryDLGInitializer"/>
+		<property name="hasQueryArea" value="false" />	
+	</bean>
+
+	<!-- 刷新 -->
+	<bean id="refreshAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="manageAppModel" />
+	</bean>
+  <!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+</beans>

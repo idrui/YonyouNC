@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+
+<!-- 单表操作配置文件模板，运行前将文件中四处"nc.vo.sp.sp001.PricetypeVO"替换成自己的VO类名 -->
+
+<beans default-lazy-init="true">
+
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.vo.uif2.LoginContext" />
+
+	<!-- 模型部分配置########################################################### -->
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="batchModelService" class="nc.ui.pu.m21.service.OrderReceivePlanModelService">
+		<property name="voClass" value="nc.vo.pu.m21.entity.OrderReceivePlanVO" />
+		<property name="serviceItf" value="nc.itf.pu.m21.IOrderReceivePlan" />
+	</bean>
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory" class="nc.vo.bd.meta.BDObjectAdpaterFactory" />
+
+	<!-- 批量操作前台校验 -->
+	<bean id="batchValidateSerice" class="nc.ui.pu.m21.service.RPBatchValidationService">
+		<property name="editor" ref="list" />
+	</bean>
+
+	<!-- 批量操作应用模型 -->
+	<bean id="batchBillTableModel" class="nc.ui.pu.m21.service.OrderReceivePlanModel">
+		<property name="context" ref="context"></property>
+		<property name="service" ref="batchModelService"></property>
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+		<property name="validationService" ref="batchValidateSerice"></property>
+	</bean>
+
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.model.BatchModelDataManager">
+		<property name="model" ref="batchBillTableModel"></property>
+		<property name="service" ref="batchModelService"></property>
+	</bean>
+	<!-- 功能节点打开后，执行initData时会委托执行该监听 -->
+	<bean id="InitDataListener" class="nc.ui.pu.m21.action.initdata.RPInitData">
+		<property name="model" ref="batchBillTableModel"></property>
+		<property name="list" ref="list"></property>
+	</bean>
+	<!-- 关闭节点的提示 -->
+	<bean id="ClosingListener" class="nc.ui.uif2.FunNodeClosingHandler">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="saveaction" ref="saveAction" />
+		<property name="cancelaction" ref="cancelAction" />
+	</bean>
+
+	<!-- 界面元素 ########################################################### -->
+	<!-- 组织面板 -->
+	<bean id="orgPanel" class="nc.ui.pubapp.uif2app.view.OrgPanel"
+		init-method="initUI">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="type" value="采购组织" />
+	</bean>
+	<!-- 列表控件的取值策略 -->
+	<bean id="componentValueManager" class="nc.ui.uif2.editor.value.BillCardPanelBodyVOValueAdapter">
+		<property name="bodyVOName" value="nc.vo.pu.m21.entity.OrderReceivePlanVO" />
+	</bean>
+	<!-- 列表控件 -->
+	<bean id="list" class="nc.ui.pu.m21.view.ReceivePlanDlg"
+		init-method="initUI">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="componentValueManager" ref="componentValueManager" />
+		<property name="voClassName" value="nc.vo.pu.m21.entity.OrderReceivePlanVO" />
+		<!-- -->
+		<property name="isBodyAutoAddLine" value="false" />
+		<!-- <property name="addLineAction" ref="addAction"/> <property name="isBodyAutoAddLine" 
+			value="true"/> -->
+		<property name="userdefitemPreparator" ref="userdefAndMarAsstCardPreparator" />
+		<property name="templateContainer" ref="templateContainer"/>
+		<property name="nodekey" value="40040416N"/>
+	</bean>
+
+	<!-- 自动修正界面的分数显示控件(换算率) -->
+	<bean id="fractionFixMediator" class="nc.ui.pubapp.uif2app.view.FractionFixMediator"
+		init-method="initUI">
+		<constructor-arg ref="list" />
+	</bean>
+
+	<!-- 编辑事件，按如下格式添加 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 表体编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent">
+					<list>
+						<bean
+							class="nc.ui.pu.m21.editor.card.afteredit.RPCardBodyAfterEditEventHandler">
+							<property name="model" ref="batchBillTableModel" />
+						</bean>
+						<bean class="nc.ui.pu.m21.editor.card.afteredit.RPRelationCalculate" />
+					</list>
+				</entry>
+				<!-- 表体编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent">
+					<list>
+						<bean
+							class="nc.ui.pu.m21.editor.card.beforeedit.RPCardBodyBeforeEditEventHandler">
+							<property name="model" ref="batchBillTableModel" />
+						</bean>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<!-- Actions ########################################################### -->
+	<!-- 刷新 -->
+	<bean id="refreshAction" class="nc.ui.pu.m21.action.RPBatchRefreshAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="modelManager" ref="modelDataManager" />
+		<property name="list" ref="list" />
+	</bean>
+	<!-- 编辑 -->
+	<bean id="editAction" class="nc.ui.pu.m21.action.RPBatchEditAction">
+		<property name="model" ref="batchBillTableModel" />
+	</bean>
+	<!-- 分货 -->
+	<bean id="allotAction" class="nc.ui.pu.m21.action.RPAllotAction">
+		<property name="list" ref="list" />
+		<property name="model" ref="batchBillTableModel" />
+	</bean>
+	<!-- 增行 -->
+	<bean id="addAction" class="nc.ui.pu.m21.action.RPBatchAddReceivePlan">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="voClassName" value="nc.vo.pu.m21.entity.OrderReceivePlanVO" />
+	</bean>
+	<!-- 删行 -->
+	<bean id="delAction" class="nc.ui.pu.m21.action.RPBatchDelLineAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list" />
+	</bean>
+	<!-- 复制行 -->
+	<bean id="copylineAction" class="nc.ui.pu.m21.action.RPBatchCopyLineAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list" />
+	</bean>
+	<!-- 粘贴行 -->
+	<bean id="pastelineAction" class="nc.ui.pu.m21.action.RPBatchPasteLine">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="list" ref="list" />
+	</bean>
+	<!-- 保存 -->
+	<bean id="saveAction" class="nc.ui.pu.m21.action.RPBatchSaveAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="editor" ref="list" />
+	</bean>
+	<!-- 取消 -->
+	<bean id="cancelAction" class="nc.ui.pu.m21.action.RPBatchCancelAction">
+		<property name="model" ref="batchBillTableModel" />
+		<property name="editor" ref="list" />
+	</bean>
+
+	<!-- 打印处理类，精度等 单表等tft实现后统一体添加 -->
+	<bean id="printProcessor" class="nc.ui.pu.m21.action.processor.ReceivePlanPrintProcessor">
+		<property name="model" ref="batchBillTableModel" />
+	</bean>
+	<!-- 预览 -->
+	<bean id="previewAction" class="nc.ui.pu.m21.action.ReceivePlanPrintAction">
+		<property name="parent" ref="list" />
+		<property name="preview" value="true" />
+		<property name="model" ref="batchBillTableModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+
+	<!-- 打印 -->
+	<bean id="printAction" class="nc.ui.pu.m21.action.ReceivePlanPrintAction">
+		<property name="parent" ref="list" />
+		<property name="preview" value="false" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+		<property name="model" ref="batchBillTableModel" />
+	</bean>
+
+	<!-- 界面布局总装########################################################### -->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+				<property name="component" ref="list"></property>
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<ref bean="refreshAction" />
+				<ref bean="editAction" />
+				<ref bean="allotAction" />
+				<ref bean="addAction" />
+				<ref bean="delAction" />
+				<ref bean="copylineAction" />
+				<ref bean="pastelineAction" />
+				<ref bean="saveAction" />
+				<ref bean="cancelAction" />
+				<ref bean="printAction" />
+				<ref bean="previewAction" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 自由项组件的配置 -->
+	<bean id="marAsstPreparator"
+		class="nc.ui.pubapp.uif2app.view.material.assistant.MarAsstPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="prefix" value="vfree" />
+		<property name="materialField" value="pk_material" />
+		<property name="productorField" value="cproductorid" />
+		<property name="signatureField" value="cffileid" />
+	</bean>
+	<!-- 自由项、自定义项组件的卡片配置 -->
+	<bean id="userdefAndMarAsstCardPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillDataPrepare">
+		<property name="billDataPrepares">
+			<list>
+				<ref bean="userdefitemPreparator" />
+				<ref bean="marAsstPreparator" />
+			</list>
+		</property>
+	</bean>
+	<!-- 自定义项处理 卡片 -->
+	<bean name="userdefitemPreparator" class="nc.ui.uif2.editor.UserdefitemContainerPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="vbdef" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userdefitemContainer" class="nc.ui.uif2.userdefitem.UserDefItemContainer">
+		<property name="context" ref="context" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="pu.po_order_b" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="materialassistant" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="templateContainer" class="nc.ui.pu.m21.view.RevPlanTemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+		<!-- 使用采购订单节点作为模板分配节点，使用nodekey区别 -->
+		<property name="nodeKeies">
+			<list>
+				<value>40040416N</value><!-- 到货计划专用nodekey在40040400节点 -->
+			</list>
+		</property>
+	</bean>
+	<!-- 批量远程调用 -->
+	<bean id="remoteCallCombinatorCaller" class="nc.ui.uif2.editor.UIF2RemoteCallCombinatorCaller">
+		<property name="remoteCallers">
+			<list>
+				<ref bean="templateContainer" />
+				<ref bean="userdefitemContainer" />
+			</list>
+		</property>
+	</bean>
+</beans>

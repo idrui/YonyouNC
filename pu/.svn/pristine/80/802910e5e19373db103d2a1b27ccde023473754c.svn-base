@@ -1,0 +1,4 @@
+bd_billtype
+pk_billtypeid,billtypename
+422X,物资需求申请
+1002Z8100000000046GT,普通物资需求申请

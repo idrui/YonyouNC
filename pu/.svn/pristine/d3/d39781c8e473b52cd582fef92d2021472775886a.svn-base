@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- 成本要素定义服务 -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.costfactor.ICostFactorManageService</interface>
+      <implementation>nc.impl.pu.costfactor.CostFactorServiceImpl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.costfactor.ICostFactorQueryService</interface>
+      <implementation>nc.impl.pu.costfactor.CostFactorServiceImpl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.costfactor.ICostFactorItemService</interface>
+      <implementation>nc.impl.pu.costfactor.CostFactorItemServiceImpl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.costfactor.IFactorOrdByOrgMaterial</interface>
+      <implementation>nc.impl.pu.costfactor.FactorOrdByOrgMaterialImpl</implementation>
+    </component>
+    
+    <!-- 库存财务相关服务 begin -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4201.IStockFinanceMaintain</interface>
+      <implementation>nc.pubimpl.pu.m4201.StockFinanceMaintainImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4201.IStockFinanceSettleInfoQuery</interface>
+      <implementation>nc.pubimpl.pu.m4201.StockFinanceSettleInfoQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4202.IVMIFIMaintain</interface>
+      <implementation>nc.pubimpl.pu.m4202.VMIFIMaintainImpl</implementation>
+    </component>      
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m4201.IStockFinanceQuery</interface>
+      <implementation>nc.impl.pu.m4201.StockSettleQuerySrvImpl</implementation>
+    </component> 
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m4202.IVmiFinanceQuery</interface>
+      <implementation>nc.impl.pu.m4202.VmiFinanceQueryImpl</implementation>
+    </component> 
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m4203.ISubcontinFIQuery</interface>
+      <implementation>nc.impl.pu.m4203.SubcontinFIQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4203.ISubcontinFIPubQuery</interface>
+      <implementation>nc.pubimpl.pu.m4203.SubcontinFIPubQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m4201.pu.m25.IPurchaseinFIQueryFor25</interface>
+      <implementation>nc.pubimpl.pu.m4201.pu.m25.PurchaseinFIQueryFor25Impl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m4203.pu.m25.ISubcontinFIQueryFor25</interface>
+      <implementation>nc.pubimpl.pu.m4203.pu.m25.SubcontinFIQueryFor25Impl</implementation>
+    </component>
+    <!-- 库存财务相关服务 end -->
+    
+    <!-- 采购结算服务/操作相关  begin -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m27.ISettleMatch</interface>
+      <implementation>nc.impl.pu.m27.SettleMatchImpl</implementation>
+    </component> 
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m27.ISettleBillMaintain</interface>
+      <implementation>nc.impl.pu.m27.SettleBillMaintainImpl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m27.ISettleBillQuery</interface>
+      <implementation>nc.impl.pu.m27.SettleBillQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m27.IInvoiceAutoMatch</interface>
+      <implementation>nc.pubimpl.pu.m27.InvoiceAutoMatchImpl</implementation>
+    </component>  
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m27.ISettleBillQueryFor25</interface>
+      <implementation>nc.pubimpl.pu.m27.SettleBillQueryFor25Impl</implementation>
+    </component>  
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m27.ISettleBillQueryForIA</interface>
+      <implementation>nc.pubimpl.pu.m27.SettleBillQueryForIAImpl</implementation>
+    </component>  
+    <!-- 采购结算服务/操作相关  end  -->
+    
+    <!-- 期初暂估服务/操作相关  begin -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4t.pu.settle.IInitialEstSettleQuery</interface>
+      <implementation>nc.pubimpl.pu.m4t.pu.settle.InitialSettleQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4t.pf.IInitialEstAP</interface>
+      <implementation>nc.pubimpl.pu.m4t.pf.InitialEstAPImpl</implementation>
+    </component>  
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m4t.IInitialEstApprove</interface>
+      <implementation>nc.impl.pu.m4t.InitialEstApproveImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m4t.IInitialEstQuery</interface>
+      <implementation>nc.impl.pu.m4t.InitialEstQueryImpl</implementation>
+    </component>    
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.m4t.IInitialEstMaintain</interface>
+      <implementation>nc.impl.pu.m4t.InitialEstMaintainImpl</implementation>
+    </component>  
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4t.pu.m25.IInitialEstInvoiceQuery</interface>
+      <implementation>nc.pubimpl.pu.m4t.pu.m25.InitialEstInvoiceQueryImpl</implementation>
+    </component>   
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4t.pu.m25.IInitialEstInvoiceWriteBack</interface>
+      <implementation>nc.pubimpl.pu.m4t.pu.m25.InitialEstInvoiceWriteBackImpl</implementation>
+    </component>   
+    <!-- 期初暂估服务/操作相关  end -->
+    
+    <!-- 暂估处理服务/操作相关  begin -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.est.m45.IPurchaseInEstQuery</interface>
+      <implementation>nc.impl.pu.est.m45.PurchaseInEstQueryImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.est.m45.IPurchaseInEstMaintain</interface>
+      <implementation>nc.impl.pu.est.m45.PurchaseInEstMaintainImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.est.m45.IPurchaseInTOCostAP</interface>
+      <implementation>nc.pubimpl.pu.est.m45.PurchaseInTOCostAPImpl</implementation>
+    </component>
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.est.m45.IPurchaseInEstPubQuery</interface>
+      <implementation>nc.pubimpl.pu.est.m45.PurchaseInEstPubQueryImpl</implementation>
+    </component>            
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.est.m50.IVMIEstQuery</interface>
+      <implementation>nc.impl.pu.est.m50.VMIEstQueryImpl</implementation>
+    </component>    
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.est.m50.IVMIEstMaintain</interface>
+      <implementation>nc.impl.pu.est.m50.VMIEstMaintainImpl</implementation>
+    </component>
+   <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.est.m50.IVMIEstPubQuery</interface>
+      <implementation>nc.pubimpl.pu.est.m50.VMIEstPubQueryImpl</implementation>
+    </component>
+   <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4202.IVMIEstInfoQuery</interface>
+      <implementation>nc.pubimpl.pu.m4202.VMIEstInfoQueryImpl</implementation>
+    </component>     
+   <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4203.ISubcontinFIMaintain</interface>
+      <implementation>nc.pubimpl.pu.m4203.SubcontinFIMaintainImpl</implementation>
+    </component>     
+   <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.est.m4t.IInitEstimateEstPubQuery</interface>
+      <implementation>nc.pubimpl.pu.est.m4t.InitEstimateEstPubQueryImpl</implementation>
+    </component>     
+    <!-- 暂估处理服务/操作相关  end -->
+    
+    <!-- 暂估结算升级 begin -->
+     <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.itf.pu.settle.upgrade.ISettleUpgradeToV61</interface>
+      <implementation>nc.impl.pu.settle.upgrade.SettleUpgradeToV61Impl</implementation>
+    </component>   
+    <!-- 暂估结算升级end -->
+    
+    <!-- 电子商务 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m27.ec.ISettleBillQueryForEC</interface>
+      <implementation>nc.pubimpl.pu.m27.ec.SettleBillQueryForECImpl</implementation>
+    </component> 
+    <!-- 电子商务 -->
+    <!-- V57到V61数据迁移单据保存服务-采购期初暂估单 begin -->
+     <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4t.pub.IInitialEstMigMaintain</interface>
+      <implementation>nc.pubimpl.pu.m4t.pub.InitialEstMigMaintainImpl</implementation>
+    </component>   
+    <!-- V57到V61数据迁移单据保存服务-采购期初暂估单end -->
+    
+    
+    <!--进口 bigin -->
+    <!-- 进口结算入库查询 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.it.ISettleBillQueryForIT</interface>
+      <implementation>nc.pubimpl.pu.it.SettleBillQueryForITImpl</implementation>
+    </component> 
+    
+    <!-- 进口暂估查询 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.it.IPurchaseInEstQueryForIT</interface>
+      <implementation>nc.pubimpl.pu.it.PurchaseInEstQueryForITImpl</implementation>
+    </component> 
+    
+     <!-- 进口结算相关服务 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.it.ISettleMatchForIT</interface>
+      <implementation>nc.pubimpl.pu.it.SettleMatchForITImpl</implementation>
+    </component> 
+    
+    <!-- 进口结算相关服务(取消，删除) -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.it.ISettleBillMaintainForIT</interface>
+      <implementation>nc.pubimpl.pu.it.SettleBillMaintainImplForIT</implementation>
+    </component> 
+    
+    <!-- 发票审批自动结算服务 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.it.IInvoiceAutoMatchForIT</interface>
+      <implementation>nc.pubimpl.pu.it.InvoiceAutoMatchForITImpl</implementation>
+    </component> 
+    <!--进口 end -->
+    
+      <!-- 为存货核算提供关账检查接口 -->
+    <!-- 存货核算未结算采购入库单查询接口 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4201.ia.IStockpsQueryForIAClosingCheck</interface>
+      <implementation>nc.pubimpl.pu.m4201.ia.StockpsQueryForIAClosingCheckImpl</implementation>
+    </component> 
+    <!-- 存货核算未结算委托加工入库单查询 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4203.ia.IEntrustProcessStorageQueryForIACC</interface>
+      <implementation>nc.pubimpl.pu.m4203.ia.EntrustProcessStorageQueryForIACCImpl</implementation>
+    </component> 
+    <!-- 存货核算未结算消耗汇总单查询 -->
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+      <interface>nc.pubitf.pu.m4202.ia.IConsumeGatherQueryForIAClosingCheck</interface>
+      <implementation>nc.pubimpl.pu.m4202.ia.ConsumeGatherQueryForIAClosingCheckImpl</implementation>
+    </component> 
+  </public>
+  
+</module>
+

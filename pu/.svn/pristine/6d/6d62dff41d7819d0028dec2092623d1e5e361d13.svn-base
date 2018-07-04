@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="menuItem" class="nc.pubapp.pade.funcmodel.vo.MenuItem"><property name="dr" value="0"/>
+<property name="funModelFilePath" value="oasp/designmodel/funcmodel/newoaspwh/funcregis/40019102.menu"/>
+<property name="funcode" value="40019102"/>
+<property name="ismenutype" value="false"/>
+<property name="menuitemcode" value="40019102"/>
+<property name="menuitemname" value="OA审批流程管理"/>
+<property name="pk_menuitem" value="0001Z31000000000GECP"/>
+<property name="resid" value="D40019102"/>
+<property name="ts" value="2016-11-17 17:26:53"/>
+</bean>
+
+</beans>

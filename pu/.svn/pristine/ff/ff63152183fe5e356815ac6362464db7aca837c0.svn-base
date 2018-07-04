@@ -1,0 +1,127 @@
+/**
+ * 
+ */
+package nc.ui.pu.m20.action.arrange;
+
+import java.awt.event.ActionEvent;
+
+import nc.bs.framework.common.NCLocator;
+import nc.itf.pu.m20.IPrayarrange;
+import nc.ui.pub.beans.UIDialog;
+import nc.ui.pubapp.uif2app.query2.model.IModelDataManager;
+import nc.ui.uif2.NCAction;
+import nc.ui.uif2.UIState;
+import nc.ui.uif2.actions.EventFromClosingHandlerJudger;
+import nc.ui.uif2.components.CommonConfirmDialogUtils;
+import nc.ui.uif2.model.BatchBillTableModel;
+import nc.uif2.annoations.MethodType;
+import nc.uif2.annoations.ModelMethod;
+import nc.uif2.annoations.ModelType;
+import nc.vo.bd.meta.BatchOperateVO;
+import nc.vo.pu.m20.entity.PrayarrangeViewVO;
+
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * <ul>
+ * <li>
+ * </ul>
+ * <p>
+ * <p>
+ * 
+ * @version
+ * @since
+ * @author luojw
+ * @time 2014-6-11 下午4:43:15
+ */
+public class PrayarrangeCancelArrangeAction extends NCAction {
+
+  /**
+   * serialVersionUID
+   */
+  private static final long serialVersionUID = 7466238242562634359L;
+
+  private IModelDataManager dataManager;
+
+  private BatchBillTableModel model;
+
+  /*
+   * 父类方法重写
+   * @see
+   * nc.ui.uif2.actions.batch.BatchEditAction#doAction(java.awt.event.ActionEvent
+   * )
+   */
+  @Override
+  public void doAction(ActionEvent e) throws Exception {
+    // super.doAction(e);
+    Object[] objs = this.getModel().getSelectedOperaDatas();
+
+    if (EventFromClosingHandlerJudger.isFromClosingHandler(e)
+        || UIDialog.ID_YES == CommonConfirmDialogUtils
+            .showConfirmCancelDialog(this.getModel().getContext()
+                .getEntranceUI()))
+
+    {
+      this.batchCancelArrange(objs);
+
+      this.getDataManager().refresh();
+    }
+  }
+
+  /**
+   * @return the dataManager
+   */
+  public IModelDataManager getDataManager() {
+    return this.dataManager;
+  }
+
+  @ModelMethod(modelType = ModelType.BatchBillTableModel, methodType = MethodType.GETTER)
+  public BatchBillTableModel getModel() {
+    return this.model;
+  }
+
+  /**
+   * @param dataManager the dataManager to set
+   */
+  public void setDataManager(IModelDataManager dataManager) {
+    this.dataManager = dataManager;
+  }
+
+  @ModelMethod(modelType = ModelType.BatchBillTableModel, methodType = MethodType.SETTER)
+  public void setModel(BatchBillTableModel model) {
+    this.model = model;
+    model.addAppEventListener(this);
+  }
+
+  /**
+   * @param objs
+   * @throws Exception
+   *           下午8:29:41
+   */
+  private void batchCancelArrange(Object[] objs) throws Exception {
+    BatchOperateVO vo = new BatchOperateVO();
+    vo.setUpdObjs(objs);
+    IPrayarrange service = NCLocator.getInstance().lookup(IPrayarrange.class);
+    service.batchCancelArrange(vo);
+  }
+
+  /*
+   * 父类方法重写
+   * @see nc.ui.uif2.NCAction#isActionEnable()
+   */
+  @Override
+  protected boolean isActionEnable() {
+    if (this.model.getUiState() != UIState.NOT_EDIT) {
+      return false;
+    }
+
+    if (this.model.getRows().isEmpty()) {
+      return false;
+    }
+
+    PrayarrangeViewVO view = (PrayarrangeViewVO) this.model.getRow(0);
+
+    return view.getBisarrange().booleanValue();
+  }
+
+}

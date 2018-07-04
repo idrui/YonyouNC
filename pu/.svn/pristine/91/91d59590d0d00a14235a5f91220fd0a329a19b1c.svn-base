@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+	<public>
+		<!-- START=====================采购订单本业务组件内部的服务========================== -->
+		<!-- 采购订单操作及实现 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderMaintain</interface>
+			<implementation>nc.impl.pu.m21.OrderMaintainImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderApprove</interface>
+			<implementation>nc.impl.pu.m21.OrderAppoveImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderClose</interface>
+			<implementation>nc.impl.pu.m21.OrderCloseImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pub.IOrderClosePubService</interface>
+			<implementation>nc.pubimpl.pu.m21.pub.OrderClosePubServiceImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderLinkBillQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderLinkBillQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderRelateFuncQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderRelateFuncQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderReceivePlan</interface>
+			<implementation>nc.impl.pu.m21.OrderReceivePlanImpl</implementation>
+		</component>
+
+		<!-- 采购订单状态维护 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOutputQuery</interface>
+			<implementation>nc.impl.pu.m21.OutputQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IConfirmQuery</interface>
+			<implementation>nc.impl.pu.m21.ConfirmQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOnwayQuery</interface>
+			<implementation>nc.impl.pu.m21.OnwayQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IStatusMaintain</interface>
+			<implementation>nc.impl.pu.m21.StatusMaintainImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderPaymentQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderPaymentQueryImpl</implementation>
+		</component>
+
+		<!-- 采购订单编辑时的有关信息查询 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderCoopPriceQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderCoopPriceQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderDefaultPriceQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderDefaultPriceQueryImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderSupplierQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderSupplierQueryImpl</implementation>
+		</component>
+		<component remote="true" singleton="true" tx="NONE">
+			<interface>nc.itf.pu.m21.IOrderCurrencyQuery</interface>
+			<implementation>nc.vo.pu.m21.rule.impl.OrderCurrencyQueryImpl</implementation>
+			<extension class="nc.bs.framework.server.ClientWeaverExtensionProcessor">
+				<wrapWeaver>
+					<wrapper>nc.vo.pu.m21.rule.impl.OrderCurrencyQueryImpl</wrapper>
+				</wrapWeaver>
+			</extension>
+		</component>
+
+		<!-- 采购订单修订 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderRevise</interface>
+			<implementation>nc.impl.pu.m21.OrderReviseImpl</implementation>
+		</component>
+
+		<!-- 补货订单 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderReplenishQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderReplenishQueryImpl</implementation>
+		</component>
+
+		<!-- 付款计划 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderPayPlan</interface>
+			<implementation>nc.impl.pu.m21.OrderPayPlanImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderPayPlanQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderPayPlanQueryImpl</implementation>
+		</component>
+
+		<!-- 采购订单侧边栏询价 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderDefPriceSideForm</interface>
+			<implementation>nc.impl.pu.m21.OrderDefPriceSideFormImpl</implementation>
+		</component>
+
+		<!-- 订单修订历史 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.IOrderEditRecordQuery</interface>
+			<implementation>nc.impl.pu.m21.OrderEditRecordQueryImpl</implementation>
+		</component>
+
+		<!-- 订单升级服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.upgrade.IM21UpgradeToV61</interface>
+			<implementation>nc.impl.pu.m21.upgrade.M21UpgradeToV61Impl</implementation>
+		</component>
+		
+		<!-- 订单v63升级服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.itf.pu.m21.upgrade.IM21UpgradeToV63</interface>
+			<implementation>nc.impl.pu.m21.upgrade.M21UpgradeToV63Impl</implementation>
+		</component>
+
+		<!-- END========================采购订单本业务组件内部的服务========================== -->
+
+		<!-- START================采购订单为其他模块或领域提供的服务========================== -->
+
+		<!-- 为请购单提供的服务 -->
+		<!-- 请购单为生产制造提供服务时需要关联订单 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m20.IOrderQueryFor20ToMM</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m20.OrderQueryFor20ToMMImpl</implementation>
+		</component>
+		<!-- 为请购单提供的根据订单交易类型转单过滤查询 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m20.IOrderQueryFor20</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m20.OrderQueryFor20Impl</implementation>
+		</component>
+
+		<!-- 为到货单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m23.IOrderQueryFor23</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m23.OrderQueryFor23Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m23.IOrderWriteBackFor23</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m23.OrderWriteBackFor23Impl</implementation>
+		</component>
+		<!-- 为采购发票提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m25.IOrderQueryFor25</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m25.OrderQueryFor25Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m25.IOrderWriteBackFor25</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m25.OrderWriteBackFor25Impl</implementation>
+		</component>
+		<!-- 为采购入库单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m45.IOrderQueryFor45</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m45.OrderQueryFor45Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m45.IOrderWriteBackFor45</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m45.OrderWriteBackFor45Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m45.IOrderQueryBrefFor45</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m45.OrderQueryBrefFor45Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m45.IOrderQueryBInvoiceCloseFor45</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m45.OrderQueryBInvoiceCloseFor45Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m45.IDirectOrderQueryForIC</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m45.DirectOrderQueryForICImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.m4c.IOrderQueryFor4C</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.m4c.OrderQueryFor4CImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.report.IOrderQueryForICReport</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.report.OrderQueryForICReportImpl</implementation>
+		</component>
+
+		<!-- 为库存预留提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ic.reserve.IOrderWriteBackForReserve</interface>
+			<implementation>nc.pubimpl.pu.m21.ic.reserve.OrderWriteBackForReserveImpl</implementation>
+		</component>
+
+		<!-- 为期初暂估单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m4t.IOrderQueryFor4T</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m4t.OrderQueryFor4TImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pu.m4t.IOrderWriteBackFor4T</interface>
+			<implementation>nc.pubimpl.pu.m21.pu.m4t.OrderWriteBackFor4TImpl</implementation>
+		</component>
+
+		<!-- 为存货核算提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ia.mif.IOrderQueryForIf</interface>
+			<implementation>nc.pubimpl.pu.m21.ia.mif.OrderQueryForIfImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ia.mi2.IOrderQueryForI2</interface>
+			<implementation>nc.pubimpl.pu.m21.ia.mi2.OrderQueryForI2Impl</implementation>
+		</component>
+
+		<!-- 为销售订单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.so.m30.IOrderUpdateCoopFor30</interface>
+			<implementation>nc.pubimpl.pu.m21.so.m30.OrderUpdateCoopFor30Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.so.m30.ICoopOrderPushSaveFor30</interface>
+			<implementation>nc.pubimpl.pu.m21.so.m30.CoopOrderPushSaveFor30Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.so.m30.ICoopOrderQueryFor30</interface>
+			<implementation>nc.pubimpl.pu.m21.so.m30.CoopOrderQueryFor30Impl</implementation>
+		</component>
+
+		<!-- 为合同提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ct.mz2.IOrderQueryForZ2</interface>
+			<implementation>nc.pubimpl.pu.m21.ct.mz2.OrderQueryForZ2Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ct.mz2.IOrderWriteBackForZ2</interface>
+			<implementation>nc.pubimpl.pu.m21.ct.mz2.OrderWriteBackForZ2Impl</implementation>
+		</component>
+
+		<!-- 为电子商务提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ec.IOrderQueryForEC</interface>
+			<implementation>nc.pubimpl.pu.m21.ec.OrderQueryForECImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ec.IOrderPushSaveForEC49</interface>
+			<implementation>nc.pubimpl.pu.m21.ec.OrderPushSaveForEC49Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ec.IOrderPushSaveForEC38</interface>
+			<implementation>nc.pubimpl.pu.m21.ec.OrderPushSaveForEC38Impl</implementation>
+		</component>
+
+		<!-- 为生产制造提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mm.m55B4.IOrderPushSaveFor55B4</interface>
+			<implementation>nc.pubimpl.pu.m21.mm.m55B4.OrderPushSaveFor55B4Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mm.m55a2.IOrderPushSaveFor55A2</interface>
+			<implementation>nc.pubimpl.pu.m21.mm.m55a2.OrderPushSaveFor55A2Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mm.IOrderQueryExecForMM</interface>
+			<implementation>nc.pubimpl.pu.m21.mm.OrderQueryExecForMMImpl</implementation>
+		</component>
+		<!-- 为离散生产制造提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpps.mpm.IQueryPurOrderMapForPlanConsole</interface>
+			<implementation>
+				nc.pubimpl.pu.m21.mmpps.mpm.QueryPurOrderMapForPlanConsoleImpl
+			</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpub.setanalysis.IQueryPurOrderMapForSa</interface>
+			<implementation>
+				nc.pubimpl.pu.m21.mmpub.setanalysis.QueryPurOrderMapForSaImpl
+			</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmdp.dt.IQueryPurOrderMapForDT</interface>
+			<implementation>nc.pubimpl.pu.m21.mmdp.dt.QueryPurOrderMapForDTImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpps.planbusi.IQueryPurOrderMapForSA</interface>
+			<implementation>nc.pubimpl.pu.m21.mmpps.planbusi.QueryPurOrderMapForSAImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mm.m55c2.IOrderPushSaveFor55C2</interface>
+			<implementation>nc.pubimpl.pu.m21.mm.m55c2.OrderPushSaveFor55C2Impl</implementation>
+		</component>
+		
+		<!-- 采购订单为"供需预订维护"节点提供的单据追溯接口 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpps.lotreg.IQueryOrderForLotreg</interface>
+			<implementation>nc.pubimpl.pu.m21.mmpps.lotreg.QueryOrderForLotregImpl</implementation>
+		</component>
+		<!-- 提供给离散制造的ECA查询采购订单信息服务-->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ecn.eco.IQueryOrderBillForECA</interface>
+			<implementation>nc.pubimpl.pu.m21.ecn.eco.QueryOrderBillForECAImpl</implementation>
+		</component>
+		<!-- 采购订单给离散制造提供的供给查询服务-->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpps.IOrderBillSupply</interface>
+			<implementation>nc.pubimpl.pu.m21.mmpps.OrderBillSupplyImpl</implementation>
+		</component>
+		<!-- 采购订单到货计划给离散制造提供的供给查询服务-->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.mmpps.IArrivePlanSupply</interface>
+			<implementation>nc.pubimpl.pu.m21.mmpps.ArrivePlanSupplyImpl</implementation>
+		</component>
+		
+		<!-- 公共查询服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pub.IOrderPubQuery</interface>
+			<implementation>nc.pubimpl.pu.m21.pub.OrderPubQueryImpl</implementation>
+		</component>
+
+		<!-- 询采购订单价格的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pub.IOrderPriceQuery</interface>
+			<implementation>nc.pubimpl.pu.m21.pub.OrderPriceQueryImpl</implementation>
+		</component>
+
+		<!-- 运输管理的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.dm.m4804.IOrderQueryFor4804</interface>
+			<implementation>nc.pubimpl.pu.m21.dm.m4804.OrderQueryFor4804Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.dm.m4804.IOrderWriteBackFor4804</interface>
+			<implementation>nc.pubimpl.pu.m21.dm.m4804.OrderWriteBackFor4804Impl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.dm.m4804.I21DeliveryStatusOperater</interface>
+			<implementation>nc.pubimpl.pu.m21.dm.m4804.M21DeliveryStatusOperaterImpl</implementation>
+		</component>
+
+		<!-- 为库存计划提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.invp.IOrderQueryForInvp</interface>
+			<implementation>nc.pubimpl.pu.m21.invp.OrderQueryForInvpImpl</implementation>
+		</component>
+
+		<!-- 为资金提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.ps.m36d1.IBillIdQueryFor36D1</interface>
+			<implementation>nc.pubimpl.pu.m21.ps.m36d1.BillIdQueryFor36D1Impl</implementation>
+		</component>
+
+		<!-- 为内部交易提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.to.IOrderPriceQuery4TO</interface>
+			<implementation>nc.pubimpl.pu.m21.to.OrderPriceQuery4TOImpl</implementation>
+		</component>
+
+		<!-- 为财务提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.arap.mf3.IOrderAPQuery</interface>
+			<implementation>nc.pubimpl.pu.m21.arap.mf3.OrderAPQueryImpl</implementation>
+		</component>
+
+		<!-- 为销售订单，调拨订单分单函数提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pub.ISplitForOrder</interface>
+			<implementation>nc.pubimpl.pu.m21.pub.SplitForOrderImpl</implementation>
+		</component>
+		<!-- 为库存计划计划订单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.invp.m4f.IOrderPushSaveFor4F</interface>
+			<implementation>nc.pubimpl.pu.m21.invp.m4f.OrderPushSaveFor4FImpl</implementation>
+		</component>
+
+		<!-- 为项目管理提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.pim.IOrderQueryForPIM</interface>
+			<implementation>nc.pubimpl.pu.m21.pim.OrderQueryForPIMImpl</implementation>
+		</component>
+		
+		<!-- 为采购价格管理提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.purp.discount.IOrderQueryForDiscount</interface>
+			<implementation>nc.pubimpl.pu.m21.purp.discount.OrderQueryForDiscountImpl</implementation>
+		</component>
+		
+		<!-- 为投诉建议单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.srm.m4s1a.IQuery21For4s1a</interface>
+			<implementation>nc.pubimpl.pu.m21.srm.m4s1a.Query21For4s1aImpl</implementation>
+		</component>
+		
+	 	<!-- 为评估申请单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.srm.m4s21.IQuery21For4s21</interface>
+			<implementation>nc.pubimpl.pu.m21.srm.m4s21.Query21For4s21Impl</implementation>
+		</component>
+		
+		<!-- 为出口明细单拣配采购订单提供的服务 -->
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.et.IOrderQueryForET</interface>
+			<implementation>nc.pubimpl.pu.m21.et.OrderQueryForETImpl</implementation>
+		</component>
+		<component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+			<interface>nc.pubitf.pu.m21.et.IOrderWriteBackForET</interface>
+			<implementation>nc.pubimpl.pu.m21.et.OrderWriteBackForETImpl</implementation>
+		</component>
+
+		<!-- END==================采购订单为其他模块或领域提供的服务========================== -->
+	</public>
+
+</module>

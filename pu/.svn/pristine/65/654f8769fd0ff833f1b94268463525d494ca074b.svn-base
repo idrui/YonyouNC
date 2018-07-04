@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xsd:schema  elementFormDefault="unqualified"  attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:msgXSAGHT0001="http://entity.m21.pu.vo.nc/MsgXSAGHT0001"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+ jaxb:version="2.0"
+xmlns:ns0="http://entity.m21.pu.vo.nc/MsgXSAGHT0001Head"
+targetNamespace="http://entity.m21.pu.vo.nc/MsgXSAGHT0001Head" >
+	<xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="nc.vo.pu.m21.entity"/>
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:import namespace="http://entity.m21.pu.vo.nc/MsgXSAGHT0001" schemaLocation="/nc/vo/pu/m21/entity/MsgXSAGHT0001.xsd"/>
+    <xsd:element name="MsgXSAGHT0001Head" type="ns0:MsgXSAGHT0001Head"/>
+
+    <xsd:complexType name="MsgXSAGHT0001Head"  >
+                <xsd:sequence>
+                    <xsd:element name="resourceId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="msgId"  nillable="true"  minOccurs="0"  type="xsd:string"/>
+                    <xsd:element name="msgBody"  nillable="true"  minOccurs="0"  maxOccurs="unbounded" type="msgXSAGHT0001:MsgXSAGHT0001"/>
+                </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

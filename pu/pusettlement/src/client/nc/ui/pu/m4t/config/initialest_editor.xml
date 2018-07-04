@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		编辑控件元素##########################################################
+	-->
+
+	<!-- 财务组织的编辑事件 -->
+	<bean id="purhchaseOrganization" class="nc.ui.pu.m4t.editor.org.OrgChangedEventHandler">
+		<property name="cardForm" ref="billFormEditor" />
+	</bean>
+	 
+	<!-- 卡片表头表尾编辑前事件处理类-->
+	<bean id="cardHeadBeforeEdit"
+		class="nc.ui.pu.m4t.editor.head.CardHeadTailBeforeEditEventHandler" />
+	 
+	<!-- 卡片表体编辑前事件处理类 -->
+	<bean id="cardBodyBeforeEdit"
+		class="nc.ui.pu.m4t.editor.body.CardBodyBeforeEditEventHandler" />
+
+	<!-- 卡片表头表尾编辑事件处理类 -->
+	<bean id="cardHeadAfterEdit"
+		class="nc.ui.pu.m4t.editor.head.CardHeadTailAfterEditEventHandler" />
+
+	<!-- 卡片表体编辑事件处理类  -->
+	<bean id="cardBodyAfterEdit"
+		class="nc.ui.pu.m4t.editor.body.CardBodyAfterEditEventHandler" />
+	
+	<!-- 卡片数量、单价、金额联动  -->
+	<bean id="relationCalculate" class="nc.ui.pu.m4t.editor.body.after.RelationCalculate" />
+	
+	<!-- 列表表头换行事件 -->
+	<bean id="listHeadRowChangedEvent" class="nc.ui.pu.m4t.editor.head.ListHeadRowChangedEventHandler" />
+
+	<!-- 事件处理 -->
+	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="ManageAppModel" />
+		<property name="handlerMap">
+			<map>
+				<!-- 财务组织切换事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.OrgChangedEvent">
+					<list>
+						<ref bean="purhchaseOrganization" />
+					</list>
+				</entry>
+				
+				<!-- 卡片表头表尾编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardHeadTailBeforeEditEvent">
+					<list>
+						<ref bean="cardHeadBeforeEdit" />
+					</list>
+				</entry>
+				
+				<!-- 卡片表体编辑前事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent">
+					<list>
+						<ref bean="cardBodyBeforeEdit" />
+					</list>
+				</entry>
+				
+				<!-- 卡片表头表尾编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardHeadTailAfterEditEvent">
+					<list>
+						<ref bean="cardHeadAfterEdit" />
+					</list>
+				</entry>
+				<!-- 卡片表体编辑后事件 -->
+				<entry key="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent">
+					<list>
+						<ref bean="cardBodyAfterEdit" />
+						<ref bean="relationCalculate" />
+					</list>
+				</entry>
+				<entry key="nc.ui.pubapp.uif2app.event.list.ListHeadRowChangedEvent">
+					<list>
+						<ref bean="listHeadRowChangedEvent" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

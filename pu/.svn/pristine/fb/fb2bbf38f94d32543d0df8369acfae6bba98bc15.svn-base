@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createTime="2011-03-25 14:41:35" creator="" description="" displayName="pu_invoice_report_enum" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="4199145d-a268-4cea-819c-cfb8b274c23b" isbizmodel="false" mainEntity="" modifier="" modifyTime="2012-03-16 10:16:16" name="pu_invoice_report_enum" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004090_2" resid="2400409003-0007" version="16" versionType="0">
+    <celllist>
+        <Enumerate componentID="4199145d-a268-4cea-819c-cfb8b274c23b" createTime="2011-03-25 14:41:46" creator="" dataType="BS000010000100001001" dbtype="varchar" description="" displayName="采购发票来源单据类型" fullClassName="nc.vo.pu.report.enumeration.PuInvoiceEnum" height="116" help="" id="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" modInfoClassName="" modifier="" modifyTime="2012-03-16 10:16:16" name="PuInvoiceEnum" resid="2400409003-0005" typeDisplayName="String" typeName="String" versionType="0" visibility="public" width="154" x="228" y="103">
+            <enumitemlist>
+                <enumitem description="PU_ORDER" enumDisplay="采购订单" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="pu_order" hidden="false" id="04e56d80-90c9-4eb7-a3e3-aaa9555f71f8" resid="2UC000-000983" sequence="0" versionType="0"/>
+                <enumitem description="SC_ORDER" enumDisplay="委外订单" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="sc_order" hidden="false" id="99dd3971-0820-4358-9eff-f984ebab660d" resid="2400409003-0000" sequence="1" versionType="0"/>
+                <enumitem description="IC_PURCHASEIN" enumDisplay="采购入库单" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="ic_purchasein" hidden="false" id="86bb4da0-d6a0-4076-9fc2-996c9594877d" resid="2400409003-0004" sequence="2" versionType="0"/>
+                <enumitem description="IC_INBAND" enumDisplay="委托加工入库" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="ic_inband" hidden="false" id="dfca5a5a-5346-479d-8fa8-822745f705fd" resid="2400409003-0006" sequence="3" versionType="0"/>
+                <enumitem description="IC_VMI" enumDisplay="消耗汇总记录" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="ic_vmi" hidden="false" id="6b73abac-4bf8-46ab-a837-a5e15c04e2ee" resid="2400409003-0001" sequence="4" versionType="0"/>
+                <enumitem description="PU_INITIALEST" enumDisplay="期初暂估单" enumID="abbf52ef-e8e0-4752-a8f5-b4ffe1907fc0" enumValue="pu_initialest" hidden="false" id="2ecd94a8-bf8c-434a-aa2a-266d4c601443" resid="2400409003-0003" sequence="5" versionType="0"/>
+            </enumitemlist>
+        </Enumerate>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

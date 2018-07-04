@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- START=====================物资需求申请单本业务组件内部的服务========================== -->
+    <!-- 物资需求申请单操作及实现 -->
+    <!-- 维护 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m422x.IStoreReqAppMaintain</interface>
+      <implementation>nc.impl.pu.m422x.StoreReqAppMaintainImpl</implementation>
+    </component>
+    <!-- 审批 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m422x.IStoreReqAppApprove</interface>
+      <implementation>nc.impl.pu.m422x.StoreReqAppApproveImpl</implementation>
+    </component>
+    <!-- 查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m422x.IStoreReqAppQuery</interface>
+      <implementation>nc.impl.pu.m422x.StoreReqAppQueryImpl</implementation>
+    </component>
+    
+    <!-- 关闭 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m422x.IStoreReqAppClose</interface>
+      <implementation>nc.impl.pu.m422x.StoreReqAppCloseImpl</implementation>
+    </component>
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface> nc.itf.pu.m422x.IStoreReqDefaultPriceQuery</interface>
+      <implementation>nc.impl.pu.m422x.StoreReqDefaultPriceQueryImpl</implementation>
+    </component>  
+    
+    <!-- END========================物资需求申请单本业务组件内部的服务========================== -->
+    
+    
+    
+    <!-- START================物资需求申请单为其他模块或领域提供的服务========================== -->
+    <!-- 请购单转单 -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.pu.m20.IQuery422xFor20</interface>
+      <implementation>nc.pubimpl.pu.m422x.pu.m20.Query422XFor20Impl</implementation>
+    </component>
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.pu.m20.IReWrite422xFor20</interface>
+      <implementation>nc.pubimpl.pu.m422x.pu.m20.ReWrite422xFor20Impl</implementation>
+    </component>
+    
+    <!-- 材料出库单转单查询 -->
+    <component priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ic.m4d.IQuery422xFor4d</interface>
+      <implementation>nc.pubimpl.pu.m422x.ic.m4d.Query422xFor4dImpl</implementation>
+    </component>
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ic.m4d.IReWrite422xFor4d</interface>
+      <implementation>nc.pubimpl.pu.m422x.ic.m4d.ReWrite422xFor4dImpl</implementation>
+    </component>
+    
+    <!-- 出库申请单转单 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ic.m4455.IQuery422XFor4455</interface>
+      <implementation>nc.pubimpl.pu.m422x.ic.m4455.Query422XFor4455Impl</implementation>
+    </component>
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ic.m4455.IReWrite422XFor4455</interface>
+      <implementation>nc.pubimpl.pu.m422x.ic.m4455.ReWrite422XFor4455Impl</implementation>
+    </component>
+    
+    <!-- 为库存计划提供的查询服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.invp.IStorereqQueryForInvp</interface>
+      <implementation>nc.pubimpl.pu.m422x.invp.StorereqQueryForInvpImpl</implementation>
+    </component>
+    <!-- 为项目提供的查询服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.pim.IStoreReqQueryForPIM</interface>
+      <implementation>nc.pubimpl.pu.m422x.pim.StoreReqQueryForPIMImpl</implementation>
+    </component>
+     <!-- 从60升级到61 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m422x.upgrade.IM422xUpgradeToV61</interface>
+      <implementation>nc.impl.pu.m422x.upgrade.M422xUpgradeToV61Impl</implementation>
+    </component>
+    <!-- 物资需求申请单提供给外模块的公共查询服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.pubquery.IStoreReqPubQuery</interface>
+      <implementation>nc.pubimpl.pu.m422x.pubquery.StoreReqPubQueryImpl</implementation>
+    </component>
+     <!-- 为库存计划需求平衡提供的服务 -->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.invp.inv9.IStorereqQueryForInv9</interface>
+      <implementation>nc.pubimpl.pu.m422x.invp.inv9.StorereqQueryForInv9Impl</implementation>
+    </component>
+     <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.invp.inv9.IPushSave422xForInv9</interface>
+      <implementation>nc.pubimpl.pu.m422x.invp.inv9.PushSave422xForInv9Impl</implementation>
+    </component>
+        <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.invp.inv9.IDelete422xForInv9</interface>
+      <implementation>nc.pubimpl.pu.m422x.invp.inv9.Delete422xForInv9Impl</implementation>
+    </component>
+        <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.invp.inv9.IReWrite422xForInv9</interface>
+      <implementation>nc.pubimpl.pu.m422x.invp.inv9.ReWrite422xForInv9Impl</implementation>
+    </component>
+    
+    <!-- 提供给资产维修计划的删除或关闭物资需求申请单服务-->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ewm.m4b32.IDeleteClose422XFor4B32</interface>
+      <implementation>nc.pubimpl.pu.m422x.ewm.m4b32.DeleteClose422XFor4B32Impl</implementation>
+    </component>
+        <!-- 提供给资产维修计划的保存需求申请单服务-->
+      <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ewm.m4b32.ISave422XFor4b32</interface>
+      <implementation>nc.pubimpl.pu.m422x.ewm.m4b32.Save422XFor4b32Impl</implementation>
+    </component>
+        <!-- 提供给资产维修计划的查询物资需求申请单服务-->
+      <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ewm.m4b32.IQuery422XFor4b32</interface>
+      <implementation>nc.pubimpl.pu.m422x.ewm.m4b32.Query422XFor4b32Impl</implementation>
+    </component>
+    <!-- 提供给资产工单的回写物资需求申请单表体累计消减主数量服务-->
+    <component  priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m422x.ewm.m4b36.IReWrite422XFor4B36</interface>
+      <implementation>nc.pubimpl.pu.m422x.ewm.m4b36.ReWrite422XFor4b36Impl</implementation>
+    </component>
+    <!-- END==================物资需求申请单为其他模块或领域提供的服务========================== -->
+  </public>
+  
+</module>
+

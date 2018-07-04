@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createIndustry="0" createTime="2011-04-29 18:34:35" creator="" description="" displayName="m20business" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" industry="0" industryChanged="false" industryIncrease="false" industryName="基础行业" isSource="false" isbizmodel="true" mainEntity="" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:08:33" name="m20business" namespace="pu" ownModule="pu" preLoad="false" programcode="" resModuleName="4004020_2" resid="2400402004-0006" version="48" versionType="0">
+    <celllist>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:35:10" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="新增操作" fullClassName="nc.vopu.m20business.insert" height="100" help="BUSILOG" id="a3168cc7-92e5-4ffe-b4df-474f29e14b87" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="ADD" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:15:19" name="insert" needlog="true" resid="2400402003-0005" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="31" y="29">
+            <refoperationlist>
+                <refoperation id="5dcfa066-64f9-410f-bca9-14d58220b83a" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="a3168cc7-92e5-4ffe-b4df-474f29e14b87" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:35:23" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="审批操作" fullClassName="nc.vopu.m20business.approve" height="100" help="BUSILOG" id="f21b67be-7851-4c04-8fcb-e24003b33ef7" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:47" name="approve" needlog="true" resid="2400402003-0004" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="133" y="25">
+            <refoperationlist>
+                <refoperation id="b0faa4f1-d81b-4aa2-8caf-96c29136d4e7" industry="0" isAuthorization="true" isSource="false" opItfID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" ownerElementID="f21b67be-7851-4c04-8fcb-e24003b33ef7" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:35:36" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="取消审批操作" fullClassName="nc.vopu.m20business.unapprove" height="100" help="BUSILOG" id="3c6f70ba-3c24-4df9-b572-b6ef47f3ef6d" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:49" name="unapprove" needlog="true" resid="2400402003-0003" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="233" y="31">
+            <refoperationlist>
+                <refoperation id="a94aad3c-a3e8-4d64-be1f-19418fb9292f" industry="0" isAuthorization="true" isSource="false" opItfID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" ownerElementID="3c6f70ba-3c24-4df9-b572-b6ef47f3ef6d" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:35:59" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="修改操作" fullClassName="nc.vopu.m20business.edit" height="100" help="BUSILOG" id="7a2f256f-214c-4079-a929-415cc98f56b5" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:59" name="edit" needlog="true" resid="2400402003-0001" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="38" y="145">
+            <refoperationlist>
+                <refoperation id="9141e192-3158-49fb-8313-547e72f67b19" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="7a2f256f-214c-4079-a929-415cc98f56b5" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:36:07" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="删除操作" fullClassName="nc.vopu.m20business.delete" height="100" help="BUSILOG" id="63d55ec1-4810-4296-9418-dfdb014362ba" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="DELETE" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:10:02" name="delete" needlog="true" resid="2400402003-0000" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="134" y="150">
+            <refoperationlist>
+                <refoperation id="1400ae0a-131b-48d7-af3f-fcbdb8e9124e" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="63d55ec1-4810-4296-9418-dfdb014362ba" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:36:18" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="修订操作" fullClassName="nc.vopu.m20business.resive" height="100" help="" id="6779c71f-b68f-4938-84c4-1abc60a206e1" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:10:04" name="resive" needlog="false" resid="2400402003-0002" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="246" y="148">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-04-29 18:36:29" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="关闭操作" fullClassName="nc.vopu.m20business.close" height="100" help="BUSILOG" id="81d437f8-94ab-47b3-b921-6dba61b6ed33" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:10:06" name="close" needlog="true" resid="2400402004-0007" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="340" y="147">
+            <refoperationlist>
+                <refoperation id="22da3afc-579e-4c68-96c4-2ec0dad2d106" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="81d437f8-94ab-47b3-b921-6dba61b6ed33" versiontype="0"/>
+                <refoperation id="4b68a78c-35ab-4518-9c2d-4de8f9134e4f" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="81d437f8-94ab-47b3-b921-6dba61b6ed33" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-08-08 15:18:58" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="提交" fullClassName="nc.vopu.m20business.commit" height="100" help="" id="63c17f1c-ab32-45b9-a833-84f66692bc22" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="OTHER" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:38" name="sendapprove" needlog="false" resid="2400402004-0009" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="31" y="275">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2011-08-08 15:19:01" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="收回" fullClassName="nc.vopu.m20business.uncommit" height="100" help="" id="ee277a2e-cb99-43fb-9560-5b1e3f0bb94c" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="OTHER" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:41" name="unSendapprove" needlog="false" resid="2400402004-0010" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="237" y="270">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2012-01-05 13:53:48" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="查询操作" fullClassName="nc.vopu.m20business.query" height="100" help="" id="9e54d692-e202-44de-8c4d-52b97af4c9dd" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:53" name="query" needlog="false" resid="24004000-0003" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="328" y="25">
+            <refoperationlist/>
+        </busioperation>
+        <opinterface componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2012-04-25 10:14:26" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="请购单维护" fullClassName="nc.itf.pu.m20.IPraybillMaintain" height="100" help="BUSILOG" id="b02f5945-f4c2-45ad-96dd-1de037c17f37" implClsName="nc.impl.pu.m20.PraybillMaintainImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:09:43" name="IPraybillMaintain" remote="true" resid="2400402004-0012" singleton="true" transprop="CMT" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="466" y="35">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="关闭操作" forBusinessEntity="N" help="" id="22da3afc-579e-4c68-96c4-2ec0dad2d106" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="closeBillByFullVO" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="请购单单据VO" isAggVO="true" name="vos" operationID="22da3afc-579e-4c68-96c4-2ec0dad2d106" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="关闭行操作" forBusinessEntity="N" help="" id="4b68a78c-35ab-4518-9c2d-4de8f9134e4f" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="closeBillRowByFullVO" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="请购单单据VO" isAggVO="true" name="vos" operationID="4b68a78c-35ab-4518-9c2d-4de8f9134e4f" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="打开操作" forBusinessEntity="N" help="" id="1801efae-7196-4385-b27f-40a2571d83d8" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="openBillByFullVO" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="请购单单据VO" isAggVO="true" name="vos" operationID="1801efae-7196-4385-b27f-40a2571d83d8" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="打开行操作" forBusinessEntity="N" help="" id="7b300d71-294c-45a4-afe0-4790f69a0507" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="openBillRowByFullVO" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="请购单单据VO" isAggVO="true" name="vos" operationID="7b300d71-294c-45a4-afe0-4790f69a0507" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="delete" forBusinessEntity="N" help="" id="1400ae0a-131b-48d7-af3f-fcbdb8e9124e" isAggVOReturn="false" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="delete" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="Vos" isAggVO="true" name="Vos" operationID="1400ae0a-131b-48d7-af3f-fcbdb8e9124e" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="insert" forBusinessEntity="N" help="" id="5dcfa066-64f9-410f-bca9-14d58220b83a" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="insert" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="Vos" isAggVO="true" name="Vos" operationID="5dcfa066-64f9-410f-bca9-14d58220b83a" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="update" forBusinessEntity="N" help="" id="9141e192-3158-49fb-8313-547e72f67b19" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="update" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="Vos" isAggVO="true" name="Vos" operationID="9141e192-3158-49fb-8313-547e72f67b19" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="saveBase" forBusinessEntity="N" help="" id="0902220e-3137-412a-a284-98306a0bbd38" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="saveBase" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="b02f5945-f4c2-45ad-96dd-1de037c17f37" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist>
+                        <parameter dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" description="" displayName="paraDisplayName" isAggVO="true" name="vos" operationID="0902220e-3137-412a-a284-98306a0bbd38" paramTypeForLog="0" paramdefclassname="" sequence="0" typeDisplayName="UFID" typeName="UFID" versionType="0"/>
+                    </paramlist>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+        <busioperation componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2012-04-27 19:08:39" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="打开操作" fullClassName="nc.vopu.m20business.open" height="100" help="BUSILOG" id="81d34fca-d837-453f-b41f-256a3485ed2d" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="MODIFY" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:10:10" name="open" needlog="true" resid="2400402004-0008" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="136" y="282">
+            <refoperationlist>
+                <refoperation id="1801efae-7196-4385-b27f-40a2571d83d8" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="81d34fca-d837-453f-b41f-256a3485ed2d" versiontype="0"/>
+                <refoperation id="7b300d71-294c-45a4-afe0-4790f69a0507" industry="0" isAuthorization="true" isSource="false" opItfID="b02f5945-f4c2-45ad-96dd-1de037c17f37" ownerElementID="81d34fca-d837-453f-b41f-256a3485ed2d" versiontype="0"/>
+            </refoperationlist>
+        </busioperation>
+        <opinterface componentID="7d6ec2b9-8786-43d5-9865-af2a3bf8f685" createIndustry="0" createTime="2012-04-28 08:27:51" creator="" dataType="faa17d57-f79a-49df-9958-b98c1ef4a976" dbtype="" description="" displayName="请购单审批" fullClassName="nc.itf.pu.m20.IPraybillApprove" height="100" help="BUSILOG" id="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" implClsName="nc.impl.pu.m20.PraybillApproveImpl" industryChanged="false" isAuthorization="true" isBusiActivity="false" isBusiOperation="false" isSource="false" modifier="" modifyIndustry="0" modifyTime="2012-06-13 16:13:59" name="IPraybillApprove" remote="true" resid="2400402004-0011" singleton="true" transprop="CMT" typeDisplayName="请购单主表" typeName="po_praybill" version="" versionType="0" visibility="public" width="80" x="460" y="188">
+            <operationlist>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="approve" forBusinessEntity="N" help="" id="b0faa4f1-d81b-4aa2-8caf-96c29136d4e7" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="approve" opItfID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" ownerElementID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+                <operation dataTypeStyle="SINGLE" defclassname="" displayName="unapprove" forBusinessEntity="N" help="" id="a94aad3c-a3e8-4d64-be1f-19418fb9292f" isAggVOReturn="true" isBusiActivity="false" methodException="nc.vo.pub.BusinessException" name="unapprove" opItfID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" ownerElementID="2ec0672d-bfd3-4241-8ac1-7c9c2cf741ec" transKind="NEVER" versionType="0" visibility="public">
+                    <paramlist/>
+                </operation>
+            </operationlist>
+            <opImpllist/>
+        </opinterface>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

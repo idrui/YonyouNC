@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!--
+	作者：赵玉行
+	日期：2009.5.21 
+ -->
+	<!-- 引入所有按钮的Action配置 -->
+	<import resource="costfactor_action.xml" />
+	<!-- 引入所有编辑事件配置 -->
+	<import resource="costfactor_editor.xml" />
+
+  <!-- 环境变量 -->
+  <bean id="context" class="nc.vo.uif2.LoginContext" />
+
+  <!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+  <bean id="boadatorfactory"
+    class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="manageModelService" class="nc.ui.pu.costfactor.model.CostFactorModelService">
+		<property name="qryService" value="nc.itf.pu.costfactor.ICostFactorQueryService" />
+		<property name="service" value="nc.itf.pu.costfactor.ICostFactorManageService" />
+		<property name="validationService" ref="uiValidationSrv" />
+   </bean>
+
+  <!-- 管理应用模型 -->
+  <bean id="manageAppModel" class="nc.ui.pubapp.uif2app.model.BillListManageModel">
+    <property name="service" ref="manageModelService"></property>
+    <property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+    <property name="context" ref="context"></property>    
+  </bean>
+  
+  <!-- 数据模型管理器，主要负责各种方式的模型初始化   -->
+  <bean id="modelDataManager" class="nc.ui.pubapp.uif2app.model.BillListModelDataManager">
+    <property name="model" ref="manageAppModel"></property>
+    <property name="service" ref="manageModelService"></property>
+  </bean>
+
+	<!-- 前台校验服务类，保存前负责进行数据校验 -->
+	<bean id="uiValidationSrv" class="nc.bs.uif2.validation.DefaultValidationService">
+		<property name="validators">
+			<list>
+				<bean class="nc.ui.pu.costfactor.rule.CostFactorNotNullValidator">
+					<property name="listEditor" ref="list" />
+				</bean><!--
+				<bean class="nc.ui.pu.costfactor.rule.CostFactorDupFeeValidator">
+					<property name="model" ref="manageAppModel" />
+				</bean>
+			--></list>
+		</property>
+	</bean>
+
+  <!-- 模板容器，负责对模板的统一装载 -->
+  <bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer"
+    init-method="load">
+    <property name="context" ref="context" />
+  </bean>
+
+  <!-- 界面元素 ###########################################################-->
+  <!-- 列表视图 -->
+  <bean id="list" class="nc.ui.pu.costfactor.view.CostFactorListEditor"
+    init-method="initUI">
+    <property name="model" ref="manageAppModel"></property>
+    <property name="multiSelectionEnable" value="false" />
+    <property name="eventHandler" ref="editEventHandler" />
+    <property name="templateContainer" ref="templateContainer"></property>
+    <property name="componentValueManager">
+      <bean class="nc.ui.pubapp.uif2app.view.value.BillListPanelValueManager">
+        <property name="model" ref="manageAppModel"></property>
+      </bean>
+    </property>
+  </bean>
+
+	<!--界面布局总装##############################################-->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+				<property name="name">
+					 <bean class="nc.ui.uif2.I18nFB">
+					     <property name="resDir" value="common" />
+					     <property name="resId" value="UC001-0000107" />
+					     <property name="defaultValue" value="列表" />
+					 </bean>
+				</property>
+				<property name="component" ref="list"></property>
+			</bean>
+		</property>
+		<property name="editActions">
+			<list>
+				<ref bean="saveAction" />
+				<ref bean="addLineAction" />
+				<ref bean="delLineAction" />
+				<ref bean="cancelAction" />
+			</list>
+		</property>
+		<property name="actions">
+      <list>
+        <ref bean="addAction" />
+        <ref bean="editAction" />
+        <ref bean="separatorAction"/>
+        <ref bean="refreshAction" />
+        <ref bean="separatorAction"/>
+        <ref bean="costShowOrderAction" />
+      </list>
+    </property>
+    <property name="model" ref="manageAppModel"/>
+	</bean>
+	
+	 <!-- 关闭前检查处理器 -->
+	 <bean id="ClosingListener" class="nc.ui.uif2.FunNodeClosingHandler">
+		<property name="model" ref="ManageAppModel" />
+		<property name="saveaction" ref="saveAction" />
+		<property name="cancelaction" ref="cancelAction" />
+	</bean>
+  </beans>

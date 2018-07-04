@@ -1,0 +1,65 @@
+package nc.bs.pu.cgfa.ace.rule;
+
+import nc.impl.pubapp.pattern.rule.IRule;
+import nc.vo.pu.cgfa.AggCgfa;
+import nc.vo.pu.cgfa.Cgfa;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pub.VOStatus;
+import nc.vo.pub.lang.UFDouble;
+
+public class CalculateSum implements IRule<AggCgfa> {
+
+	@Override
+	public void process(AggCgfa[] vos) {
+		Cgfa headvo = vos[0].getParentVO();
+		Cgfab[] bodyvo = (Cgfab[]) vos[0].getChildrenVO();
+		int rows = bodyvo.length;
+		headvo.setAttributeValue("sumnum", rows);
+		Integer sunnum = new Integer(0);
+		UFDouble plan_pricea = new UFDouble(0);
+		// 删除的列依然在此显示出来，将其筛选掉
+		for (int i = 0; i < bodyvo.length; i++) {
+
+			if (bodyvo[i].getStatus() != 3) {
+
+				if (bodyvo[i].getAttributeValue("plan_num") != null) {
+
+					sunnum += (Integer) bodyvo[i].getAttributeValue("plan_num");
+				}
+				if (bodyvo[i].getAttributeValue("plansum_pricea") != null) {
+					plan_pricea = plan_pricea.add((UFDouble) bodyvo[i]
+							.getAttributeValue("plansum_pricea"));
+				}
+
+			}
+		}
+
+		headvo.setAttributeValue("forecastprice", plan_pricea);
+		headvo.setAttributeValue("sumplannum", sunnum);
+		headvo.setStatus(VOStatus.UPDATED);
+		headvo.setAttributeValue("dr", 0);
+
+		// ==== lijj =====
+		// 预测价 forecastprice
+		// offer_type 报价类型 含税 1、 不含税 2
+		UFDouble sumMny = UFDouble.ZERO_DBL;
+		int offer_type = (int) headvo.getAttributeValue("offer_type");
+		if (offer_type == 1) {
+			for (int i = 0; i < bodyvo.length; i++) {
+				sumMny = sumMny.add((UFDouble) bodyvo[i]
+						.getAttributeValue("plansum_pricea"));
+			}
+
+		} else if (offer_type == 2) {
+			for (int i = 0; i < bodyvo.length; i++) {
+				sumMny = sumMny.add((UFDouble) bodyvo[i]
+						.getAttributeValue("plansum_priceb"));
+			}
+		}
+
+		headvo.setAttributeValue("forecastprice", sumMny);
+		// ==== lijj =====
+
+	}
+
+}

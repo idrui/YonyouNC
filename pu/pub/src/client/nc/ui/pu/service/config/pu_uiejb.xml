@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="pu">
+ <client>
+  <!--  采购发票对内部交易查询框 -->
+  <component name="nc.pubitf.pu.m25.IInvoiceForToQueryAction" singleton="false">
+   <implementation>nc.ui.pu.m27.match.action.InvoiceForToQueryAction</implementation>
+  </component>
+ </client>
+ 
+ <client>
+  <!--  采购取数联查查询框 -->
+  <component name="nc.pubitf.pu.tbb.IPULinkQueryForTbb" singleton="false">
+   <implementation>nc.ui.pu.service.PULinkQueryForTbbImpl</implementation>
+  </component>
+ </client>
+ 
+ <client>
+ <!-- 采购计划联查 -->
+  <component name="nc.pubitf.pu.mpp.ILinkQueryForMpp">
+   <implementation>nc.ui.pu.mpp.service.LinkQueryForMppImpl</implementation>
+  </component>
+ </client>
+ 
+</module>

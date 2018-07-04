@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component conRouterType="手动" createIndustry="0" createTime="2011-04-28 17:00:24" creator="" description="" displayName="期初暂估业务操作" fromSourceBmf="true" gencodestyle="NC传统样式" help="" id="f3d965f7-f717-4d8a-95eb-709f0f4b502d" industry="0" industryChanged="false" industryIncrease="false" industryName="基础行业" isSource="false" isbizmodel="true" mainEntity="" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="m4Tbusiness" namespace="pu" ownModule="pu" preLoad="false" resModuleName="4004060_2" resid="2400406007-0002" version="6" versionType="0">
+    <celllist>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-04-28 17:00:31" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="新增操作" fullClassName="nc.vopu.m4tbusiness.insert" height="100" help="" id="0b8f1db4-7035-4aa9-b0b3-610b90fcd52b" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="insert" needlog="false" resid="2400406007-0005" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="91" y="86">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-04-28 17:00:36" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="删除操作" fullClassName="nc.vopu.m4tbusiness.delete" height="100" help="" id="2b3e5c93-2645-4903-baf4-b58d841fb559" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="delete" needlog="false" resid="2400406007-0004" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="284" y="106">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-04-28 17:00:37" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="修改操作" fullClassName="nc.vopu.m4tbusiness.edit" height="100" help="" id="fc975e7b-1e4b-40cc-9806-105247bd6309" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="edit" needlog="false" resid="2400406007-0001" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="192" y="83">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-04-28 17:00:38" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="审批操作" fullClassName="nc.vopu.m4tbusiness.approve" height="100" help="" id="725e975c-f781-49e8-8b2e-85f0b2b0d36e" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="approve" needlog="false" resid="2400406007-0003" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="390" y="78">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-04-28 17:00:39" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="弃审操作" fullClassName="nc.vopu.m4tbusiness.unapprove" height="100" help="" id="a703b04b-5310-4dcb-9e7e-44fb92706bbc" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="unapprove" needlog="false" resid="2400406007-0000" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="499" y="117">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-08-08 15:27:43" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="提交操作" fullClassName="nc.vopu.m4tbusiness.commit" height="100" help="" id="5deeb0bc-7a2b-49d8-9c38-c8fe10c1af0b" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="commit" needlog="false" resid="2400406007-0006" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="190" y="247">
+            <refoperationlist/>
+        </busioperation>
+        <busioperation componentID="f3d965f7-f717-4d8a-95eb-709f0f4b502d" createIndustry="0" createTime="2011-08-08 15:27:44" creator="" dataType="e2c235c5-31e4-4ffb-9760-4964ee29ce94" dbtype="" description="" displayName="收回操作" fullClassName="nc.vopu.m4tbusiness.uncommit" height="100" help="" id="21e3e9f0-19a6-4184-92e6-dc742e4a3d43" industryChanged="false" isAuthorization="true" isBusiActivity="false" isSource="false" logtype="IGNORE" modifier="" modifyIndustry="0" modifyTime="2013-01-24 09:54:09" name="uncommit" needlog="false" resid="2400406007-0007" typeDisplayName="期初暂估单" typeName="po_initialest" version="" versionType="0" visibility="public" width="80" x="352" y="245">
+            <refoperationlist/>
+        </busioperation>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

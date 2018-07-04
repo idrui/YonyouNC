@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="SCM_PU_EJB">
+  <public>
+    <!-- 采购发票操作(服务)  begin  -->
+    <!-- 操作 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m25.IInvoiceQuery</interface>
+      <implementation>nc.impl.pu.m25.InvoiceQueryImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m25.IInvoiceMaintain</interface>
+      <implementation>nc.impl.pu.m25.InvoiceMaintainImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m25.IInvoiceApprove</interface>
+      <implementation>nc.impl.pu.m25.InvoiceApproveImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m25.IDefaultPriceQuery</interface>
+      <implementation>nc.impl.pu.m25.DefaultPriceQueryImpl</implementation>
+    </component>
+    <!--发票升级 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.itf.pu.m25.upgrade.IM25UpgradeToV61</interface>
+      <implementation>nc.impl.pu.m25.upgrade.M25UpgradeToV61Impl</implementation>
+    </component>
+    <!-- 服务 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pu.settle.IInvoiceSettleQuery</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.settle.InvoiceSettleQueryImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pu.settle.IInvoiceSettleWriteBack</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.settle.InvoiceSettleWriteBackImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pu.settle.IInvoiceSettleSendAP</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.settle.InvoiceSettleSendAPImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pu.settle.IVirtualInvoiceMaintain</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.settle.VirtualInvoiceMaintainImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pf.IInvoiceSendAP</interface>
+      <implementation>nc.pubimpl.pu.m25.pf.InvoiceSendAPImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pf.IInvoiceQueryForPf</interface>
+      <implementation>nc.pubimpl.pu.m25.pf.InvoiceQueryForPfImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.ic.m45.IInvoicePushSaveFor45</interface>
+      <implementation>nc.pubimpl.pu.m25.ic.m45.InvoicePushSaveFor45Impl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.pu.pub.IQueryInvoice</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.pub.QueryInvoiceImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.to.settle.IInvoiceSettleWriteBack</interface>
+      <implementation>nc.pubimpl.pu.m25.to.settle.InvoiceSettleWriteBackImpl</implementation>
+    </component>
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.to.settle.IInvoiceTOSettleQuery</interface>
+      <implementation>nc.pubimpl.pu.m25.to.settle.InvoiceTOSettleQueryImpl</implementation>
+    </component>  
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubift.pu.m25.pu.m21.IInvoiceQueryFor21</interface>
+      <implementation>nc.pubimpl.pu.m25.pu.m21.InvoiceQueryFor21Impl</implementation>
+    </component>   
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubift.pu.m25.ec.IInvoiceQueryForEC</interface>
+      <implementation>nc.pubimpl.pu.m25.ec.InvoiceQueryForECImpl</implementation>
+    </component>
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.ap.f1.IInvoiceQuery4F1</interface>
+      <implementation>nc.pubimpl.pu.m25.arap.f1.InvoiceQuery4F1Impl</implementation>
+    </component>
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubift.pu.m25.ic.eurrpt.IPUForICEURRpt</interface>
+      <implementation>nc.pubimpl.pu.m25.ic.eurrpt.PUForICEURRptImpl</implementation>
+    </component>
+    
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubift.pu.m25.ia.costcal.IInvoiceQueryForIACostCal</interface>
+      <implementation>nc.pubimpl.pu.m25.ia.costcal.InvoiceQueryForIACostCalImpl</implementation>
+    </component>
+    
+    <!-- 采购发票操作(服务) end  -->
+    
+    <!-- 进口发票操作(服务)  begin  -->
+     
+    <!-- 提供给进口的发票查询 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.it.IInvoiceSettleQueryForIT</interface>
+      <implementation>nc.pubimpl.pu.m25.it.InvoiceSettleQueryForITImpl</implementation>
+    </component>
+    
+    <!-- 提供给进口的无发票结算 -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.it.IVirtualInvoiceMaintainForIT</interface>
+      <implementation>nc.pubimpl.pu.m25.it.VirtualInvoiceMaintainForITImpl</implementation>
+    </component>
+    
+    <!-- 进口发票操作(服务) end  -->
+    
+     <!-- 存货核算关账检查接口   -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubift.pu.m25.ia.IInvoiceQueryForIAClosingCheck</interface>
+      <implementation>nc.pubimpl.pu.m25.ia.InvoiceQueryForIAClosingCheckImpl</implementation>
+    </component>
+    
+    <!--采购发票对运输发票接口 start -->
+    <component   priority="0" singleton="true"  remote="true" tx="CMT"  supportAlias="true">
+      <interface>nc.pubitf.pu.m25.dm.m4812.IInvoiceApproveFor4812</interface>
+      <implementation>nc.pubimpl.pu.m25.dm.m4812.InvoiceApproveFor4812Impl</implementation>
+    </component>
+    <!--采购发票对运输发票接口 end -->
+  </public>
+  
+</module>
+

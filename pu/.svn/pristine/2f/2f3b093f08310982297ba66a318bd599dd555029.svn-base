@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!-- 自由项、自定义项组件的卡片配置 -->
+	<bean id="userdefitemListPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillListDataPrepare">
+		<property name="billListDataPrepares">
+			<list>
+				<ref bean="userdefitemPreparator" />
+				<ref bean="marAsstPreparator" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 自由项、自定义项组件的列表配置 -->
+	<bean id="singleUserdefitemListPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillListDataPrepare">
+		<property name="billListDataPrepares">
+			<list>
+				<ref bean="userdefitemlistPreparator" />
+				<ref bean="marAsstPreparator" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 卡片自定义项配置 -->
+	<bean name="userdefitemPreparator" class="nc.ui.uif2.editor.UserdefitemContainerListPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">				
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="rulecode" value="23_H" />
+					<property name="pos" value="0" />
+					<property name="prefix" value="vdef" />
+				</bean>	
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="rulecode" value="23_B" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="vbdef" />
+					<property name="tabcode" value="表体" />
+				</bean>									
+			</list>
+		</property>
+	</bean>
+
+	<!-- 列表自定义项处理 -->
+	<bean name="userdefitemlistPreparator" class="nc.ui.uif2.editor.UserdefitemContainerListPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">				
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="rulecode" value="23_H" />
+					<property name="pos" value="0" />
+					<property name="prefix" value="vdef" />
+				</bean>	
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="rulecode" value="23_B" />
+					<property name="pos" value="0" />
+					<property name="prefix" value="vbdef" />
+				</bean>									
+			</list>
+		</property>
+	</bean>
+
+	<!-- 自由项组件的配置 -->
+	<bean id="marAsstPreparator"
+		class="nc.ui.pubapp.uif2app.view.material.assistant.MarAsstPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="prefix" value="vfree" />
+		<property name="materialField" value="pk_material" />
+		<!--<property name="storeStateField" value="cstateid" />-->
+		<property name="projectField" value="cprojectid" />
+		<!--<property name="supplierField" value="pk_supplier" />-->
+		<property name="productorField" value="cproductorid" />
+	</bean>
+	
+	<bean id="userdefitemContainer"
+		class="nc.ui.pubapp.billref.src.editor.BillRefUserDefItemContainer">
+		<property name="params">
+			<list> 
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="23_H" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="23_B" />
+				</bean>				
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="rulecode" value="materialassistant" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>	

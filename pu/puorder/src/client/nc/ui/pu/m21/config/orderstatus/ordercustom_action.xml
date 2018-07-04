@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		按钮事件元素##########################################################
+	-->
+	
+
+	<!-- 报关-->
+	<bean id="customAction" class="nc.ui.pu.m21.action.status.custom.CustomAction">
+        <property name="model" ref="manageAppModel" />
+        <property name="editor" ref="billFormEditor" />
+        <property name="service" ref="manageModelService" />
+        <property name="dataManager" ref="modelDataManager" />
+        <property name="validateService" ref="validateSerice" />
+<!--        <property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 反报关 -->
+	<bean id="uncustomAction" class="nc.ui.pu.m21.action.status.custom.UnCustomAction">
+	    <property name="model" ref="manageAppModel" />
+        <property name="editor" ref="billFormEditor" />
+        <property name="service" ref="manageModelService" />
+        <property name="dataManager" ref="modelDataManager" />
+        <property name="validateService" ref="validateSerice" />
+<!--        <property name="queryAction" ref="queryAction" />-->
+	</bean>
+
+	<!-- 查询-->
+	<bean id="qryDLGInitializer" class="nc.ui.pu.m21.view.OrderOnwayQueryDLGInitializer">
+		<property name="fieldcode" value="biscustom"></property>
+	</bean>
+	<bean id="queryAction" class="nc.ui.pu.m21.action.status.custom.CustomQueryAction">
+	    <property name="dataManager" ref="modelDataManager" />
+        <property name="model" ref="manageAppModel" />
+<!--        <property name="service" ref="manageModelService" />-->
+        <property name="qryCondDLGInitializer" ref="qryDLGInitializer"/>
+        <property name="editor" ref="billFormEditor" />
+        <property name="hasQueryArea" value="false" />	
+	</bean>
+
+	<!-- 刷新 -->
+	<bean id="refreshAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+	    <property name="dataManager" ref="modelDataManager" />
+        <property name="model" ref="manageAppModel" />
+<!--        <property name="editor" ref="billFormEditor" />-->
+	</bean>
+	
+	 <!--打印处理类-->
+	<bean id="printProcessor" class="nc.ui.pu.m21.action.processor.OrderOnWayPrintProcessor">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+    <!-- 预览 -->
+	<bean id="previewAction" class="nc.ui.pu.m21.action.status.StatusPrintAction">
+		<property name="preview" value="true" />
+		<property name="model" ref="manageAppModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+	<!-- 打印 -->
+	<bean id="printAction" class="nc.ui.pu.m21.action.status.StatusPrintAction">
+		<property name="preview" value="false" />
+		<property name="model" ref="manageAppModel" />
+		<property name="beforePrintDataProcess" ref="printProcessor" />
+	</bean>
+
+    <bean id="browseActionGroup" class="nc.funcnode.ui.action.GroupAction">
+        <property name="code" value="printMenuAction" />
+        <property name="actions">
+            <list>
+            	<ref bean="printAction" />
+                <ref bean="previewAction" />
+            </list>
+        </property>
+    </bean>
+  <!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />    
+</beans>

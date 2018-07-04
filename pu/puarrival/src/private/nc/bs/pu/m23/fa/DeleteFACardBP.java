@@ -1,0 +1,57 @@
+package nc.bs.pu.m23.fa;
+
+import nc.bs.pu.m23.fa.rule.ChkCanDelFARule;
+import nc.bs.pu.m23.fa.rule.FilterBySelectedRule;
+import nc.bs.pu.m23.fa.rule.InvokeDelFAServiceRule;
+import nc.bs.pu.m23.fa.rule.SendMsgForFARule;
+import nc.bs.pu.m23.plugin.ArriveBPPlugInPoint;
+import nc.impl.pubapp.pattern.rule.processer.AroundProcesser;
+import nc.pubitf.bdlayer.msg.ScmBuziMsgResEnum;
+import nc.vo.pu.m23.entity.ArriveVO;
+import nc.vo.pu.m23.rule.ArriveATPUpdateRule;
+
+/**
+ * <p>
+ * <b>本类主要完成以下功能：</b>
+ * <ul>
+ * <li>完成到货单的删除资产卡片
+ * </ul>
+ * <p>
+ * <p>
+ * 
+ * @version 6.0
+ * @since 6.0
+ * @author hanbin
+ * @time 2010-1-13 上午10:52:57
+ */
+public class DeleteFACardBP {
+
+  public ArriveVO[] deleteFACard(ArriveVO[] aggVO, ArriveVO[] originBills) {
+    AroundProcesser<ArriveVO> processer =
+        new AroundProcesser<ArriveVO>(ArriveBPPlugInPoint.DeleteFACardBP);
+    this.addBeforeRule(processer, aggVO);
+    this.addAfterRule(processer);
+
+    ArriveVO[] newFullVOs = processer.before(originBills);
+    processer.after(newFullVOs);
+    return newFullVOs;
+  }
+
+  private void addAfterRule(AroundProcesser<ArriveVO> processer) {
+    // 可用量变更后操作
+    processer.addAfterRule(new ArriveATPUpdateRule(false));
+    // 发送业务消息
+    processer.addAfterRule(new SendMsgForFARule(
+        ScmBuziMsgResEnum.ARRIVAL_UNGENEQUIP.code()));
+  }
+
+  private void addBeforeRule(AroundProcesser<ArriveVO> processer, ArriveVO[] vos) {
+    processer.addBeforeRule(new FilterBySelectedRule(vos));
+    // 可用量变更前操作
+    processer.addBeforeRule(new ArriveATPUpdateRule(true));
+    // 检查是否可删除资产卡片
+    processer.addBeforeRule(new ChkCanDelFARule());
+    // 调用资产服务
+    processer.addBeforeRule(new InvokeDelFAServiceRule());
+  }
+}

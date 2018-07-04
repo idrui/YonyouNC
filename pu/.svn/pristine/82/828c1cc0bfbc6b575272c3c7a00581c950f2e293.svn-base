@@ -1,0 +1,218 @@
+package nc.vo.pu.dw70tom20.vochange;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nc.bs.framework.common.NCLocator;
+import nc.bs.trade.business.HYPubBO;
+import nc.itf.bd.material.baseinfo.IMaterialBaseInfoService;
+import nc.itf.bd.material.measdoc.IMeasdocService;
+import nc.itf.uap.IUAPQueryBS;
+import nc.jdbc.framework.processor.BeanProcessor;
+import nc.ui.trade.business.HYPubBO_Client;
+import nc.vo.bd.material.MaterialVO;
+import nc.vo.bd.material.marbasclass.MarBasClassVO;
+import nc.vo.bd.material.measdoc.MeasdocVO;
+import nc.vo.lm.kycgjhxxjk.KycgjhxxjkHVO;
+import nc.vo.pf.change.ChangeVOAdjustContext;
+import nc.vo.pf.change.IChangeVOAdjust;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pu.m20.entity.PraybillVO;
+import nc.vo.pub.AggregatedValueObject;
+import nc.vo.pub.BusinessException;
+import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.lang.UFDouble;
+
+public class ToBillForPrayAfterChg implements IChangeVOAdjust {
+
+	@Override
+	public AggregatedValueObject adjustBeforeChange(
+			AggregatedValueObject srcVO, ChangeVOAdjustContext adjustContext)
+			throws BusinessException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public AggregatedValueObject adjustAfterChange(AggregatedValueObject srcVO,
+			AggregatedValueObject destVO, ChangeVOAdjustContext adjustContext)
+			throws BusinessException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public AggregatedValueObject[] batchAdjustBeforeChange(
+			AggregatedValueObject[] srcVOs, ChangeVOAdjustContext adjustContext)
+			throws BusinessException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	/*
+	 * 1. 根据请购单的来源单据主键查中间表里的物料编码，计量单位名称，组织，
+	 * 2.通过中间件表物料编码，计量单位名称，查出对应的相关档案主键，赋值给请购单对应的字段
+	 */
+	@Override
+	public AggregatedValueObject[] batchAdjustAfterChange(
+			AggregatedValueObject[] srcVOs, AggregatedValueObject[] destVOs,
+			ChangeVOAdjustContext adjustContext) throws BusinessException {
+		HYPubBO bo = new HYPubBO();
+		IUAPQueryBS bs = NCLocator.getInstance().lookup(IUAPQueryBS.class);
+
+		if (destVOs == null || destVOs.length == 0) {
+			return destVOs;
+		}
+		PraybillVO newaggvo=new PraybillVO();
+		List<PraybillItemVO>newparbvos=new ArrayList<PraybillItemVO>();
+		for (AggregatedValueObject aggvo : destVOs) {
+			PraybillVO outvo = (PraybillVO) aggvo;
+			if (outvo == null || outvo.getChildrenVO().length == 0) {
+				continue;
+			}
+			newaggvo.setParentVO(outvo.getParentVO());
+			
+			String pk_group = "0001N610000000000IT0";// 组织，集团直接写死
+			String pk_org = "0001N610000000000IT0";
+			PraybillItemVO[] bvos = (PraybillItemVO[]) aggvo.getChildrenVO();
+			for (PraybillItemVO bvo:bvos) {
+//				PraybillItemVO praybillItemVO = bvos[i];// 请购单字表
+				String srcid = bvo.getCfirstid();// 来源单据主键
+				KycgjhxxjkHVO srchvo = (KycgjhxxjkHVO) bo.queryByPrimaryKey(
+						KycgjhxxjkHVO.class, srcid);// 来源单据VO
+				String wucode = srchvo.getCode();// 来源单物料编码
+				String sqlmact = "select * from bd_material where code ='"
+						+ wucode + "' and nvl(dr,0)=0 ";// 物料档案
+				MaterialVO matervo = (MaterialVO) bs.executeQuery(sqlmact,
+						new BeanProcessor(MaterialVO.class));
+				if (matervo != null) {
+					bvo.setPk_material(matervo.getPk_material());// 请购单物料
+					bvo.setPk_srcmaterial(matervo.getPk_material());// 请购单物料信息
+					bvo.setCunitid(matervo.getPk_measdoc());// 计量单位
+					bvo.setCastunitid(matervo.getPk_measdoc());// 单位
+				} else {
+					matervo = insertMaterial(srchvo, pk_org, pk_group);// 调用更新物料档案方法
+					bvo.setPk_material(matervo.getPk_material());// 请购单物料
+					bvo.setPk_srcmaterial(matervo.getPk_material());// 请购单物料信息
+					bvo.setCunitid(matervo.getPk_measdoc());// 计量单位
+					bvo.setCastunitid(matervo.getPk_measdoc());// 单位
+				}
+				int size = 0;
+				if (newparbvos != null) {
+					size = newparbvos.size();
+				}
+				bvo.setCrowno((size + 1) + "0");// 重新赋值行号
+				newaggvo.setParentVO(outvo.getParentVO());
+				newparbvos.add(bvo);
+			}
+
+		}
+		newaggvo.setChildrenVO(newparbvos.toArray(new PraybillItemVO[0]));
+		return new AggregatedValueObject[] { newaggvo };
+//		return destVOs;
+	}
+
+	private MaterialVO insertMaterial(KycgjhxxjkHVO srchvo, String pk_org,
+			String pk_group) throws BusinessException {
+		HYPubBO bo = new HYPubBO();
+		IMaterialBaseInfoService maservice = NCLocator.getInstance().lookup(
+				IMaterialBaseInfoService.class);
+		String code = "99";// 取编码，根据编码获取物料分类主键，99为暂时的，等后期正式环境编码确定后再进行更改
+		MaterialVO maVO = new MaterialVO();
+		maVO.setPk_group(pk_group);
+		maVO.setPk_org(pk_org);
+		// 默认成一般纳税商品，正式：未知
+		maVO.setPk_mattaxes("1001Z01000000003W0WH");
+		// 电子采购打钩
+		maVO.setIselectrans(UFBoolean.FALSE);
+		// 产品簇不打钩
+		maVO.setProductfamily(UFBoolean.FALSE);
+		// 电子销售不打钩
+		maVO.setElectronicsale(UFBoolean.FALSE);
+		// 适用零售不打钩
+		maVO.setRetail(UFBoolean.FALSE);
+		// 启用状态,已启用
+		maVO.setEnablestate(2);
+		// 入库容差
+		maVO.setIntolerance(new UFDouble(0));
+		// 入库容差
+		maVO.setOuttolerance(new UFDouble(0));
+		// 入库容差
+		maVO.setOutcloselowerlimit(new UFDouble(0));
+		// 物料名称
+		maVO.setName(srchvo.getName());
+		// 物料规格
+		// maVO.setMaterialspec(srchvo.getMaterialspec());
+		// 物料型号
+		// maVO.setMaterialtype(srchvo.getMaterialspec());
+		// 物料分类
+		String Pk_marbasclass = null;
+		MarBasClassVO[] classVO = (MarBasClassVO[])bo
+				.queryByCondition(MarBasClassVO.class, " code='" + code + "'");
+		Pk_marbasclass = classVO[0].getPk_marbasclass();
+		maVO.setPk_marbasclass(Pk_marbasclass);
+		// 物料编码
+		if (srchvo.getCode() == null || srchvo.getCode().trim().length() == 0) {
+			// 设备系统没有物料编码，用单据号作为物料编码
+			maVO.setCode(srchvo.getBillno());
+		} else {
+			// 物资系统
+			maVO.setCode(srchvo.getCode());
+		}
+		// 物料单位
+		MeasdocVO[] measdocVOs = (MeasdocVO[]) bo.queryByCondition(
+//				MeasdocVO.class, " name='" + srchvo.getCastunitid() + "'and code='" + srchvo.getCastunitid() + "'");
+				MeasdocVO.class, " name='" + srchvo.getCastunitid() + "'");
+
+		String pk_measdoc = null;
+		if (measdocVOs != null && measdocVOs.length > 0) {
+			pk_measdoc = measdocVOs[0].getPk_measdoc();
+		} else {
+			// 自动新增计量档案
+			MeasdocVO measdocVO = new MeasdocVO();
+			measdocVO.setCode(srchvo.getCastunitid());// 编码
+			measdocVO.setName(srchvo.getCastunitid());// 名称
+			measdocVO.setPk_group(pk_group);
+			measdocVO.setPk_org("GLOBLE00000000000000");//全局组织
+			measdocVO.setOppdimen("E");// 所属量纲
+			measdocVO.setBasecodeflag(UFBoolean.FALSE);// 是否为基本单位
+			measdocVO.setBitnumber(4);// 小数位数
+			IMeasdocService measdocSer = NCLocator.getInstance().lookup(
+					IMeasdocService.class);
+			measdocVO = measdocSer.insertMeasdocForPfxx(measdocVO);
+			pk_measdoc = measdocVO.getPk_measdoc();
+		}
+		maVO.setPk_measdoc(pk_measdoc);
+		// 特征件
+		maVO.setIsfeature(UFBoolean.FALSE);
+		// 成套件
+		maVO.setSetpartsflag(UFBoolean.FALSE);
+		// 服务类
+		maVO.setFee(UFBoolean.FALSE);
+		// 促销商品
+		maVO.setIshproitems(UFBoolean.FALSE);
+		// 折扣价格
+		maVO.setDiscountflag(UFBoolean.FALSE);
+		// 是否最新
+		maVO.setLatest(UFBoolean.FALSE);
+		// 自动追加辅计量单位
+		// MaterialConvertVO conVO = new MaterialConvertVO();
+		// // 计量单位同主计量
+		// String main_measdocID = pk_measdoc;
+		// conVO.setPk_measdoc(main_measdocID);
+		// // 与主计量单位换算率为1/1
+		// conVO.setMeasrate("1/1");
+		// // 默认为固定换算
+		// conVO.setFixedflag(UFBoolean.TRUE);
+		// // 自动标记所有辅计量
+		// conVO.setIsprodmeasdoc(UFBoolean.TRUE);
+		// conVO.setIspumeasdoc(UFBoolean.TRUE);
+		// conVO.setIsretailmeasdoc(UFBoolean.TRUE);
+		// conVO.setIssalemeasdoc(UFBoolean.TRUE);
+		// conVO.setIsstockmeasdoc(UFBoolean.TRUE);
+		// 系统导入的都没有辅计量，所以自动增加的也不设置辅计量
+		// maVO.setMaterialconvert(new MaterialConvertVO[]{conVO});
+		return maservice.insertMaterial(maVO);
+	}
+
+}

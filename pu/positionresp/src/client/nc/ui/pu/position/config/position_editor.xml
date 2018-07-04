@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<description>
+		请购单的编辑事件配置文件
+	</description>
+
+  <!-- 编辑事件 -->
+  <bean id="editEventHandler" class="nc.ui.pu.position.editor.PositionEventHandler">
+    <property name="context" ref="context"></property>
+    <property name="editor" ref="list" />
+  </bean>
+  
+</beans>

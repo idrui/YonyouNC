@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="wuxla">
+  <ReviewIssue id="GNSS5Q16">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 19:49:28:458 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 19:49:46:678 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>wuxla</ReviewerId>
+    <AssignedTo></AssignedTo>
+    <File line="7">puorder/src/public/nc/pubitf/pu/m21/ec/IOrderQueryForEC.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110517建议增加子包</Summary>
+    <Description>建议增加子包</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GNSSE878">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 19:56:05:252 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 19:58:10:676 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>wuxla</ReviewerId>
+    <AssignedTo></AssignedTo>
+    <File></File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110517OrderPublishedViewVO继承视图VO</Summary>
+    <Description></Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GNSTE9D5">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 20:24:06:377 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 20:24:32:829 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>wuxla</ReviewerId>
+    <AssignedTo></AssignedTo>
+    <File></File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.major</Severity>
+    <Summary>20110517检查操作符</Summary>
+    <Description></Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GNSTIKO0">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 20:27:27:648 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-17 :: 20:27:53:975 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>wuxla</ReviewerId>
+    <AssignedTo></AssignedTo>
+    <File></File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110517使用常量</Summary>
+    <Description></Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+</Review>

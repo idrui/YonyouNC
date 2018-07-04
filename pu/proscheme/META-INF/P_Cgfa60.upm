@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding='gb2312'?>
+<module name="pu">
+  <public>
+	<component remote="true" singleton="true"  tx="CMT">
+	  <interface>nc.itf.pu.ICgfaMaintain</interface>
+	  <implementation>nc.impl.pu.CgfaMaintainImpl</implementation>
+	</component>
+	
+	<!--2016年12月14日 增加采购方案拉取请购单 --> 
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+		<interface>nc.itf.pu.IQg20RefQueyService</interface>
+		<implementation>nc.impl.pu.Qg20RefQueyServiceImpl</implementation>
+	</component> 
+	<!--2017年04月11日 增加弃审的校验如果有下游不让弃审 --> 
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+		<interface>nc.itf.pu.IQueryForCgfaForward</interface>
+		<implementation>nc.impl.pu.QueryForCgfaForwardImpl</implementation>
+	</component> 
+		<!--2017年05月5日 增加子表查询是否有下游数据--> 
+    <component priority="0" singleton="true" remote="true" tx="CMT" supportAlias="true">
+		<interface>nc.itf.pu.IQueryForLineClose</interface>
+		<implementation>nc.impl.pu.QueryForLineCloseImpl</implementation>
+	</component> 
+	
+	<!--采购订单接口-->
+		<component remote="true" tx="CMT" priority="0" singleton="true" supportAlias="true">
+			<interface>nc.wsitf.lm.IMsgBidDelg</interface>
+			<implementation>nc.ws.pub.websrvimpl.IMsgBidDelgImpl</implementation>
+		</component>
+			<!--采购订单接口-->
+		<component remote="true" tx="CMT" priority="0" singleton="true" supportAlias="true">
+			<interface>nc.itf.pu.cgfarevise.ICgfaReviseService</interface>
+			<implementation>nc.impl.pu.revise.CgfaReviseServiceImpl</implementation>
+		</component>
+  </public> 
+</module> 

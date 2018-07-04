@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		按钮事件元素##########################################################
+	-->
+	<!-- 分割 -->
+  <bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	
+  <!-- 新增-->
+    <bean id="addAction" class="nc.ui.pu.position.action.PositionAddAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="refpanel" ref="orgPanel"/>
+    <property name="editor" ref="list" />
+  </bean>
+    <!-- 编辑-->
+  <bean id="editAction" class="nc.ui.pu.position.action.PositionEditAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="refpanel" ref="orgPanel"/>
+    <property name="editor" ref="list" />
+  </bean>
+
+  <!-- 删除-->
+  <bean id="deleteAction" class="nc.ui.pu.position.action.PositionDelAction">
+    <property name="model" ref="manageAppModel" />
+     <property name="refpanel" ref="orgPanel"/>
+  </bean>
+    <!-- 保存-->
+  <bean id="saveAction" class="nc.ui.pu.position.action.PositionSaveAction">
+  <property name="validationService" ref="uiValidationSrv" />
+    <property name="model" ref="manageAppModel" />
+    <property name="editor" ref="list" />
+  </bean>
+  <!-- 取消-->
+  <bean id="cancelAction" class="nc.ui.pu.position.action.PositionCancelAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="editor" ref="list" />
+  </bean>
+
+	 <!-- 刷新 -->
+  <bean id="refreshAction" class="nc.ui.pu.position.action.PositionRefreshAction">
+    <property name="model" ref="manageAppModel"/>
+    <property name="dataManager" ref="modelDataManager"/>
+    <property name="refpanel" ref="orgPanel"/>
+  </bean>
+
+  <bean id="addLineAction" class="nc.ui.pubapp.uif2app.actions.billlist.AddLineAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="listEditor" ref="list" />
+  </bean>
+  <bean id="delLineAction" class="nc.ui.pubapp.uif2app.actions.billlist.DelLineAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="listEditor" ref="list" />
+  </bean>
+  <bean id="insertLineAction" class="nc.ui.pu.position.action.PositionInsertLineAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="listEditor" ref="list" />
+  </bean>
+  
+  <!-- 行维护 -->
+  <bean id="lineMenuAction" class="nc.ui.pu.position.action.PositionLineAction">
+    <property name="actions">
+      <list>
+        <ref bean="addLineAction" />
+        <ref bean="delLineAction" />
+        <ref bean="insertLineAction" />     
+      </list>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		按钮事件元素##########################################################
+	-->
+
+	<!--
+		Actions ###########################################################
+	-->
+	<!-- 切换到卡片界面的拦截器 -->
+	<bean id="formInterceptor"
+		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="billFormEditor" />
+	</bean>
+	
+	<!-- 切换到列表界面的拦截器 -->
+	<bean id="listInterceptor"
+		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="listView" />
+	</bean>
+	
+	<!-- 分割 -->
+	<bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	
+	<!-- 查询-->
+  <bean id="praybillQryDLGInitializer" class="nc.ui.pu.m20.query.PraybillRQueryDLGInitializer"/>
+	<bean id="queryAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultQueryAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="qryCondDLGInitializer" ref="praybillQryDLGInitializer" />
+		<property name="model" ref="manageAppModel" />
+		<!--<property name="interceptor" ref="listInterceptor" />-->
+		<property name="showUpComponent" ref="listView" />
+		<property name="templateContainer" ref="queryTemplateContainer" />
+		<property name="hasQueryArea" value="false" />
+	</bean>
+	<!-- 刷新 -->
+  <bean id="refreshAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+    <property name="dataManager" ref="modelDataManager" />
+    <property name="model" ref="manageAppModel" />
+  </bean>
+  
+	<!-- 卡片下刷新 -->
+	<!-- -->
+  <bean id="cardRefreshAction" class="nc.ui.pubapp.uif2app.actions.RefreshSingleAction">
+     <property name="model" ref="manageAppModel" />
+  </bean>
+  
+  
+	<!-- 修订-->
+	<bean id="reviseAction" class="nc.ui.pu.m20.action.revise.PraybillREditAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="list" ref="listView" />
+		<property name="interceptor" ref="formInterceptor"/>
+		<property name="permissioncode" value="20" />
+		<property name="powercheck" value="true"/>
+	</bean>
+	<!-- 保存-->
+	<bean id="saveAction" class="nc.ui.pu.m20.action.revise.PraybillRSaveAction">
+		<property name="model" ref="manageAppModel" />
+		<property name="editor" ref="billFormEditor" />
+		<property name="actionName" value="SAVEREVISE" />
+		<property name="billType" value="20" />
+	</bean>
+	<!-- 取消-->
+	<bean id="cancelAction" class="nc.ui.pubapp.uif2app.actions.CancelAction">
+		<property name="model" ref="manageAppModel" />
+	</bean>
+	
+<!-- 附件管理 -->
+  <bean id="accessoriesAction" class="nc.ui.pubapp.uif2app.actions.FileDocManageAction">
+    <property name="model" ref="manageAppModel" />
+  </bean>
+  <!-- 辅助功能 -->
+  <bean id="assistMenuAction" class="nc.ui.pu.m20.action.PraybillAssistAction">
+    <property name="actions">
+      <list>
+        <ref bean="accessoriesAction" />
+      </list>
+    </property>
+  </bean>
+  
+  <!-- 修订历史 -->
+  <bean id="historyAction" class="nc.ui.pu.m20.action.revise.PraybillRHisAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="editor" ref="listView" />
+  </bean>
+
+  <!-- 联查单据 -->
+  <bean id="linkQueryAction" class="nc.ui.pu.pub.action.PULinkQueryAction">
+    <property name="model" ref="manageAppModel"/>
+    <property name="billType" value="20"/>
+  </bean>
+  
+  <!-- 存量查询 -->
+  <bean id="ATPAction" class="nc.ui.pu.m20.action.PraybillATPAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="billForm" ref="billFormEditor" />
+    <property name="list" ref="listView" />
+  </bean>
+  
+  <bean id="linkMppAction" class="nc.ui.pu.m20.action.PraybillLinkQueryMppAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="billForm" ref="billFormEditor" />
+    <property name="list" ref="listView" />
+  </bean>
+  <!-- 联查 -->
+  <bean id="linkQueryMenuAction" class="nc.ui.pu.m20.action.PraybillLinkQueryMenuAction">
+    <property name="actions">
+      <list>
+        <ref bean="historyAction"/>
+        <ref bean="linkQueryAction" />
+        <ref bean="linkMppAction" />
+        <ref bean="ATPAction" />
+      </list>
+    </property>
+  </bean>
+  <!-- 联查 -->
+  <bean id="editLinkQueryMenuAction" class="nc.ui.pu.m20.action.PraybillLinkQueryMenuAction">
+    <property name="actions">
+      <list>
+        <ref bean="ATPAction" />
+      </list>
+    </property>
+  </bean>
+  <!-- 打印处理类，精度等 -->
+  <bean id="printProcessor" class="nc.ui.pu.m20.action.processor.PraybillPrintProcessor">
+    <property name="model" ref="manageAppModel" />
+  </bean>
+  <!-- 预览 -->
+  <bean id="previewAction" class="nc.ui.pubapp.uif2app.actions.MetaDataBasedPrintAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="preview" value="true" />
+    <property name="beforePrintDataProcess" ref="printProcessor" />
+  </bean>
+  <!-- 打印 -->
+  <bean id="printAction" class="nc.ui.pubapp.uif2app.actions.MetaDataBasedPrintAction">
+    <property name="model" ref="manageAppModel" />
+    <property name="preview" value="false" />
+    <property name="beforePrintDataProcess" ref="printProcessor" />
+  </bean>
+  <!-- 输出 -->
+    <bean id="outputAction" class="nc.ui.pubapp.uif2app.actions.OutputAction">
+       <property name="model" ref="manageAppModel" />
+       <property name="parent" ref="billFormEditor" />
+  </bean>
+	<!-- 打印次数查询 -->
+	<bean id="printCountQueryAction" class="nc.ui.scmpub.action.SCMPrintCountQueryAction">
+		<property name="model" ref="manageAppModel" />
+		<!-- 单据日期属性名称 -->
+		<property name="billdateFieldName" value="dbilldate"/>
+		<!-- 单据类型编码 -->
+		<property name="billType" value="2Q" />
+	</bean>
+  
+  <!-- 打印 下拉 -->
+  <bean id="praybillPrintMenuAction" class="nc.funcnode.ui.action.GroupAction">
+  	<property name="code" value="printMenuAction" />
+    <property name="actions">
+      <list>
+      	<ref bean="printAction" />
+        <ref bean="previewAction" />
+        <ref bean="outputAction" />
+        <ref bean="printCountQueryAction"/>
+      </list>
+    </property>
+  </bean>
+  
+  <!--
+		按钮事件元素##########################################################
+	-->
+	<bean id="toftpanelActionContributors" class="nc.ui.uif2.actions.ActionContributors">
+		<property name="contributors">
+			<list>
+				<ref bean="actionsOfList" />
+				<ref bean="actionsOfCard" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 列表显示下的按钮 -->
+	<bean id="actionsOfList" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="listView" />
+		<property name="actions">
+			<list>
+				<ref bean="reviseAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="queryAction" />
+				<ref bean="refreshAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="assistMenuAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+        <ref bean ="linkQueryMenuAction"/>
+        <!-- 分割 -->
+				<ref bean="separatorAction" />
+        <ref bean ="praybillPrintMenuAction"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 卡片显示下的按钮 -->
+	<bean id="actionsOfCard" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="billFormEditor" />
+		<property name="model" ref="manageAppModel" />
+		<!-- 浏览态按钮 -->
+		<property name="actions">
+			<list>
+				<ref bean="reviseAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="queryAction" />
+				<!-- 这里必使用列表下的刷新，不能直接用ID刷新，否则有并发和数据问题 -->
+				<ref bean="cardRefreshAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="assistMenuAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+        <ref bean ="linkQueryMenuAction"/>
+        <!-- 分割 -->
+				<ref bean="separatorAction" />
+        <ref bean ="praybillPrintMenuAction"/>
+			</list>
+		</property>
+		<!-- 编辑态按钮 -->
+		<property name="editActions">
+			<list>
+				<ref bean="saveAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="cancelAction" />
+				<!-- 分割 -->
+				<ref bean="separatorAction" />
+				<ref bean="editLinkQueryMenuAction"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,77 @@
+/**
+ * 
+ */
+package nc.impl.pu.delReWrite;
+
+import nc.impl.pubapp.pattern.data.vo.VOUpdate;
+import nc.impl.pubapp.pattern.rule.IRule;
+import nc.vo.pu.cgfa.AggCgfa;
+import nc.vo.pu.cgfa.Cgfab;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pubapp.pattern.log.TimeLog;
+
+/**
+ * @author  wangzym
+ * @version 2017年4月7日 下午2:10:44
+ *2017-05-03 将最后修改时间设置为空
+ */
+public class DelRewriteForPrayBillRule implements IRule<AggCgfa>{
+
+
+	@Override
+	public void process(AggCgfa[] vos) {
+		// TODO 自动生成的方法存根
+		//只有一个Aggvo
+		//太tm恶心了，直接抛出未知异常
+		Cgfab[] bvos=(Cgfab[])vos[0].getChildrenVO();
+		String[] srcPk=new String[bvos.length];
+		for (int i = 0; i < bvos.length; i++) {
+			Cgfab cgfab = bvos[i];
+			if ((cgfab.getAttributeValue("csrcid"))==null) {
+				//不需要回写没有取到上游的来源单据
+				return;
+			}
+			String csrcid=cgfab.getAttributeValue("csrcid").toString();
+			srcPk[i]=csrcid;
+
+		}
+		this.rewrite(srcPk);
+		
+	    
+	  }
+	/**
+	   * 回写动作
+	   * 
+	   * @param paras 当前的来源单据字段数组
+	   */
+	  private void rewrite(String[] srcPk) {
+		if(srcPk.length==0){
+			return;
+		}
+	    String[] names = new String[] {
+	    PraybillItemVO.STS_REQ
+	    };
+	    VOUpdate<PraybillItemVO> bo = new VOUpdate<PraybillItemVO>();
+	    PraybillItemVO []vos=new PraybillItemVO[srcPk.length];
+	    
+	    for (int i = 0; i < vos.length; i++) {
+	    	PraybillItemVO praybillItemVO =new PraybillItemVO();
+			//praybillItemVO.setSts_req("01234567890123456789012345678901234567890123456789");
+			praybillItemVO.setAttributeValue("sts_req", "02");
+			praybillItemVO.setSts_req("02");
+			//将最后修改时间设置为空
+			praybillItemVO.setAttributeValue("bmodifiedtime", null);
+			
+			String neq=praybillItemVO.getSts_req();
+			praybillItemVO.setPk_praybill_b(srcPk[i]);
+			
+			vos[i]=praybillItemVO;
+			String new1=vos[i].getSts_req();
+		}
+	    PraybillItemVO[] newvo = bo.update(vos,names);
+	    TimeLog.info("更新数据库"); /*-=notranslate=-*/
+
+	  }
+
+}
+	

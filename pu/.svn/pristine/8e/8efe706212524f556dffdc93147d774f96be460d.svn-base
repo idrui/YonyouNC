@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="pu_review">
+  <ReviewIssue id="GM7KD8U6">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 18:48:30:462 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 18:50:02:581 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="60">pusettlement/src/client/nc/ui/pu/est/action/EstDistFeeAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>此段注释可以删除</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7LSGOU">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:28:20:094 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:30:43:830 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="75">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>despreted API.to use new api</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7LX499">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:31:57:261 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:34:13:794 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="76">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.critical</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>空指针校验，添加默认类型 货物暂估</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7MF8V5">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:46:03:041 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-12 :: 17:19:01:691 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="79">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>despreted API.to use new api</Description>
+    <Annotation></Annotation>
+    <Revision>1</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.resolved</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7MUMQR">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 19:58:00:867 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:01:18:088 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="166">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.trivial</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>可以考虑重构到列表设置数据的时候处理，方法的属性改一下</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7N44NN">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:05:23:987 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:06:06:948 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="130">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>查询分类放到后台处理</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7NFW0B">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:14:32:651 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:14:57:402 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="97">pusettlement/src/client/nc/ui/pu/est/action/m45/PurchaseInEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.trivial</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>建议重构</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GM7NM39Q">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:19:21:998 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-07 :: 20:19:54:220 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="49">pusettlement/src/client/nc/ui/pu/est/action/m50/VMIEstQueryAction.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.severity.label.trivial</Severity>
+    <Summary>20110407周四小组交流</Summary>
+    <Description>结合nc.ui.pu.est.action.m45.PurchaseInEstQueryAction，可以考虑重构</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GMRKVDJ0">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 18:57:59:868 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-04-21 :: 18:57:59:900 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>tianft</ReviewerId>
+    <AssignedTo>tianft</AssignedTo>
+    <File line="25">buyingreq/src/private/nc/bs/pu/m20/query/AbstractRefQueryBP.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description></Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+</Review>

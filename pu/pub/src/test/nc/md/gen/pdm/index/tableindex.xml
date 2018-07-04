@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<root>
+	<table name="po_invoice">
+		<index cluster="N" name="i_po_invo_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_invo_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_invo_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_storereq">
+		<index cluster="N" name="i_po_sreq_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_sreq_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_sreq_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_purchaseinfi_b">
+		<index cluster="N" name="i_po_puinfb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_org" unique="N">
+			<column>pk_financeorg</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_puinfb_fgh" unique="N">
+			<column>pk_stockps</column>
+		</index>
+	</table>
+	<table name="po_order_bb1">
+		<index cluster="N" name="i_po_orderbb1org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_orderbb1fgb" unique="N">
+			<column>pk_order_b</column>
+		</index>
+		<index cluster="N" name="i_po_orderbb1fgh" unique="N">
+			<column>pk_order</column>
+		</index>
+	</table>
+	<table name="po_priceaudit_b">
+		<index cluster="N" name="i_priceauditb_pk" unique="N">
+			<column>pk_priceaudit_b</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_shid" unique="N">
+			<column>csrcid</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_sbid" unique="N">
+			<column>csrcbid</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_priceauditb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_priceauditb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_priceauditb_fgh" unique="N">
+			<column>pk_priceaudit</column>
+		</index>
+	</table>
+	<table name="po_order_bb">
+		<index cluster="N" name="i_po_orderbb2org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_orderbb2fgh" unique="N">
+			<column>pk_order</column>
+		</index>
+		<index cluster="N" name="i_po_orderbb2fgb" unique="N">
+			<column>pk_order_b</column>
+		</index>
+	</table>
+	<table name="po_order">
+		<index cluster="N" name="i_po_order_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_order_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_order_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_arriveorder">
+		<index cluster="N" name="i_po_arr_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_arr_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_arr_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_pricesettle_b">
+		<index cluster="N" name="i_po_psettb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_psettb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_psettb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_psettb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_psettb_fhid" unique="N">
+			<column>corderid</column>
+		</index>
+		<index cluster="N" name="i_po_psettb_fgh" unique="N">
+			<column>pk_pricesettle</column>
+		</index>
+	</table>
+	<table name="po_settlebill_b">
+		<index cluster="N" name="i_po_settb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_settb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_settb_shid1" unique="N">
+			<column>pk_invoice</column>
+		</index>
+		<index cluster="N" name="i_po_settb_sbid1" unique="N">
+			<column>pk_invoice_b</column>
+		</index>
+		<index cluster="N" name="i_po_settb_shid2" unique="N">
+			<column>pk_stock</column>
+		</index>
+		<index cluster="N" name="i_po_settb_sbid2" unique="N">
+			<column>pk_stock_b</column>
+		</index>
+		<index cluster="N" name="i_po_settb_fgh" unique="N">
+			<column>pk_settlebill</column>
+		</index>
+	</table>
+	<table name="po_invctrantype">
+		<index cluster="N" name="i_po_invotran_1" unique="Y">
+			<column>pk_group</column>
+			<column>vtrantypecode</column>
+		</index>
+	</table>
+	<table name="po_invoice_b">
+		<index cluster="N" name="i_po_invob_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_invob_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_invob_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_invob_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_invob_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_invob_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_invob_fgh" unique="N">
+			<column>pk_invoice</column>
+		</index>
+	</table>
+	<table name="po_askbill_b">
+		<index cluster="N" name="i_po_askb_mrl" unique="Y">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_askb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_askb_shid" unique="N">
+			<column>csrcid</column>
+		</index>
+		<index cluster="N" name="i_po_askb_sbid" unique="N">
+			<column>csrcbid</column>
+		</index>
+		<index cluster="N" name="i_po_askb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_askb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_askb_fgh" unique="N">
+			<column>pk_askbill</column>
+		</index>
+	</table>
+	<table name="po_praybill_b">
+		<index cluster="N" name="i_po_prayb_mrl" unique="N">
+			<column>pk_srcmaterial</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_prayb_fgh" unique="N">
+			<column>pk_praybill</column>
+		</index>
+	</table>
+	<table name="po_order_b">
+		<index cluster="N" name="i_po_orderb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_orderb_fgh" unique="N">
+			<column>pk_order</column>
+		</index>
+	</table>
+	<table name="po_settle_feeallot">
+		<index cluster="N" name="i_po_settbb1fgh" unique="N">
+			<column>pk_settlebill</column>
+		</index>
+		<index cluster="N" name="i_po_settbb1fgb" unique="N">
+			<column>pk_settlebill_b</column>
+		</index>
+	</table>
+	<table name="po_praybill">
+		<index cluster="N" name="i_po_pray_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_pray_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_pray_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_potrantype">
+		<index cluster="N" name="i_po_ordertran_1" unique="Y">
+			<column>vtrantypecode</column>
+			<column>pk_group</column>
+		</index>
+	</table>
+	<table name="po_purchaseinfi">
+		<index cluster="N" name="i_po_puinf_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_puinf_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+	</table>
+	<table name="po_pricesettle">
+		<index cluster="N" name="i_po_psett_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_psett_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_psett_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_initialest">
+		<index cluster="N" name="i_po_inite_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_inite_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_inite_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+	</table>
+	<table name="po_pricesettle_bb">
+		<index cluster="N" name="i_po_psettbb1org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_psettbb1fgh" unique="N">
+			<column>po_pricesettle</column>
+		</index>
+	</table>
+	<table name="po_storereq_b">
+		<index cluster="N" name="i_po_sreqb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_shid2" unique="N">
+			<column>csourceid2</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_sbid2" unique="N">
+			<column>csourcebid2</column>
+		</index>
+		<index cluster="N" name="i_po_sreqb_fgh" unique="N">
+			<column>pk_storereq</column>
+		</index>
+	</table>
+	<table name="po_purchaseinfi_fee">
+		<index cluster="N" name="i_po_puinfbb1fgh" unique="N">
+			<column>pk_stockps</column>
+		</index>
+		<index cluster="N" name="i_po_puinfbb1fgb" unique="N">
+			<column>pk_stockps_b</column>
+		</index>
+	</table>
+	<table name="po_priceaudit">
+		<index cluster="N" name="i_priceaudit_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_adate" unique="N">
+			<column>taudittime</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_pk" unique="N">
+			<column>pk_priceaudit</column>
+		</index>
+		<index cluster="N" name="i_priceaudit_org" unique="N">
+			<column>pk_org</column>
+		</index>
+	</table>
+	<table name="po_purchaseinfi_fd">
+		<index cluster="N" name="i_po_puinfbbb_f1" unique="N">
+			<column>pk_stockps_fee</column>
+		</index>
+	</table>
+	<table name="po_arriveorder_b">
+		<index cluster="N" name="i_po_arrb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_arrb_fgh" unique="N">
+			<column>pk_arriveorder</column>
+		</index>
+	</table>
+	<table name="po_initialest_b">
+		<index cluster="N" name="i_po_initeb_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_initeb_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_initeb_shid" unique="N">
+			<column>pk_order</column>
+		</index>
+		<index cluster="N" name="i_po_initeb_sbid" unique="N">
+			<column>pk_order_b</column>
+		</index>
+		<index cluster="N" name="i_po_initeb_fgh" unique="N">
+			<column>pk_initialest</column>
+		</index>
+	</table>
+	<table name="po_arriveorder_bb">
+		<index cluster="N" name="i_po_arrbb1fgh" unique="N">
+			<column>pk_arriveorder</column>
+		</index>
+		<index cluster="N" name="i_po_arrbb1fgb" unique="N">
+			<column>pk_arriveorder_b</column>
+		</index>
+	</table>
+	<table name="po_settlebill">
+		<index cluster="N" name="i_po_sett_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_sett_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+	</table>
+	<table name="po_askbill">
+		<index cluster="N" name="i_po_ask_org" unique="Y">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_ask_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+	</table>
+	<table name="po_vmifi">
+		<index cluster="N" name="i_po_vmi_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_vmi_srcmrl" unique="N">
+			<column>pk_srcmaterial</column>
+		</index>
+		<index cluster="N" name="i_po_vmi_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_vmi_date" unique="N">
+			<column>dbilldate</column>
+		</index>
+		<index cluster="N" name="i_po_vmi_fiorg" unique="N">
+			<column>pk_financeorg</column>
+		</index>
+	</table>
+	<table name="po_vmifi_fee">
+		<index cluster="N" name="i_po_vmifee_fk1" unique="N">
+			<column>pk_stockps</column>
+		</index>
+		<index cluster="N" name="i_po_vmifee_fk2" unique="N">
+			<column>pk_stockps_b</column>
+		</index>
+	</table>
+	<table name="po_vmifi_fd">
+		<index cluster="N" name="i_po_vmifd_fk" unique="N">
+			<column>pk_stockps_fee</column>
+		</index>
+	</table>
+	<table name="po_supplierprice">
+		<index cluster="N" name="i_po_supp_comb1" unique="N">
+			<column>pk_org</column>
+			<column>pk_supplier</column>
+			<column>pk_srcmaterial</column>
+			<column>corigcurrencyid</column>
+		</index>
+		<index cluster="N" name="i_po_supp_comb2" unique="N">
+			<column>pk_org</column>
+			<column>pk_srcmaterial</column>
+			<column>corigcurrencyid</column>
+		</index>		
+		<index cluster="N" name="i_po_supp_tctpk" unique="Y">
+			<column>tctpk</column>
+		</index>
+	</table>
+	<table name="po_subcontinfi">
+		<index cluster="N" name="i_po_subcont_org" unique="N">
+			<column>pk_org</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_date" unique="N">
+			<column>dbilldate</column>
+		</index>		
+	</table>	
+	<table name="po_subcontinfi_b">
+		<index cluster="N" name="i_po_subcont_mrl" unique="N">
+			<column>pk_material</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_borg" unique="N">
+			<column>pk_financeorg</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_shid" unique="N">
+			<column>csourceid</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_sbid" unique="N">
+			<column>csourcebid</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_fhid" unique="N">
+			<column>cfirstid</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_fbid" unique="N">
+			<column>cfirstbid</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_fgh" unique="N">
+			<column>pk_stockps</column>
+		</index>
+		<index cluster="N" name="i_po_subcont_sup" unique="N">
+			<column>pk_supplier</column>
+		</index>		
+	</table>		
+</root>

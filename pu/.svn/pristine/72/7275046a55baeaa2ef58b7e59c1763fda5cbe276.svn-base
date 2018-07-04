@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="true">
+	<import resource="orderoutput_action.xml" />
+	<import resource="orderoutput_editor.xml" />
+	<import resource="orderstatus_msgcenter.xml" />
+	
+
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.ui.pu.pub.editor.ClientContext" />
+
+	<!--
+		模型部分配置###########################################################
+	-->
+
+	<!-- 应用服务类，负责进行模型操作的处理 -->
+	<bean id="manageModelService" class="nc.ui.pu.m21.service.onway.OrderOutputService">
+		<property name="outputQuery" value="nc.itf.pu.m21.IOutputQuery"></property>
+		<property name="statusMaintain" value="nc.itf.pu.m21.IStatusMaintain"></property>
+	</bean>
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+
+	<!-- 管理应用模型 -->
+	<bean id="manageAppModel" class="nc.ui.pu.m21.editor.list.SelectBillManageModel">
+		<property name="service" ref="manageModelService"></property>
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory"></property>
+		<property name="context" ref="context"></property>
+	</bean>
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.query2.model.ModelDataManager">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="service" ref="manageModelService"></property>
+	</bean>
+
+	<!-- 模板容器，负责对模板的统一装载 -->
+	<bean id="billTemplateMender"
+		class="nc.ui.pubapp.uif2app.funcnode.trantype.TrantypeBillTemplateMender">
+		<constructor-arg>
+			<ref bean="context" />
+		</constructor-arg>
+	</bean>
+	<bean id="templateContainer" class="nc.ui.pubapp.uif2app.view.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+		<property name="billTemplateMender" ref="billTemplateMender" />
+	</bean>
+
+	<!-- 界面元素 ###########################################################-->
+	<!-- 列表视图 -->
+	<bean id="listView" class="nc.ui.pu.m21.view.OrderOutputShowView"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="multiSelectionMode" value="0" />
+		<property name="userdefitemListPreparator" ref="userdefitemlistPreparator" />
+		<property name="templateContainer" ref="templateContainer"></property>
+	</bean>
+	<!--  自定义项处理 列表 -->
+	<bean name="userdefitemlistPreparator" class="nc.ui.uif2.editor.UserdefitemBillListDataPreparator">
+		<constructor-arg>
+			<ref bean="context" />
+		</constructor-arg>
+	</bean>
+	
+  <!-- 合同号 -->
+  <bean id="ccontractidMediator"
+    class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="srcBillIdField" value="ccontractid" />
+    <property name="srcBillNOField" value="vcontractcode" />
+    <property name="srcBillType" value="Z2" />
+  </bean>
+  <!-- 电子商务单据号 -->
+  <bean id="cecbillidMediator"
+    class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="srcBillIdField" value="cecbillid" />
+    <property name="srcBillNOField" value="vecbillcode" />
+    <property name="srcBillType" value="EC56" />
+  </bean>
+  <!--  源单据类型保存在单据的某个字段 -->
+  <!-- 来源 -->
+  <bean id="vsourcecodeMediator"
+    class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="srcBillIdField" value="csourceid" />
+    <property name="srcBillNOField" value="vsourcecode" />
+    <!-- 保存源单据类型的字段名 -->
+    <property name="srcBillTypeField" value="csourcetypecode" />
+    <!-- 保存源单据类型的字段所在位置，0：表头；1：表体 -->
+    <property name="srcBillTypeFieldPos" value="1" />
+  </bean>
+  <!-- 源头  -->
+  <bean id="vfirstcodeMediator"
+    class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+    <property name="model" ref="manageAppModel" />
+    <property name="srcBillIdField" value="cfirstid" />
+    <property name="srcBillNOField" value="vfirstcode" />
+    <!-- 保存源单据类型的字段名 -->
+    <property name="srcBillTypeField" value="cfirsttypecode" />
+    <!-- 保存源单据类型的字段所在位置，0：表头；1：表体 -->
+    <property name="srcBillTypeFieldPos" value="1" />
+  </bean>
+	<!--
+		界面布局总装###########################################################
+	-->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+				<property name="component" ref="listView" />
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<ref bean="separatorAction"/> 
+				<ref bean="queryAction" />
+        <ref bean="refreshAction" />
+        <ref bean="separatorAction"/> 
+				<ref bean="outputAction" />
+				<ref bean="unOutputAction" />				
+			</list>
+		</property>
+	</bean>
+
+</beans>

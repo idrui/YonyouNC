@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!-- Action配置 -->
+	<import resource="vmi_match_action.xml" />
+	<import resource="vmi_match_editor.xml" />
+	<import	resource="match_userdef.xml"/>
+	
+	<!-- 环境变量 -->
+	<bean id="context" class="nc.vo.uif2.LoginContext" />
+
+	<!--模型部分配置#########################################################-->
+
+	<!-- 对象转换器工厂，由此获取操作对象的特征信息 -->
+	<bean id="boadatorfactory"
+		class="nc.ui.pubapp.uif2app.view.value.AggVOMetaBDObjectAdapterFactory" />
+		
+	<bean id="manageModelService" class="nc.ui.pubapp.pub.smart.BillAppModelService" />
+
+	<!-- 管理应用模型 -->
+	<bean id="manageAppModel" class="nc.ui.pu.m27.match.model.MatchManageModel">
+		<property name="businessObjectAdapterFactory" ref="boadatorfactory" />
+		<property name="context" ref="context" />
+	</bean>
+
+	<!-- 数据模型管理器，主要负责各种方式的模型初始化 -->
+	<bean id="modelDataManager" class="nc.ui.pubapp.uif2app.model.BaseBillModelDataManager">
+		<property name="model" ref="manageAppModel"></property>
+		<property name="service" ref="manageModelService"></property>
+	</bean>
+	
+	<!-- 模板容器，负责对模板的统一装载 -->
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer"
+		init-method="load">
+		<property name="context" ref="context" />
+		<property name="nodeKeies">
+			<list>
+				<value>4004140201</value>
+				<value>4004140202</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 界面元素 ###########################################################-->
+	<!-- 组织面板 -->
+	<bean id="orgPanel" class="nc.ui.pubapp.uif2app.view.OrgPanel"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="type" value="财务组织" />
+	</bean>
+
+	<!-- 列表视图 1，用于查询界面显示及结算后的界面显示-->
+	<bean id="queryView" class="nc.ui.pu.m27.match.view.MatchDisplayListPanel"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="nodekey" value="4004140201" />
+		<!-- <property name="userdefitemListPreparator" ref="singleUserdefitemListPreparator" />-->
+	</bean>
+
+	<!-- 列表视图 2，用于各种结算匹配过程显示-->
+	<bean id="processView" class="nc.ui.pu.m27.match.view.MatchProcessListPanel"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="nodekey" value="4004140202" />
+		<!--<property name="userdefitemListPreparator" ref="singleUserdefitemListPreparator" />-->
+	</bean>
+
+	<!-- 列表视图 3，用于各种结算结果显示 -->
+	<bean id="resultView" class="nc.ui.pu.m27.match.view.MatchResultListPanel"
+		init-method="initUI">
+		<property name="model" ref="manageAppModel" />
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="nodekey" value="4004140201" />
+		<!--<property name="userdefitemListPreparator" ref="singleUserdefitemListPreparator" />-->
+	</bean>
+
+
+	<bean id="invoiceLinkQueryHyperlinkMediator"
+		class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="srcBillIdField" value="pk_invoice" />
+		<!-- 超链字段名 -->
+		<property name="srcBillNOField" value="vinvoicecode" />
+		<property name="srcBillType" value="25" />
+	</bean>
+
+	<bean id="icLinkQueryHyperlinkMediator"
+		class="nc.ui.pubapp.uif2app.linkquery.LinkQueryHyperlinkMediator">
+		<property name="model" ref="manageAppModel" />
+		<property name="srcBillIdField" value="pk_stock" />
+		<!-- 超链字段名 -->
+		<property name="srcBillNOField" value="vstockcode" />
+		<property name="srcBillType" value="45" />
+	</bean>
+
+	<!-- 界面布局总装########################################################-->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="tangramLayout">
+			<bean class="nc.ui.uif2.tangramlayout.TangramLayout" />
+		</property>
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.TBNode">
+			    <property name="showMode" value="CardLayout"/>
+				<property name="tabs">
+					<list>
+						<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+							<property name="down">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="name" value="list1" />
+									<property name="component" ref="queryView" />
+								</bean>
+							</property>
+							<property name="up">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="component" ref="orgPanel" />
+								</bean>
+							</property>
+							<property name="dividerLocation" value="31" />
+						</bean>
+						<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+							<property name="name" value="list2" />
+							<property name="component" ref="processView" />
+						</bean>
+						<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+							<property name="name" value="list3" />
+							<property name="component" ref="resultView" />
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="remoteCallCombinatorCaller" class="nc.ui.uif2.editor.UIF2RemoteCallCombinatorCaller">
+		<property name="remoteCallers">
+			<list>
+				<ref bean="templateContainer" />
+				<ref bean="userdefitemContainer" />
+			</list>
+		</property>
+	</bean>
+	
+</beans>

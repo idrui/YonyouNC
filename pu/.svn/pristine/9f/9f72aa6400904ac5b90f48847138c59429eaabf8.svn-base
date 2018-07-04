@@ -1,0 +1,111 @@
+package nc.impl.pu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import nc.bs.dao.BaseDAO;
+import nc.impl.pubapp.pattern.data.view.SchemeViewQuery;
+import nc.impl.pubapp.pattern.data.view.ViewQuery;
+import nc.impl.pubapp.pattern.database.DataAccessUtils;
+import nc.itf.pu.IQg20RefQueyService;
+import nc.md.data.access.NCObject;
+import nc.md.persist.framework.MDPersistenceService;
+import nc.ui.querytemplate.querytree.IQueryScheme;
+import nc.ui.querytemplate.querytree.QueryScheme;
+import nc.vo.it.m5805.entity.DetailVO;
+import nc.vo.it.m5805.entity.DetailViewVO;
+import nc.vo.pu.m20.entity.PraybillHeaderVO;
+import nc.vo.pu.m20.entity.PraybillItemVO;
+import nc.vo.pu.m20.entity.PraybillVO;
+import nc.vo.pu.m20.entity.PraybillViewVO;
+import nc.vo.pub.BusinessException;
+import nc.vo.pub.IVOMeta;
+import nc.vo.pubapp.bill.CombineBill;
+import nc.vo.pubapp.pattern.data.IRowSet;
+import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.pubapp.pattern.pub.SqlBuilder;
+import nc.vo.pubapp.query2.sql.process.QuerySchemeProcessor;
+import nc.vo.pubapp.util.CombineViewToAggUtil;
+
+import org.apache.commons.lang.ArrayUtils;
+
+/**
+ * 
+ * @author  wangzym
+ * @version 2017年2月27日 下午3:02:48
+ * 增加查询筛选具体看sql
+ * 2017-05-03 修改查询 详见line 104
+ */
+public class Qg20RefQueyServiceImpl implements IQg20RefQueyService {
+
+	@Override
+	public PraybillVO[] queryM20ForTJ01(IQueryScheme queryScheme)
+			throws BusinessException {
+		String sqlStr = queryScheme.getTableJoinFromWhereSQL().getWhere();
+
+		PraybillVO[] b =this.queryDetailByViewQuery(sqlStr);
+
+		
+		return b;
+		
+	}
+	/**
+	   * 根据Sql查询请购单聚合VO(使用viewQuery可过滤到行)
+	   * 
+	   * @param sqlStr 将scheme中的where条件拿到整合成完整sql语句
+	   * @return PraybillVO[]
+	   * @throws BusinessException
+	   * @author wangzym
+	   */
+	  public PraybillVO[] queryDetailByViewQuery(String sqlStr) throws BusinessException {
+		 PraybillVO[] rets = null;
+		 String getSql=this.getSql();
+		 if(sqlStr.equals("")||sqlStr==null){
+			 getSql=getSql+sqlStr;
+		 }else {
+			 getSql=getSql+" and "+sqlStr;
+		}
+		 	
+	    try {
+	      DataAccessUtils utils = new DataAccessUtils();
+	      IRowSet set = utils.query(getSql);
+	      if (set.size() == 0) {
+	        return new PraybillVO[0];
+	      }
+	      String[] ids = set.toOneDimensionStringArray();
+	      ViewQuery<PraybillViewVO> query =
+	          new ViewQuery<PraybillViewVO>(PraybillViewVO.class);
+	      PraybillViewVO[] views = query.query(ids);
+	 
+	      
+	      if (null != views && views.length > 0) {
+	        int len = views.length;
+	        PraybillVO[] bills = new PraybillVO[len];
+	        for (int i = 0; i < len; i++) {
+	          bills[i] = views[i].changeTOBill();
+	        }
+	        CombineBill<PraybillVO> combine = new CombineBill<PraybillVO>();
+	        IVOMeta headMeta = bills[0].getMetaData().getParent();
+	        String headItemKey = headMeta.getPrimaryAttribute().getName();
+	        combine.appendKey(headItemKey);
+	        rets = combine.combine(bills);
+	      }
+	    }
+	    catch (Exception e) {
+	      ExceptionUtils.marsh(e);
+	    }
+	    return rets;
+	  }
+	private  String  getSql() {
+		// TODO 自动生成的方法存根
+		SqlBuilder sqlb=new SqlBuilder();
+		//直接写sql ，用scheme好烦
+		//2017-05-03 新增加筛选：没有被拒收的被筛选出来
+		sqlb.append("select po_praybill_b.pk_praybill_b  from po_praybill inner join po_praybill_b on po_praybill.pk_praybill=po_praybill_b.pk_praybill where po_praybill_b.sts_req<>'03' and po_praybill.fbillstatus = '3'  and nvl(po_praybill_b.jsbz,'N')='N'");
+		String sql=sqlb.toString();
+		return sql;
+	}
+	
+
+}

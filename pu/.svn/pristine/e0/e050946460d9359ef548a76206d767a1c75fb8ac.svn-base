@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <!--批量安排按钮 -->
+	<bean id="LotsArrange" class="nc.ui.pu.m20.action.LotsArrangePraybillsAction">
+		<property name="model" ref="batchBillTableModel"/>
+		<property name="editor" ref="list"/>
+	</bean>
+	
+</beans>
